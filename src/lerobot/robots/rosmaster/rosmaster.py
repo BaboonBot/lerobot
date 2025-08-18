@@ -21,7 +21,9 @@ class RosmasterRobotConfig(RobotConfig):
     Configuration for the Rosmaster Robot.
     """
     # Add a field for the serial port, which is specific to this robot.
-    com: str = draccus.field(default="/dev/ttyUSB0", help="The serial port for the Rosmaster controller.")
+    com: str = draccus.field(
+        default="/dev/myserial", metadata={"help": "The serial port for the Rosmaster controller."}
+    )
     # You can add other robot-specific configs here if needed.
 
 
@@ -174,7 +176,7 @@ if __name__ == '__main__':
     #    You would typically load this from a file or command line.
     config = RosmasterRobotConfig(
         # Make sure to change this to your actual serial port!
-        com="/dev/ttyUSB0" # For Linux/macOS
+        com="/dev/myserial" # For Linux/macOS
         # com="COM3"      # For Windows
     )
 

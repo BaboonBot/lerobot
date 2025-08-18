@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional
 # NOTE: For this example, the Rosmaster class is pasted at the bottom.
 # In a real project, you would import it.
 
-from lerobot.common.robot_devices.motors.motors_bus import (
+from lerobot.motors.motors_bus import (
     MotorsBus,
     Motor,
     MotorCalibration,
