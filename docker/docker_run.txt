@@ -1,0 +1,24 @@
+Run this to boot up the docker image
+
+docker run --rm -it --gpus all --runtime=nvidia --privileged \
+  --network host \
+  -v $PWD:/lerobot \
+  lerobot-yahboom
+
+Run this to build the image 
+
+docker build -t lerobot-yahboom -f docker/Dockerfile.yahboom .
+
+
+Run this (once inside the container) to finetune smolvla on pusht
+
+lerobot-train \
+  --policy.path=lerobot/smolvla_base \
+  --policy.repo_id=NLTuan/smolvlatest \
+  --dataset.repo_id=lerobot/pusht_image \
+  --batch_size=32 \
+  --steps=5000 \
+  --output_dir=outputs/train/smolvla_pusht_finetune \
+  --job_name=smolvla_pusht_finetune \
+  --policy.device=cuda \
+  --wandb.enable=true
