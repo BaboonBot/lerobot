@@ -1,6 +1,7 @@
 FROM nvcr.io/nvidia/pytorch:24.10-py3-igpu
 
-# Set environment variables
+# Set environment docker build -t lerobot-yahboom -f docker/Dockerfile.yahboom .
+
 ENV DEBIAN_FRONTEND=noninteractive \
     MUJOCO_GL=egl \
     HF_HOME=/home/user_lerobot/.cache/huggingface \
@@ -31,7 +32,7 @@ RUN uv venv --system-site-packages
 COPY --chown=user_lerobot:user_lerobot pyproject.toml README.md MANIFEST.in ./
 COPY --chown=user_lerobot:user_lerobot src/ src/
 RUN uv pip install --no-cache ".[all]"
-RUN uv pip install transformers num2words accelerate
+# RUN uv pip install transformers num2words accelerate
 
 # Copy the rest of the application code
 COPY --chown=user_lerobot:user_lerobot . .

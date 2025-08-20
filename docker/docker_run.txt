@@ -1,13 +1,22 @@
-Run this to boot up the docker image
-
-docker run --rm -it --gpus all --runtime=nvidia --privileged \
-  --network host \
-  -v $PWD:/lerobot \
-  lerobot-yahboom
-
 Run this to build the image 
 
 docker build -t lerobot-yahboom -f docker/Dockerfile.yahboom .
+
+# For Jetson devices (use this instead if you're on Jetson):
+Run this to build the Jetson-compatible image
+
+docker build -t lerobot-yahboom-jetson -f docker/Dockerfile.yahboom.jetson .
+
+Run this to boot up the Jetson-compatible docker image
+
+docker run --rm -it --runtime=nvidia --privileged \
+  --network host \
+  --ipc=host \
+  --ulimit memlock=-1 \
+  --ulimit stack=67108864 \
+  --env NVIDIA_DRIVER_CAPABILITIES=compute,utility \
+  -v $PWD:/lerobot \
+  lerobot-yahboom-jetson
 
 
 Run this (once inside the container) to finetune smolvla on pusht
