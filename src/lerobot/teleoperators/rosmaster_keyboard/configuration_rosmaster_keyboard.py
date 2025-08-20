@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2025 The HuggingFace Inc. team. All rights reserved.
+# Copyright 2024 The HuggingFace Inc. team. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .config import TeleoperatorConfig
-from .teleoperator import Teleoperator
-from .utils import make_teleoperator_from_config
+from dataclasses import dataclass
 
-# Import our custom Rosmaster keyboard teleoperator to register it
-from .rosmaster_keyboard.teleop_rosmaster_keyboard import RosmasterKeyboardTeleop
-from .rosmaster_keyboard.configuration_rosmaster_keyboard import RosmasterKeyboardTeleopConfig
+from lerobot.teleoperators.config import TeleoperatorConfig
+
+
+@TeleoperatorConfig.register_subclass("rosmaster_keyboard")
+@dataclass
+class RosmasterKeyboardTeleopConfig(TeleoperatorConfig):
+    """Configuration for Rosmaster keyboard teleoperator."""
+    
+    # Joint control step size in degrees
+    joint_step: float = 2.0  # Reduced from 5.0 to 2.0 for smoother control
+    
+    # Mock mode for testing without hardware
+    mock: bool = False

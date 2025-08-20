@@ -1,0 +1,7 @@
+# Configuration for controlling Rosmaster robot with keyboard
+type: rosmaster_keyboard
+id: "my_keyboard"
+joint_step: 5.0
+
+# Mock mode for testing without physical keyboard input
+mock: false

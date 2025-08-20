@@ -65,5 +65,9 @@ def make_teleoperator_from_config(config: TeleoperatorConfig) -> Teleoperator:
         from .bi_so100_leader import BiSO100Leader
 
         return BiSO100Leader(config)
+    elif config.type == "rosmaster_keyboard":
+        from .rosmaster_keyboard import RosmasterKeyboardTeleop
+
+        return RosmasterKeyboardTeleop(config)
     else:
         raise ValueError(config.type)

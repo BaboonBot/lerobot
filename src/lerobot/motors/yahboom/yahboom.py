@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 import time
+import serial
+import threading
+import struct
 from typing import Any, Dict, List, Optional
 
 # Make sure the Rosmaster driver code is in a file named rosmaster_driver.py
@@ -31,7 +34,15 @@ class RosmasterMotorsBus(MotorsBus):
     # These are required by the abstract class but are not used because
     # the Rosmaster driver is a high-level controller.
     apply_drive_mode = False
-    model_ctrl_table = {}
+    model_ctrl_table = {
+        "RosmasterServo": {
+            # Dummy control table for Rosmaster servos
+            # The actual control is handled by the Rosmaster driver
+            "Goal_Position": {"address": 0, "size": 4},
+            "Present_Position": {"address": 4, "size": 4},
+        }
+    }
+    model_number_table = {"RosmasterServo": 1}  # Dummy model number
     normalized_data = ["Present_Position", "Goal_Position"]
 
     def __init__(self, port: str, motors: Dict[str, Motor], **kwargs: Any):
@@ -63,18 +74,51 @@ class RosmasterMotorsBus(MotorsBus):
         self.sync_writer = None
 
     #
+    # --- Properties ---
+    #
+    
+    @property
+    def is_connected(self) -> bool:
+        """Check if the Rosmaster driver is connected."""
+        return hasattr(self.driver, 'ser') and self.driver.ser and self.driver.ser.is_open
+
+    #
     # --- Methods with Real Implementations ---
     #
+
+    def connect(self) -> None:
+        """
+        The Rosmaster driver connects automatically during initialization,
+        so this method just performs the handshake to verify connection.
+        """
+        if not self.is_connected:
+            raise ConnectionError("Rosmaster driver failed to connect during initialization")
+        self._handshake()
+
+    def disconnect(self) -> None:
+        """Disconnect from the Rosmaster driver."""
+        if hasattr(self.driver, 'ser') and self.driver.ser:
+            self.driver.ser.close()
 
     def _handshake(self) -> None:
         """
         Checks the firmware version to confirm communication.
         The Rosmaster driver doesn't have a `ping`, so we use `get_version`.
         """
-        version = self.driver.get_version()
-        if version == -1:
-            raise ConnectionError(f"Failed to communicate with Rosmaster on port '{self.port}'. No version received.")
-        print(f"Rosmaster connected. Firmware version: {version}")
+        print("Attempting to communicate with Rosmaster...")
+        try:
+            # Give the robot some time to initialize
+            time.sleep(0.5)
+            version = self.driver.get_version()
+            if version == -1:
+                print("Warning: Could not get version from Rosmaster. This might be normal if robot is not fully initialized.")
+                print("Proceeding anyway - you can test manual control.")
+                # Don't raise an error - let the user test manually
+            else:
+                print(f"Rosmaster connected. Firmware version: {version}")
+        except Exception as e:
+            print(f"Warning during handshake: {e}")
+            print("Proceeding anyway - you can test manual control.")
 
     def enable_torque(self, motors: Optional[NameOrID | List[NameOrID]] = None, num_retry: int = 0) -> None:
         """Enables torque for all bus servos."""
@@ -131,17 +175,37 @@ class RosmasterMotorsBus(MotorsBus):
         normalize: bool = True,
         num_retry: int = 0,
     ) -> None:
-        """Writes angles to multiple motors."""
+        """Writes angles to multiple motors using set_uart_servo_angle."""
         if data_name != "Goal_Position":
             raise NotImplementedError(f"Rosmaster driver can only write 'Goal_Position', not '{data_name}'.")
 
         ids_values = self._get_ids_values_dict(values)
-
-        # Note: A more optimized version could use `set_uart_servo_angle_array` if all
-        # 6 motors are always being commanded. This implementation is more flexible.
+        
+        # Check if we have stored previous positions
+        if not hasattr(self, '_last_positions'):
+            self._last_positions = {}
+        
+        # Only send commands for motors that have changed position
+        changed_motors = {}
         for motor_id, angle in ids_values.items():
-            # The run_time parameter affects the speed of the movement.
-            self.driver.set_uart_servo_angle(s_id=motor_id, s_angle=angle, run_time=0)
+            last_angle = self._last_positions.get(motor_id, None)
+            # Only send command if position changed by more than 0.5 degrees
+            if last_angle is None or abs(angle - last_angle) > 0.5:
+                changed_motors[motor_id] = angle
+                self._last_positions[motor_id] = angle
+        
+        if not changed_motors:
+            # No motors need to move - silent return
+            return
+
+        # Send commands only to motors that need to move
+        for motor_id, angle in changed_motors.items():
+            # The run_time parameter affects the speed of the movement (higher = smoother)
+            try:
+                self.driver.set_uart_servo_angle(s_id=motor_id, s_angle=angle, run_time=500)
+            except Exception as e:
+                print(f"❌ Error setting servo {motor_id} to {angle}°: {e}")
+                # Continue with other servos even if one fails
 
     #
     # --- Methods That Are Not Supported or Not Applicable ---
@@ -207,10 +271,17 @@ class Rosmaster:
         # com="/dev/ttyUSB0"
         # com="/dev/ttyAMA0"
 
-        self.ser = serial.Serial(com, 115200)
-
+        # Initialize attributes first
+        self.__uart_state = 0
         self.__delay_time = delay
         self.__debug = debug
+        
+        try:
+            self.ser = serial.Serial(com, 115200)
+        except Exception as e:
+            if debug:
+                print(f"Failed to open serial port {com}: {e}")
+            raise ConnectionError(f"Cannot open serial port {com}: {e}")
 
         self.__HEAD = 0xFF
         self.__DEVICE_ID = 0xFC
@@ -321,9 +392,13 @@ class Rosmaster:
         time.sleep(.002)
 
     def __del__(self):
-        self.ser.close()
+        try:
+            if hasattr(self, 'ser') and self.ser:
+                self.ser.close()
+                print("serial Close!")
+        except:
+            pass
         self.__uart_state = 0
-        print("serial Close!")
 
     # 根据数据帧的类型来做出对应的解析
     # According to the type of data frame to make the corresponding parsing

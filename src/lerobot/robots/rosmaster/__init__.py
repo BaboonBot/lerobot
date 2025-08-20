@@ -1,1 +1,1 @@
-from .rosmaster import RosmasterRobot
+from .rosmaster import RosmasterRobot, RosmasterRobotConfig
