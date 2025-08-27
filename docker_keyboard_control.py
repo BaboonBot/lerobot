@@ -7,7 +7,7 @@ This version uses real keyboard input within the Docker environment.
 import sys
 import os
 import time
-import numpy as np
+import numpy as npt
 
 # Add src to path for development
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))

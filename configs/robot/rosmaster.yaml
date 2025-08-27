@@ -10,5 +10,24 @@ com: "/dev/myserial"    # Your robot's serial port
 # com: "/dev/ttyTHS1"   # Jetson UART
 # com: "/dev/ttyAMA0"   # Raspberry Pi UART
 
+# Camera configuration
+cameras:
+  front:
+    type: opencv
+    index_or_path: "/dev/video0"
+    fps: 30
+    width: 640
+    height: 480
+    color_mode: rgb
+    rotation: 0
+  wrist:
+    type: opencv  
+    index_or_path: "/dev/video2"
+    fps: 30
+    width: 640
+    height: 480
+    color_mode: rgb
+    rotation: 0
+
 # Calibration directory (optional)
 # calibration_dir: null  # Uses default location if not specified

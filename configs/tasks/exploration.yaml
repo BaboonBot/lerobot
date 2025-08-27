@@ -1,0 +1,23 @@
+# Task configuration for free exploration/demonstration
+task_name: "exploration"
+description: "Free exploration task for demonstrating robot capabilities"
+
+# Episode settings
+max_episode_steps: 300  # Maximum steps per episode
+fps: 30                 # Recording frequency (Hz)
+
+# Task-specific settings
+environment:
+  workspace_bounds:
+    x_min: -0.4
+    x_max: 0.4
+    y_min: -0.4
+    y_max: 0.4
+    z_min: 0.0
+    z_max: 0.4
+
+# Additional metadata
+metadata:
+  task_type: "exploration"
+  difficulty: "any"
+  required_objects: []

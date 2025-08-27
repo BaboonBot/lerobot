@@ -54,13 +54,14 @@ def custom_teleop_loop(teleop, robot, fps=30):
             robot.send_action(action)
             dt_s = time.perf_counter() - loop_start
             busy_wait(1 / fps - dt_s)
-
+            
             loop_s = time.perf_counter() - loop_start
             loop_count += 1
 
             # Display current joint positions (every 30 loops = ~1 second)
             if loop_count % 30 == 1:
-                positions = action["joint_positions"]
+                # Extract positions from individual joint actions
+                positions = [action.get(f"servo_{i+1}", 0.0) for i in range(6)]
                 print(f"\r🎯 Joints: [{positions[0]:5.1f}° {positions[1]:5.1f}° {positions[2]:5.1f}° {positions[3]:5.1f}° {positions[4]:5.1f}° {positions[5]:5.1f}°] | {1/loop_s:.0f}Hz", end="", flush=True)
                 
     except KeyboardInterrupt:
@@ -70,8 +71,6 @@ def custom_teleop_loop(teleop, robot, fps=30):
             print("\n✅ ESC pressed - teleoperation ended.")
         else:
             raise e
-
-
 def main():
     SERIAL_PORT = "/dev/ttyUSB0"
     

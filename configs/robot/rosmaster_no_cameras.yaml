@@ -1,0 +1,12 @@
+# Configuration for Rosmaster Robot without cameras
+type: rosmaster
+id: rosmaster_1
+
+# Serial port configuration
+com: "/dev/ttyUSB0"
+
+# No cameras for testing
+cameras: {}
+
+# Calibration directory (optional)
+# calibration_dir: null  # Uses default location if not specified

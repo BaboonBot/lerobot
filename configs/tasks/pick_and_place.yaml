@@ -1,0 +1,27 @@
+# Task configuration for pick and place demonstration
+task_name: "pick_and_place"
+description: "Basic pick and place task for Rosmaster robot"
+
+# Episode settings
+max_episode_steps: 200  # Maximum steps per episode
+fps: 30                 # Recording frequency (Hz)
+
+# Success criteria (optional)
+success_conditions:
+  - "Object successfully moved to target location"
+
+# Task-specific settings
+environment:
+  workspace_bounds:
+    x_min: -0.3
+    x_max: 0.3
+    y_min: -0.3
+    y_max: 0.3
+    z_min: 0.0
+    z_max: 0.3
+
+# Additional metadata
+metadata:
+  task_type: "manipulation"
+  difficulty: "beginner"
+  required_objects: ["small_object", "target_area"]

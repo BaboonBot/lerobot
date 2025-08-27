@@ -18,6 +18,7 @@ This runs the official LeRobot command:
 python -m lerobot.teleoperate \
     --robot.type=rosmaster \
     --robot.com=/dev/myserial \
+    --robot.cameras="{ front: {type: opencv, index_or_path: 0, width: 1920, height: 1080, fps: 30}}" \
     --robot.id=my_rosmaster \
     --teleop.type=rosmaster_keyboard \
     --teleop.id=my_keyboard \
@@ -110,11 +111,51 @@ ROSMASTER_INTEGRATION_SUMMARY.md    # Full documentation
 6. ✅ Real robot communication and control verified
 
 **🚀 Ready for Next Steps:**
-- Trajectory recording
+- ✅ Trajectory recording (see Recording section below)
 - Learning pipeline integration
 - Camera integration
 - Custom control modes
 - Multi-robot coordination
+
+## 🎬 Dataset Recording
+
+Now you can record demonstration datasets using the standard LeRobot recording pipeline:
+
+```bash
+cd /home/jetson/lerobot
+source .venv/bin/activate
+
+python -m lerobot.record \
+    --robot.type=rosmaster \
+    --robot.com=/dev/myserial \
+    --robot.id=my_rosmaster_arm \
+    --robot.cameras="{ front: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}}" \
+    --teleop.type=rosmaster_keyboard \
+    --teleop.id=my_keyboard_controller \
+    --display_data=true \
+    --dataset.repo_id=NLTuan/rosmaster-demo-dataset \
+    --dataset.num_episodes=5 \
+    --dataset.single_task="Pick and place demonstration with Rosmaster arm"
+```
+
+### Recording Workflow:
+1. **Setup**: Position objects in robot workspace
+2. **Start Recording**: Run the command above
+3. **Demonstrate**: Use keyboard controls to perform task
+4. **Save Episode**: Complete the task, episode auto-saves
+5. **Repeat**: Record multiple episodes for robust dataset
+
+### Camera Options:
+```bash
+# Higher resolution (if performance allows)
+--robot.cameras="{ front: {type: opencv, index_or_path: 0, width: 1920, height: 1080, fps: 30}}"
+
+# Multiple cameras
+--robot.cameras="{ front: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 1, width: 640, height: 480, fps: 30}}"
+
+# Lower resolution for performance
+--robot.cameras="{ front: {type: opencv, index_or_path: 0, width: 320, height: 240, fps: 30}}"
+```
 
 ## 🎉 Result
 
