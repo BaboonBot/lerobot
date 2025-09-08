@@ -141,3 +141,6 @@ To use this for your projects:
    - Integrate with LeRobot's learning pipelines
 
 The Rosmaster robot is now fully integrated into the LeRobot ecosystem and ready for keyboard teleoperation! 🎉
+
+
+To use the 

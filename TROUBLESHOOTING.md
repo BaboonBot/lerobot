@@ -69,13 +69,13 @@ dataset = LeRobotDataset("username/dataset_name")
 
 ## Common Error Messages
 
-### "Permission denied" on /dev/ttyUSB0
+### "Permission denied" on /dev/myserial
 **Cause:** User doesn't have permission to access serial port
 **Solution:**
 ```bash
 sudo usermod -a -G dialout $USER
 # Log out and back in, or:
-sudo chmod 666 /dev/ttyUSB0
+sudo chmod 666 /dev/myserial
 ```
 
 ### "Camera not found" or camera errors
@@ -150,7 +150,7 @@ huggingface-cli repo info username/dataset_name
 2. **Check software connections**
    ```bash
    ls -la /dev/ttyUSB*
-   lsof /dev/ttyUSB0
+   lsof /dev/myserial
    ```
 
 3. **Try different USB ports**
@@ -275,7 +275,7 @@ logging.basicConfig(level=logging.DEBUG)
 # Test robot communication directly
 from lerobot.robots.rosmaster import RosmasterRobot
 
-robot = RosmasterRobot("/dev/ttyUSB0", "test")
+robot = RosmasterRobot("/dev/myserial", "test")
 robot.connect()
 print("Connected:", robot.is_connected)
 robot.disconnect()
@@ -332,7 +332,7 @@ lerobot-record ...
 # Disconnect and reconnect USB
 # Or restart the robot power
 # Or reset USB permissions
-sudo chmod 666 /dev/ttyUSB0
+sudo chmod 666 /dev/myserial
 ```
 
 ## Contact and Support

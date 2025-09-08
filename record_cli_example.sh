@@ -14,7 +14,7 @@ echo "📁 HF User: $HF_USER"
 echo "📹 Recording with cameras..."
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{ 
     front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, 

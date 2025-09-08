@@ -2,10 +2,8 @@
 type: rosmaster
 id: rosmaster_1
 
-# Serial port configuration
-com: "/dev/ttyUSB0"
-
-# No cameras for testing
+# Serial port configuration  
+com: "/dev/myserial"# No cameras for testing
 cameras: {}
 
 # Calibration directory (optional)

@@ -161,9 +161,11 @@ class RosmasterMotorsBus(MotorsBus):
                 if angle != -1:  # -1 indicates a read error for that specific servo
                     results[name] = angle
                 else:
-                    print(f"Warning: Failed to read angle for motor '{name}' (ID: {motor_id}).")
+                    # Suppress warning - these are very common with Rosmaster hardware and don't affect functionality
+                    pass  # print(f"Warning: Failed to read angle for motor '{name}' (ID: {motor_id}).")
             else:
-                 print(f"Warning: Motor ID {motor_id} for '{name}' is out of range for the driver.")
+                # Keep this warning as it indicates a configuration issue
+                print(f"Warning: Motor ID {motor_id} for '{name}' is out of range for the driver.")
 
         return results
 

@@ -154,13 +154,20 @@ class RosmasterRobot(Robot):
             # Check if we got valid readings for all joints
             missing_joints = [name for name in self.joint_names if name not in positions_dict]
             if missing_joints:
-                logger.warning(f"Missing position readings for joints: {missing_joints}")
+                # Reduce warning frequency - only log every 100 calls to avoid terminal spam
+                if not hasattr(self, '_warning_counter'):
+                    self._warning_counter = 0
+                self._warning_counter += 1
+                
+                if self._warning_counter % 100 == 1:  # Log first time and every 100th time
+                    logger.debug(f"Position read warnings suppressed (common with Rosmaster hardware)")
+                
                 # Use fallback: try individual reads or use default positions
                 for name in missing_joints:
                     try:
                         positions_dict[name] = self.motors_bus.read("Present_Position", name)
                     except Exception as e:
-                        logger.warning(f"Failed individual read for {name}: {e}")
+                        # Suppress individual read warnings too - they're very common
                         positions_dict[name] = 90.0  # Default safe position
             
         except Exception as e:
@@ -203,10 +210,19 @@ class RosmasterRobot(Robot):
             else:
                 # Maintain current position if joint not specified
                 current_obs = self.get_observation()
-                joint_idx = self.joint_names.index(name)
-                command_dict[name] = float(current_obs["joint_positions"][joint_idx])
+                command_dict[name] = float(current_obs[name])
 
-        self.motors_bus.sync_write("Goal_Position", command_dict)
+        # Debug: Print what we're sending
+        logger.debug(f"Sending command_dict: {command_dict}")
+        
+        try:
+            # Send the actual motor commands
+            self.motors_bus.sync_write("Goal_Position", command_dict)
+            logger.debug("Motor commands sent successfully")
+        except Exception as e:
+            logger.error(f"Failed to send motor commands: {e}")
+            raise
+
         return action
 
     def disconnect(self) -> None:

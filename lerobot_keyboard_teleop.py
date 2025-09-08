@@ -72,7 +72,7 @@ def custom_teleop_loop(teleop, robot, fps=30):
         else:
             raise e
 def main():
-    SERIAL_PORT = "/dev/ttyUSB0"
+    SERIAL_PORT = "/dev/myserial"
     
     print("🤖 LeRobot Keyboard Teleoperation - Rosmaster Robot")
     print("=" * 60)

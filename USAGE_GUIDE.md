@@ -31,7 +31,7 @@ python -m lerobot.teleoperate \
 
 ```bash
 cd /home/jetson/lerobot
-docker run --device=/dev/ttyUSB0 -v $(pwd):/workspace -w /workspace -it lerobot-yahboom-jetson python test_lerobot_teleop.py
+docker run --device=/dev/myserial -v $(pwd):/workspace -w /workspace -it lerobot-yahboom-jetson python test_lerobot_teleop.py
 ```
 
 ### Option 3: Direct Script (When Host Environment Works)
@@ -59,7 +59,7 @@ All modes use the same key mapping:
 
 ### ✅ Working Components
 - **Robot Integration**: Rosmaster robot fully integrated into LeRobot
-- **Serial Communication**: Stable connection at 115200 baud on /dev/ttyUSB0
+- **Serial Communication**: Stable connection at 115200 baud on /dev/myserial
 - **Motor Control**: All 6 joints controllable with position feedback
 - **Docker Environment**: Clean environment with all dependencies
 - **LeRobot CLI**: Official command-line interface working in Docker
@@ -76,7 +76,7 @@ All modes use the same key mapping:
 ```yaml
 robot:
   type: rosmaster
-  com: /dev/ttyUSB0
+  com: /dev/myserial
   id: my_rosmaster
 ```
 
@@ -164,7 +164,7 @@ You can now run the exact command style you wanted:
 ```bash
 python -m lerobot.teleoperate \
     --robot.type=rosmaster \
-    --robot.com=/dev/ttyUSB0 \
+    --robot.com=/dev/myserial \
     --robot.id=my_rosmaster \
     --teleop.type=rosmaster_keyboard \
     --teleop.id=my_keyboard

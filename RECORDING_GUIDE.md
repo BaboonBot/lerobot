@@ -16,7 +16,7 @@ This guide documents all the processes for recording data with the Rosmaster rob
 
 ### Hardware Requirements
 - Yahboom Rosmaster robot arm (6-DOF)
-- USB-to-serial adapter connected to `/dev/ttyUSB0`
+- USB-to-serial adapter connected to `/dev/myserial`
 - OpenCV compatible cameras (USB or built-in)
 - Jetson Nano or compatible Linux system
 
@@ -67,7 +67,7 @@ type: rosmaster
 id: rosmaster_1
 
 # Serial port configuration
-com: "/dev/ttyUSB0"
+com: "/dev/myserial"
 
 # Camera configuration
 cameras:
@@ -94,7 +94,7 @@ cameras:
 # Configuration for Rosmaster Robot without cameras
 type: rosmaster
 id: rosmaster_1
-com: "/dev/ttyUSB0"
+com: "/dev/myserial"
 cameras: {}  # Empty cameras for testing
 ```
 
@@ -143,7 +143,7 @@ Each `.npz` file contains:
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -163,7 +163,7 @@ lerobot-record \
 
 #### Robot Parameters
 - `--robot.type=rosmaster`: Specifies robot type
-- `--robot.com="/dev/ttyUSB0"`: Serial port for robot communication
+- `--robot.com="/dev/myserial"`: Serial port for robot communication
 - `--robot.id="my_rosmaster_robot"`: Unique robot identifier
 - `--robot.cameras="{...}"`: Camera configuration in JSON format
 
@@ -267,7 +267,7 @@ export HUGGINGFACE_HUB_TOKEN="your_token_here"
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -587,7 +587,7 @@ huggingface-cli login
 # 2. Record dataset with automatic upload
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="lab_rosmaster_01" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -638,7 +638,7 @@ sudo usermod -a -G dialout $USER
 # Log out and back in
 
 # Or change permissions temporarily
-sudo chmod 666 /dev/ttyUSB0
+sudo chmod 666 /dev/myserial
 ```
 
 #### 3. Robot Communication Errors
@@ -647,7 +647,7 @@ sudo chmod 666 /dev/ttyUSB0
 - Try different USB ports
 - Check for conflicting processes:
   ```bash
-  lsof /dev/ttyUSB0
+  lsof /dev/myserial
   ```
 
 #### 4. Position Reading Warnings
@@ -753,12 +753,12 @@ Use the provided visualization scripts to analyze joint movements and camera dat
 ```bash
 # 1. Check system status
 lerobot-find-cameras opencv
-ls -la /dev/ttyUSB0
+ls -la /dev/myserial
 
 # 2. Test teleoperation first
 lerobot-teleoperate \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="test_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -768,7 +768,7 @@ lerobot-teleoperate \
 # 3. Record actual data
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -792,18 +792,18 @@ ls -la data/pick_and_place_demo/
 # Record with both front and wrist cameras simultaneously
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="dual_camera_rosmaster" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
   --teleop.joint_step=2.0 \
-  --dataset.repo_id="local_user/dual_camera_demo" \
+  --dataset.repo_id="NLTuan/dual_camera_demo" \
   --dataset.single_task="Dual camera recording demonstration with front and wrist views" \
   --dataset.num_episodes=1 \
   --dataset.episode_time_s=15 \
   --dataset.reset_time_s=5 \
   --dataset.fps=10 \
-  --dataset.push_to_hub=false \
+  --dataset.push_to_hub=true \
   --dataset.root="data/dual_camera_recordings" \
   --display_data=true
 

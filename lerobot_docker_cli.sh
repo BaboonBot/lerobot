@@ -6,13 +6,13 @@ echo "🤖 Starting LeRobot Teleoperation in Docker"
 echo "==========================================="
 
 # Check if robot is connected
-if [[ ! -e /dev/ttyUSB0 ]]; then
-    echo "❌ Error: Robot not found at /dev/ttyUSB0"
+if [[ ! -e /dev/myserial ]]; then
+    echo "❌ Error: Robot not found at /dev/myserial"
     echo "   Please check robot connection and try again."
     exit 1
 fi
 
-echo "✅ Robot found at /dev/ttyUSB0"
+echo "✅ Robot found at /dev/myserial"
 echo "🐳 Starting Docker container with LeRobot teleoperation..."
 echo ""
 echo "Key Controls:"
@@ -30,13 +30,13 @@ echo ""
 echo "===========================================" 
 
 # Official LeRobot CLI command in Docker
-docker run --device=/dev/ttyUSB0 \
+docker run --device=/dev/myserial \
            -v $(pwd):/workspace \
            -w /workspace \
            -it lerobot-yahboom-jetson \
            python -m lerobot.teleoperate \
            --robot.type=rosmaster \
-           --robot.com=/dev/ttyUSB0 \
+           --robot.com=/dev/myserial \
            --robot.id=my_rosmaster \
            --teleop.type=rosmaster_keyboard \
            --teleop.id=my_keyboard \

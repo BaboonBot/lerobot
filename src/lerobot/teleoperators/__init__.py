@@ -18,6 +18,12 @@ from .config import TeleoperatorConfig
 from .teleoperator import Teleoperator
 from .utils import make_teleoperator_from_config
 
-# Import our custom Rosmaster keyboard teleoperator to register it
+# Import our custom Rosmaster teleoperators to register them
 from .rosmaster_keyboard.teleop_rosmaster_keyboard import RosmasterKeyboardTeleop
 from .rosmaster_keyboard.configuration_rosmaster_keyboard import RosmasterKeyboardTeleopConfig
+from .rosmaster_terminal.teleop_rosmaster_terminal import RosmasterTerminalTeleop
+from .rosmaster_terminal.config import RosmasterTerminalTeleopConfig
+
+# Create module aliases like other teleoperators
+from . import rosmaster_keyboard
+from . import rosmaster_terminal

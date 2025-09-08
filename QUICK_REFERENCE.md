@@ -18,7 +18,7 @@ ls -la /dev/video*
 ```bash
 lerobot-teleoperate \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="test_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -30,7 +30,7 @@ lerobot-teleoperate \
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -50,7 +50,7 @@ lerobot-record \
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -72,7 +72,7 @@ lerobot-record \
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
@@ -126,8 +126,8 @@ huggingface-cli repo visibility username/dataset_name public
 ## Troubleshooting
 ```bash
 # Check robot connection
-ls -la /dev/ttyUSB0
-lsof /dev/ttyUSB0
+ls -la /dev/myserial
+lsof /dev/myserial
 
 # Check camera connection  
 ls -la /dev/video*
@@ -135,7 +135,7 @@ lsof /dev/video0
 
 # Fix permissions
 sudo usermod -a -G dialout $USER
-sudo chmod 666 /dev/ttyUSB0
+sudo chmod 666 /dev/myserial
 ```
 
 ## File Locations
