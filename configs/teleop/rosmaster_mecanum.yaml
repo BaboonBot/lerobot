@@ -1,0 +1,5 @@
+# Configuration for Rosmaster Mecanum Wheel Teleoperator
+type: rosmaster_mecanum
+movement_step: 0.3  # Linear velocity step (m/s)
+rotation_step: 1.0  # Angular velocity step (rad/s)
+mock: false

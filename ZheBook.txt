@@ -1,7 +1,7 @@
 # Rosmaster Robot LeRobot Usage Guide
 
 ## Overview
-This guide covers the complete usage of the Rosmaster robot with LeRobot framework, including two teleoperation methods and data recording capabilities.
+This guide covers the complete usage of the Rosmaster robot with LeRobot framework, including three teleoperation methods and data recording capabilities.
 
 ## Hardware Setup
 - **Robot**: Yahboom Rosmaster 6-DOF robot arm
@@ -51,7 +51,97 @@ lerobot-teleoperate \
 - Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
 - Always lock position when not actively controlling
 
-### 2. Terminal Teleoperator (rosmaster_terminal)
+### 2. Mecanum Wheel Teleoperator (rosmaster_mecanum)
+
+The mecanum wheel teleoperator provides real-time control of the robot's base movement using 4 mecanum wheels.
+
+#### Command:
+```bash
+lerobot-teleoperate \
+  --robot.type=rosmaster \
+  --robot.com="/dev/myserial" \
+  --robot.id="my_rosmaster_robot" \
+  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
+  --teleop.type=rosmaster_mecanum \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=1.0 \
+  --display_data=true
+```
+
+#### Key Controls:
+- **w/s**: Forward/Backward movement
+- **a/d**: Strafe Left/Right movement  
+- **q/e**: Rotate Left/Right
+- **SPACE**: Lock/Unlock movement (SAFETY FEATURE - robot starts locked!)
+- **ESC**: Disconnect and exit
+
+#### Usage Steps:
+1. Run the command above
+2. **IMPORTANT**: Press SPACE to unlock the robot (starts locked for safety)
+3. Use WASD keys for movement, Q/E for rotation
+4. Press SPACE again to lock movement when done
+5. Press ESC to exit
+
+#### Safety Notes:
+- Robot starts with movement LOCKED - you must press SPACE to unlock
+- Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
+- Movement is limited to safe velocities: v_x/v_y ±1.0 m/s, v_z ±5.0 rad/s
+- Always lock movement when not actively controlling
+
+### 3. Combined Teleoperator (rosmaster_combined)
+
+The combined teleoperator provides simultaneous control of both mecanum wheels and robot arm using separate key sets.
+
+#### Command:
+```bash
+lerobot-teleoperate \
+  --robot.type=rosmaster \
+  --robot.com="/dev/myserial" \
+  --robot.id="my_rosmaster_robot" \
+  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
+  --teleop.type=rosmaster_combined \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=1.0 \
+  --teleop.joint_step=2.0 \
+  --display_data=true
+```
+
+#### Key Controls:
+
+**Mecanum Wheels (WASDQE):**
+- **W/S**: Forward/Backward movement
+- **A/D**: Strafe Left/Right movement  
+- **Q/E**: Rotate Left/Right
+
+**Robot Arm (TGYH UJIK OLP;):**
+- **T/G**: Joint 1 (+/-) - Base rotation
+- **Y/H**: Joint 2 (+/-) - Shoulder
+- **U/J**: Joint 3 (+/-) - Elbow  
+- **I/K**: Joint 4 (+/-) - Wrist pitch
+- **O/L**: Joint 5 (+/-) - Wrist roll
+- **P/;**: Joint 6 (+/-) - Gripper
+
+**Safety Controls:**
+- **SPACE**: Lock/Unlock both movement and position (SAFETY FEATURE!)
+- **R**: Reset to stopped state (all velocities to 0)
+- **ESC**: Disconnect and exit
+
+#### Usage Steps:
+1. Run the command above
+2. **IMPORTANT**: Press SPACE to unlock the robot (starts locked for safety)
+3. Use WASDQE for mecanum movement, TGYH UJIK OLP; for arm control
+4. Press R to stop all movement at any time
+5. Press SPACE again to lock everything when done
+6. Press ESC to exit
+
+#### Safety Notes:
+- Robot starts LOCKED - you must press SPACE to unlock both movement and joints
+- Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
+- Movement velocities: v_x/v_y ±1.0 m/s, v_z ±5.0 rad/s
+- Joint movements: ±2.0° per step (configurable)
+- Always lock when not actively controlling
+
+### 4. Terminal Teleoperator (rosmaster_terminal)
 
 The terminal teleoperator allows precise control by typing exact joint angles.
 
@@ -189,7 +279,7 @@ lerobot-record \
 - **`--robot.com="/dev/myserial"`**: Serial port (updated from ttyUSB0)
 - **`--robot.id`**: Unique identifier for this robot
 - **`--robot.cameras`**: Camera configuration (JSON format)
-- **`--teleop.type`**: Either `rosmaster_keyboard` or `rosmaster_terminal`
+- **`--teleop.type`**: Choose from `rosmaster_keyboard`, `rosmaster_mecanum`, `rosmaster_combined`, or `rosmaster_terminal`
 - **`--teleop.joint_step`**: Step size for keyboard control (degrees)
 - **`--dataset.repo_id`**: Dataset identifier  
 - **`--dataset.single_task`**: Description of the task being recorded

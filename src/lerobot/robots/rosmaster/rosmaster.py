@@ -51,6 +51,9 @@ class RosmasterRobot(Robot):
 
         # Define the 6 joint names for the Rosmaster arm
         self.joint_names = [f"servo_{i+1}" for i in range(6)]
+        
+        # Define mecanum wheel names for base movement
+        self.mecanum_names = ["v_x", "v_y", "v_z"]
 
         # Define motors with proper IDs (1-6) matching physical servo IDs
         motors = {
@@ -70,6 +73,11 @@ class RosmasterRobot(Robot):
     def _motors_ft(self) -> dict[str, type]:
         """Motor features - individual joint positions as floats."""
         return {name: float for name in self.joint_names}
+
+    @property  
+    def _mecanum_ft(self) -> dict[str, type]:
+        """Mecanum wheel features - velocity commands as floats."""
+        return {name: float for name in self.mecanum_names}
 
     @property
     def _cameras_ft(self) -> dict[str, tuple]:
@@ -92,8 +100,8 @@ class RosmasterRobot(Robot):
 
     @cached_property
     def action_features(self) -> dict[str, type]:
-        """Structure of action dictionary - individual joint positions."""
-        return self._motors_ft
+        """Structure of action dictionary - individual joint positions and mecanum wheel velocities."""
+        return {**self._motors_ft, **self._mecanum_ft}
 
     @property
     def is_connected(self) -> bool:
@@ -178,6 +186,10 @@ class RosmasterRobot(Robot):
         # Build observation dictionary with individual joint positions
         obs_dict = {name: float(positions_dict[name]) for name in self.joint_names}
         
+        # Add mecanum wheel velocities (always 0 for observation since we don't read velocities)
+        for name in self.mecanum_names:
+            obs_dict[name] = 0.0
+        
         # Get camera images
         for cam_key, camera in self.cameras.items():
             try:
@@ -197,30 +209,58 @@ class RosmasterRobot(Robot):
         if not self.is_connected:
             raise RuntimeError("Robot is not connected.")
 
-        # Convert individual joint actions to command dictionary
-        command_dict = {}
+        # Separate joint actions from mecanum wheel actions
+        joint_command_dict = {}
+        mecanum_commands = {}
+        
+        # Handle joint commands
         for name in self.joint_names:
             if name in action:
                 value = action[name]
                 # Handle both scalar and array values
                 if hasattr(value, '__iter__') and not isinstance(value, str):
-                    command_dict[name] = float(value[0])
+                    joint_command_dict[name] = float(value[0])
                 else:
-                    command_dict[name] = float(value)
+                    joint_command_dict[name] = float(value)
             else:
                 # Maintain current position if joint not specified
                 current_obs = self.get_observation()
-                command_dict[name] = float(current_obs[name])
+                joint_command_dict[name] = float(current_obs[name])
+        
+        # Handle mecanum wheel commands
+        for name in self.mecanum_names:
+            if name in action:
+                value = action[name]
+                # Handle both scalar and array values
+                if hasattr(value, '__iter__') and not isinstance(value, str):
+                    mecanum_commands[name] = float(value[0])
+                else:
+                    mecanum_commands[name] = float(value)
+            else:
+                mecanum_commands[name] = 0.0
 
         # Debug: Print what we're sending
-        logger.debug(f"Sending command_dict: {command_dict}")
+        logger.debug(f"Sending joint commands: {joint_command_dict}")
+        logger.debug(f"Sending mecanum commands: {mecanum_commands}")
         
         try:
-            # Send the actual motor commands
-            self.motors_bus.sync_write("Goal_Position", command_dict)
-            logger.debug("Motor commands sent successfully")
+            # Send joint motor commands if any joints are specified
+            if any(name in action for name in self.joint_names):
+                self.motors_bus.sync_write("Goal_Position", joint_command_dict)
+                logger.debug("Joint motor commands sent successfully")
+            
+            # Send mecanum wheel commands if any are specified
+            if any(name in action for name in self.mecanum_names):
+                v_x = mecanum_commands.get("v_x", 0.0)
+                v_y = mecanum_commands.get("v_y", 0.0) 
+                v_z = mecanum_commands.get("v_z", 0.0)
+                
+                # Use the motor bus driver to send mecanum wheel commands
+                self.motors_bus.driver.set_car_motion(v_x, v_y, v_z)
+                logger.debug(f"Mecanum commands sent: v_x={v_x}, v_y={v_y}, v_z={v_z}")
+                
         except Exception as e:
-            logger.error(f"Failed to send motor commands: {e}")
+            logger.error(f"Failed to send commands: {e}")
             raise
 
         return action
