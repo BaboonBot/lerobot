@@ -279,7 +279,8 @@ class Rosmaster:
         self.__debug = debug
         
         try:
-            self.ser = serial.Serial(com, 115200)
+            # Use a small timeout so read(1) returns promptly when no data is available
+            self.ser = serial.Serial(com, 115200, timeout=0.05)
         except Exception as e:
             if debug:
                 print(f"Failed to open serial port {com}: {e}")
@@ -521,32 +522,84 @@ class Rosmaster:
 
     # 接收数据 receive data
     def __receive_data(self):
-        # 清空缓冲区
-        self.ser.flushInput()
+        """Read and parse incoming frames robustly from the serial port.
+
+        This version always requests explicit read sizes (read(1)) and guards
+        against empty returns/timeouts to avoid passing None into pyserial internals.
+        It also validates lengths before indexing to prevent IndexError.
+        """
+        try:
+            if hasattr(self, 'ser') and self.ser:
+                try:
+                    self.ser.flushInput()
+                except Exception:
+                    pass
+            else:
+                return
+        except Exception:
+            return
+
         while True:
-            head1 = bytearray(self.ser.read())[0]
-            if head1 == self.__HEAD:
-                head2 = bytearray(self.ser.read())[0]
-                check_sum = 0
-                rx_check_num = 0
+            try:
+                b = self.ser.read(1)
+                if not b:
+                    # Timeout or no data; yield and try again
+                    time.sleep(0.001)
+                    continue
+                head1 = b[0]
+                if head1 != self.__HEAD:
+                    # Not a header byte, keep searching
+                    continue
+
+                b2 = self.ser.read(1)
+                if not b2:
+                    continue
+                head2 = b2[0]
+
                 if head2 == self.__DEVICE_ID - 1:
-                    ext_len = bytearray(self.ser.read())[0]
-                    ext_type = bytearray(self.ser.read())[0]
+                    blen = self.ser.read(1)
+                    if not blen:
+                        continue
+                    ext_len = blen[0]
+
+                    btype = self.ser.read(1)
+                    if not btype:
+                        continue
+                    ext_type = btype[0]
+
                     ext_data = []
-                    check_sum = ext_len + ext_type
-                    data_len = ext_len - 2
+                    check_sum = (ext_len + ext_type) & 0xFF
+                    data_len = max(0, ext_len - 2)  # payload + checksum byte
+
                     while len(ext_data) < data_len:
-                        value = bytearray(self.ser.read())[0]
+                        bv = self.ser.read(1)
+                        if not bv:
+                            # Incomplete frame; abandon and resync
+                            ext_data = []
+                            break
+                        value = bv[0]
                         ext_data.append(value)
-                        if len(ext_data) == data_len:
-                            rx_check_num = value
-                        else:
-                            check_sum = check_sum + value
+                        if len(ext_data) < data_len:
+                            check_sum = (check_sum + value) & 0xFF
+
+                    if not ext_data:
+                        # Incomplete frame, resync
+                        continue
+
+                    rx_check_num = ext_data[-1] if data_len > 0 else 0
                     if check_sum % 256 == rx_check_num:
-                        self.__parse_data(ext_type, ext_data)
+                        # Pass only the payload (exclude checksum byte)
+                        payload = ext_data[:-1] if data_len > 0 else []
+                        self.__parse_data(ext_type, payload)
                     else:
                         if self.__debug:
                             print("check sum error:", ext_len, ext_type, ext_data)
+                # else: ignore unexpected device id and continue
+            except Exception as e:
+                # Avoid crashing the background thread on sporadic serial errors
+                if self.__debug:
+                    print(f"__receive_data error: {e}")
+                time.sleep(0.001)
 
     # 请求数据， function：对应要返回数据的功能字，parm：传入的参数。
     # Request data, function: corresponding function word to return data, parm: parameter passed in

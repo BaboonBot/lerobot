@@ -71,7 +71,7 @@ Once running, you'll see a `rosmaster>` prompt where you can type:
 
 - **`set all <angles>`**: Set all 6 joints at once
   ```
-  set all 90 120 45 90 90 90
+  set all 60 120 45 50 90 70
   ```
 
 - **`set <joint> <angle>`**: Set individual joint
@@ -172,13 +172,13 @@ lerobot-record \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
   --teleop.joint_step=2.0 \
-  --dataset.repo_id="local_user/dual_camera_demo" \
+  --dataset.repo_id="NLTuan/dual_camera_demo" \
   --dataset.single_task="Dual camera demonstration" \
   --dataset.num_episodes=3 \
   --dataset.episode_time_s=10 \
   --dataset.reset_time_s=5 \
   --dataset.fps=10 \
-  --dataset.push_to_hub=false \
+  --dataset.push_to_hub=true \
   --dataset.root="data/dual_recordings" \
   --display_data=true
 ```
