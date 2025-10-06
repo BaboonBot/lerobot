@@ -35,7 +35,7 @@ except ImportError:
 
 class RosmasterKeyboardTeleop(Teleoperator):
     """
-    Keyboard teleoperator for Rosmaster robot providing joint-level control.
+    Keyboard teleoperator for Rosmaster robot providing joint-level control and torque control.
     
     Key mapping:
     - q/a: Joint 1 (+/-)
@@ -44,6 +44,10 @@ class RosmasterKeyboardTeleop(Teleoperator):
     - r/f: Joint 4 (+/-)
     - t/g: Joint 5 (+/-)
     - y/h: Joint 6 (+/-)
+    
+    Torque Control:
+    - z: Enable torque (motors resist movement)
+    - x: Disable torque (motors can be moved freely by hand)
     """
 
     config_class = RosmasterKeyboardTeleopConfig
@@ -67,6 +71,10 @@ class RosmasterKeyboardTeleop(Teleoperator):
         self.command_rate_limit = 0.1  # Minimum 100ms between position changes
         self.position_locked = True  # Start with positions locked
         
+        # Torque control state tracking
+        self.torque_enabled = True  # Track current torque state
+        self.position_sync_enabled = True  # Whether to sync positions when torque disabled
+        
         # Key mapping for joint control
         self.key_to_joint_delta = {
             'q': (0, +self.config.joint_step),  # Joint 1 +
@@ -85,12 +93,21 @@ class RosmasterKeyboardTeleop(Teleoperator):
 
     @property
     def action_features(self) -> dict:
-        # Return individual joint positions to match the robot's expectation
-        return {f"servo_{i+1}": (1, np.float32) for i in range(6)}
+        # Return individual joint positions and torque control to match the robot's expectation
+        features = {f"servo_{i+1}": (1, np.float32) for i in range(6)}
+        features["torque_enable"] = bool
+        features["torque_disable"] = bool
+        return features
 
     @property
     def feedback_features(self) -> dict:
-        return {}
+        # Request position feedback from the robot for position syncing during torque control
+        return {f"servo_{i+1}": float for i in range(6)}
+
+    @property
+    def feedback_features(self) -> dict:
+        # Request position feedback from the robot for position syncing
+        return {f"servo_{i+1}": float for i in range(6)}
 
     @property
     def is_connected(self) -> bool:
@@ -130,6 +147,11 @@ class RosmasterKeyboardTeleop(Teleoperator):
                 print("  r/f: Joint 4 (+/-)")
                 print("  t/g: Joint 5 (+/-)")
                 print("  y/h: Joint 6 (+/-)")
+                print()
+                print("Torque Control:")
+                print("  z: Enable torque (motors resist movement)")
+                print("  x: Disable torque (motors can be moved freely)")
+                print()
                 print("  SPACE: Lock/Unlock position (prevents accidental movement)")
                 print("  ESC: Disconnect")
                 print(f"  Step size: {self.config.joint_step}°")
@@ -150,7 +172,26 @@ class RosmasterKeyboardTeleop(Teleoperator):
 
     def _on_press(self, key):
         if hasattr(key, "char"):
-            self.event_queue.put((key.char, True))
+            char = key.char
+            self.event_queue.put((char, True))
+            
+            # Handle torque control commands immediately
+            if char == 'z':  # Enable torque
+                if not self.torque_enabled:
+                    self.torque_enabled = True
+                    # CRITICAL: Update target positions to match current positions to prevent jumps
+                    self.target_positions = self.current_positions.copy()
+                    print("🟢 Torque ENABLED - Motors will resist movement")
+                    print(f"   📍 Synced target positions: J1={self.target_positions[0]:.1f}° "
+                          f"J2={self.target_positions[1]:.1f}° J3={self.target_positions[2]:.1f}°...")
+            elif char == 'x':  # Disable torque
+                if self.torque_enabled:
+                    self.torque_enabled = False
+                    print("🔴 Torque DISABLED - Motors can be moved freely by hand")
+                    print("   🔄 Position syncing active - move robot manually to update positions")
+                    print(f"   📍 Current positions before manual control: J1={self.current_positions[0]:.1f}° "
+                          f"J2={self.current_positions[1]:.1f}° J3={self.current_positions[2]:.1f}°...")
+                
         elif key == keyboard.Key.space:
             # Toggle position lock/unlock
             self.position_locked = not self.position_locked
@@ -187,7 +228,16 @@ class RosmasterKeyboardTeleop(Teleoperator):
 
         if self.config.mock:
             # Return current positions for mock mode
-            return {"joint_positions": self.current_positions.copy()}
+            action = {}
+            for i, name in enumerate([f"servo_{j+1}" for j in range(6)]):
+                action[name] = self.current_positions[i]
+            # Add mecanum wheel velocities (set to 0 since this is arm-only control)
+            action["v_x"] = 0.0
+            action["v_y"] = 0.0
+            action["v_z"] = 0.0
+            action["torque_enable"] = False
+            action["torque_disable"] = False
+            return action
 
         self._drain_pressed_keys()
 
@@ -197,6 +247,12 @@ class RosmasterKeyboardTeleop(Teleoperator):
             action = {}
             for i, name in enumerate([f"servo_{j+1}" for j in range(6)]):
                 action[name] = self.current_positions[i]
+            # Add mecanum wheel velocities (set to 0 since this is arm-only control)
+            action["v_x"] = 0.0
+            action["v_y"] = 0.0
+            action["v_z"] = 0.0
+            action["torque_enable"] = False
+            action["torque_disable"] = False
             return action
 
         # Rate limiting to prevent too frequent commands
@@ -205,6 +261,12 @@ class RosmasterKeyboardTeleop(Teleoperator):
             action = {}
             for i, name in enumerate([f"servo_{j+1}" for j in range(6)]):
                 action[name] = self.current_positions[i]
+            # Add mecanum wheel velocities (set to 0 since this is arm-only control)
+            action["v_x"] = 0.0
+            action["v_y"] = 0.0
+            action["v_z"] = 0.0
+            action["torque_enable"] = False
+            action["torque_disable"] = False
             return action
 
         # Apply movement based on currently pressed keys
@@ -234,15 +296,56 @@ class RosmasterKeyboardTeleop(Teleoperator):
 
         self.logs["read_pos_dt_s"] = time.perf_counter() - before_read_t
 
-        # Return action with individual joint positions
+        # Check if torque commands were triggered this cycle
+        torque_enable_cmd = 'z' in self.current_pressed
+        torque_disable_cmd = 'x' in self.current_pressed
+
+        # Return action with individual joint positions, mecanum velocities, and torque commands
         action = {}
         for i, name in enumerate([f"servo_{j+1}" for j in range(6)]):
             action[name] = self.current_positions[i]
         
+        # Add mecanum wheel velocities (set to 0 since this is arm-only control)
+        action["v_x"] = 0.0
+        action["v_y"] = 0.0
+        action["v_z"] = 0.0
+        
+        # Add torque control commands
+        action["torque_enable"] = torque_enable_cmd
+        action["torque_disable"] = torque_disable_cmd
+        
         return action
 
     def send_feedback(self, feedback: dict[str, Any]) -> None:
-        pass
+        """Receive position feedback from robot and update internal positions."""
+        # Always update current positions with actual robot positions
+        positions_changed = False
+        for i in range(6):
+            servo_name = f"servo_{i+1}"
+            if servo_name in feedback:
+                new_position = float(feedback[servo_name])
+                # Check if position changed significantly
+                if abs(new_position - self.current_positions[i]) > 0.5:
+                    positions_changed = True
+                self.current_positions[i] = new_position
+        
+        # When torque is disabled, also update target positions to follow current positions
+        if not self.torque_enabled and self.position_sync_enabled:
+            if positions_changed:
+                # Update target positions to match current (manual) positions
+                self.target_positions = self.current_positions.copy()
+                    
+            # Print position sync info occasionally
+            if hasattr(self, '_sync_counter'):
+                self._sync_counter += 1
+            else:
+                self._sync_counter = 1
+                
+            if self._sync_counter % 50 == 1:  # Print every 50 calls to avoid spam
+                print(f"🔄 Syncing positions (torque disabled): "
+                      f"J1={self.current_positions[0]:.1f}° "
+                      f"J2={self.current_positions[1]:.1f}° "
+                      f"J3={self.current_positions[2]:.1f}°...")
 
     def disconnect(self) -> None:
         if not self.is_connected:

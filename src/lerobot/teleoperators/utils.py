@@ -81,5 +81,6 @@ def make_teleoperator_from_config(config: TeleoperatorConfig) -> Teleoperator:
         from .rosmaster_terminal import RosmasterTerminalTeleop
 
         return RosmasterTerminalTeleop(config)
+
     else:
         raise ValueError(config.type)

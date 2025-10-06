@@ -100,8 +100,12 @@ class RosmasterRobot(Robot):
 
     @cached_property
     def action_features(self) -> dict[str, type]:
-        """Structure of action dictionary - individual joint positions and mecanum wheel velocities."""
-        return {**self._motors_ft, **self._mecanum_ft}
+        """Structure of action dictionary - individual joint positions, mecanum wheel velocities, and torque control."""
+        features = {**self._motors_ft, **self._mecanum_ft}
+        # Add torque control features
+        features["torque_enable"] = bool
+        features["torque_disable"] = bool
+        return features
 
     @property
     def is_connected(self) -> bool:
@@ -162,20 +166,11 @@ class RosmasterRobot(Robot):
             # Check if we got valid readings for all joints
             missing_joints = [name for name in self.joint_names if name not in positions_dict]
             if missing_joints:
-                # Reduce warning frequency - only log every 100 calls to avoid terminal spam
-                if not hasattr(self, '_warning_counter'):
-                    self._warning_counter = 0
-                self._warning_counter += 1
-                
-                if self._warning_counter % 100 == 1:  # Log first time and every 100th time
-                    logger.debug(f"Position read warnings suppressed (common with Rosmaster hardware)")
-                
                 # Use fallback: try individual reads or use default positions
                 for name in missing_joints:
                     try:
                         positions_dict[name] = self.motors_bus.read("Present_Position", name)
                     except Exception as e:
-                        # Suppress individual read warnings too - they're very common
                         positions_dict[name] = 90.0  # Default safe position
             
         except Exception as e:
@@ -208,6 +203,21 @@ class RosmasterRobot(Robot):
         """Send action commands to the robot."""
         if not self.is_connected:
             raise RuntimeError("Robot is not connected.")
+
+        # Handle torque control commands first
+        if action.get("torque_enable", False):
+            try:
+                self.motors_bus.enable_torque()
+                logger.info("✅ Torque ENABLED - Motors will resist movement")
+            except Exception as e:
+                logger.error(f"Failed to enable torque: {e}")
+        
+        if action.get("torque_disable", False):
+            try:
+                self.motors_bus.disable_torque()
+                logger.info("❌ Torque DISABLED - Motors can be moved freely by hand")
+            except Exception as e:
+                logger.error(f"Failed to disable torque: {e}")
 
         # Separate joint actions from mecanum wheel actions
         joint_command_dict = {}

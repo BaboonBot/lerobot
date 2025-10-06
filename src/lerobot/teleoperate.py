@@ -84,6 +84,7 @@ from lerobot.teleoperators import (  # noqa: F401
     rosmaster_mecanum,
     rosmaster_combined,
     rosmaster_terminal,
+
     so100_leader,
     so101_leader,
 )
@@ -112,11 +113,23 @@ def teleop_loop(
     while True:
         loop_start = time.perf_counter()
         action = teleop.get_action()
+        
+        # Get robot observation for display and feedback
+        observation = robot.get_observation()
+        
         if display_data:
-            observation = robot.get_observation()
             log_rerun_data(observation, action)
 
         robot.send_action(action)
+        
+        # Send position feedback to teleoperator for position syncing
+        if teleop.feedback_features:
+            feedback = {}
+            for key in teleop.feedback_features:
+                if key in observation:
+                    feedback[key] = observation[key]
+            if feedback:
+                teleop.send_feedback(feedback)
         dt_s = time.perf_counter() - loop_start
         busy_wait(1 / fps - dt_s)
 

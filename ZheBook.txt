@@ -211,14 +211,14 @@ rosmaster> quit
 
 Record demonstrations using either teleoperator:
 
-#### With Keyboard Control:
+#### With KeyboardCombined Control:
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
   --dataset.repo_id="local_user/my_recording" \
   --dataset.single_task="Task description" \

@@ -148,9 +148,6 @@ class RosmasterMotorsBus(MotorsBus):
         # It returns a list like [angle1, angle2, ..., angle6] or -1 on error.
         all_angles = self.driver.get_uart_servo_angle_array()
 
-        if not isinstance(all_angles, list) or any(angle == -2 for angle in all_angles):
-            raise ConnectionError("Failed to read angles from Rosmaster controller.")
-
         # Create the dictionary mapping motor name to its angle.
         results = {}
         for name in motor_names:
@@ -160,12 +157,6 @@ class RosmasterMotorsBus(MotorsBus):
                 angle = all_angles[motor_id - 1]
                 if angle != -1:  # -1 indicates a read error for that specific servo
                     results[name] = angle
-                else:
-                    # Suppress warning - these are very common with Rosmaster hardware and don't affect functionality
-                    pass  # print(f"Warning: Failed to read angle for motor '{name}' (ID: {motor_id}).")
-            else:
-                # Keep this warning as it indicates a configuration issue
-                print(f"Warning: Motor ID {motor_id} for '{name}' is out of range for the driver.")
 
         return results
 
