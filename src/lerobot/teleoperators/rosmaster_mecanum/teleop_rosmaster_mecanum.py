@@ -21,7 +21,7 @@ from typing import Any
 
 import numpy as np
 
-from lerobot.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
+from lerobot.utils.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
 from lerobot.teleoperators.teleoperator import Teleoperator
 
 from .configuration_rosmaster_mecanum import RosmasterMecanumTeleopConfig

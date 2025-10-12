@@ -23,7 +23,7 @@ from queue import Queue
 
 from lerobot.teleoperators.teleoperator import Teleoperator
 from lerobot.teleoperators.rosmaster_terminal.config import RosmasterTerminalTeleopConfig
-from lerobot.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
+from lerobot.utils.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
 
 
 class RosmasterTerminalTeleop(Teleoperator):

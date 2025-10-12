@@ -20,7 +20,7 @@ import time
 from queue import Queue
 from typing import Any
 
-from lerobot.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
+from lerobot.utils.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
 from lerobot.teleoperators.teleoperator import Teleoperator
 
 from .configuration_rosmaster_enhanced import RosmasterEnhancedTeleopConfig
