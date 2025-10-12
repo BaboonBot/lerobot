@@ -1,0 +1,29 @@
+# Configuration for Rosmaster Robot with Dual Cameras
+type: rosmaster
+id: rosmaster_1
+
+# Serial port configuration
+com: "/dev/myserial"
+
+# Dual camera configuration for torque control demos
+cameras:
+  observation.images.front:
+    type: opencv
+    index_or_path: 0        # /dev/video0 - front camera
+    fps: 30
+    width: 640
+    height: 480
+    color_mode: rgb
+    rotation: 0
+
+  observation.images.wrist:
+    type: opencv
+    index_or_path: 2        # /dev/video2 - wrist camera  
+    fps: 30
+    width: 640
+    height: 480
+    color_mode: rgb
+    rotation: 0
+
+# Calibration directory (optional)
+# calibration_dir: null

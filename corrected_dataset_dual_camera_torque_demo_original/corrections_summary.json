@@ -1,0 +1,1799 @@
+{
+  "original_repo": "NLTuan/dual_camera_torque_demo_original",
+  "total_frames": 743,
+  "processing_results": {
+    "observation_spikes_removed": 116,
+    "torque_corrections_applied": 43,
+    "total_corrections": 159
+  },
+  "spike_details": [
+    {
+      "frame": 102,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 14.0\u00b0"
+    },
+    {
+      "frame": 103,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 16.0\u00b0"
+    },
+    {
+      "frame": 147,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 46.0\u00b0"
+    },
+    {
+      "frame": 148,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 46.0\u00b0"
+    },
+    {
+      "frame": 158,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 53.0\u00b0"
+    },
+    {
+      "frame": 159,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 54.0\u00b0"
+    },
+    {
+      "frame": 186,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 17.5\u00b0 from local mean"
+    },
+    {
+      "frame": 187,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 18.0\u00b0 from local mean"
+    },
+    {
+      "frame": 188,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 71.0\u00b0"
+    },
+    {
+      "frame": 189,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 72.0\u00b0"
+    },
+    {
+      "frame": 190,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 17.8\u00b0 from local mean"
+    },
+    {
+      "frame": 218,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.8\u00b0 from local mean"
+    },
+    {
+      "frame": 219,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 220,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 221,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 222,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 224,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 225,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 226,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 227,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 228,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 229,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 230,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 45.0\u00b0 from local mean"
+    },
+    {
+      "frame": 231,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 232,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 67.5\u00b0 from local mean"
+    },
+    {
+      "frame": 233,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 234,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 266,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 267,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 268,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 269,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 270,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 275,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 276,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 22.5\u00b0 from local mean"
+    },
+    {
+      "frame": 277,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 278,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 279,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 23.2\u00b0 from local mean"
+    },
+    {
+      "frame": 284,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 19.5\u00b0 from local mean"
+    },
+    {
+      "frame": 285,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 19.8\u00b0 from local mean"
+    },
+    {
+      "frame": 286,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 80.0\u00b0"
+    },
+    {
+      "frame": 287,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 75.0\u00b0"
+    },
+    {
+      "frame": 288,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 19.0\u00b0 from local mean"
+    },
+    {
+      "frame": 321,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 49.0\u00b0"
+    },
+    {
+      "frame": 322,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 47.0\u00b0"
+    },
+    {
+      "frame": 346,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 347,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 364,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 365,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 369,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 370,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 374,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 41.0\u00b0"
+    },
+    {
+      "frame": 375,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 42.0\u00b0"
+    },
+    {
+      "frame": 396,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 56.0\u00b0"
+    },
+    {
+      "frame": 397,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 57.0\u00b0"
+    },
+    {
+      "frame": 419,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 420,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 421,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 422,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 423,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 30.5\u00b0 from local mean"
+    },
+    {
+      "frame": 424,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 425,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 426,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 427,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 466,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 467,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 468,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 469,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 470,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 479,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 480,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 481,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 482,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 483,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 508,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 509,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 510,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 511,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 512,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 527,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 528,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 529,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 530,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 531,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 532,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 533,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 534,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 535,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 30.5\u00b0 from local mean"
+    },
+    {
+      "frame": 536,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 30.5\u00b0 from local mean"
+    },
+    {
+      "frame": 537,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 538,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 539,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 558,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 559,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 560,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 561,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 562,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 583,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 584,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 585,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 586,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 587,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 612,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 613,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 614,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 615,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 616,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 628,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 629,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 630,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 631,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 632,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 641,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 642,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 643,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 644,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    },
+    {
+      "frame": 645,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 15.2\u00b0 from local mean"
+    }
+  ],
+  "torque_correction_details": {
+    "2": {
+      "reason": "Manual control: 3.0\u00b0 movement, 46.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        106.0,
+        47.0,
+        102.0,
+        89.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        106.0,
+        47.0,
+        102.0,
+        89.0,
+        90.0,
+        90.0
+      ]
+    },
+    "3": {
+      "reason": "Manual control: 3.0\u00b0 movement, 43.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        105.0,
+        50.0,
+        101.0,
+        89.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        105.0,
+        50.0,
+        101.0,
+        89.0,
+        90.0,
+        90.0
+      ]
+    },
+    "4": {
+      "reason": "Manual control: 5.0\u00b0 movement, 40.0\u00b0 action mismatch",
+      "movement": 5.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        103.0,
+        55.0,
+        100.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        103.0,
+        55.0,
+        100.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "5": {
+      "reason": "Manual control: 4.0\u00b0 movement, 35.0\u00b0 action mismatch",
+      "movement": 4.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        102.0,
+        59.0,
+        99.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        102.0,
+        59.0,
+        99.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "6": {
+      "reason": "Manual control: 5.0\u00b0 movement, 31.0\u00b0 action mismatch",
+      "movement": 5.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        101.0,
+        64.0,
+        98.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        101.0,
+        64.0,
+        98.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "7": {
+      "reason": "Manual control: 4.0\u00b0 movement, 26.0\u00b0 action mismatch",
+      "movement": 4.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        99.0,
+        68.0,
+        98.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        99.0,
+        68.0,
+        98.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "8": {
+      "reason": "Manual control: 4.0\u00b0 movement, 22.0\u00b0 action mismatch",
+      "movement": 4.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        98.0,
+        72.0,
+        96.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        98.0,
+        72.0,
+        96.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "9": {
+      "reason": "Manual control: 4.0\u00b0 movement, 18.0\u00b0 action mismatch",
+      "movement": 4.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        96.0,
+        76.0,
+        95.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        96.0,
+        76.0,
+        95.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "10": {
+      "reason": "Manual control: 4.0\u00b0 movement, 14.0\u00b0 action mismatch",
+      "movement": 4.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        95.0,
+        80.0,
+        94.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        95.0,
+        80.0,
+        94.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "11": {
+      "reason": "Manual control: 3.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.0,
+        83.0,
+        93.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.0,
+        83.0,
+        93.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "12": {
+      "reason": "Manual control: 4.0\u00b0 movement, 7.0\u00b0 action mismatch",
+      "movement": 4.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.0,
+        87.0,
+        92.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.0,
+        87.0,
+        92.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "13": {
+      "reason": "Manual control: 2.0\u00b0 movement, 3.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.0,
+        89.0,
+        92.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.0,
+        89.0,
+        92.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "177": {
+      "reason": "Manual control: 2.0\u00b0 movement, 2.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        24.0,
+        89.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        24.0,
+        89.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "227": {
+      "reason": "Manual control: 45.0\u00b0 movement, 27.9\u00b0 action mismatch",
+      "movement": 45.0,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        45.0625,
+        85.0625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        45.0625,
+        85.0625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "229": {
+      "reason": "Manual control: 45.0\u00b0 movement, 17.0\u00b0 action mismatch",
+      "movement": 44.96875,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.03125,
+        80.03125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.03125,
+        80.03125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "230": {
+      "reason": "Manual control: 22.5\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 22.5,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        22.53125,
+        82.53125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        22.53125,
+        82.53125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "232": {
+      "reason": "Manual control: 22.5\u00b0 movement, 7.5\u00b0 action mismatch",
+      "movement": 22.484375,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.015625,
+        80.015625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.015625,
+        80.015625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "233": {
+      "reason": "Manual control: 11.2\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 11.25,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        11.265625,
+        81.265625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        11.265625,
+        81.265625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "234": {
+      "reason": "Manual control: 11.3\u00b0 movement, 16.7\u00b0 action mismatch",
+      "movement": 11.265625,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "274": {
+      "reason": "Manual control: 1.5\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 1.5,
+      "original_action": [
+        92.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        96.5,
+        0.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        96.5,
+        0.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "281": {
+      "reason": "Manual control: 2.0\u00b0 movement, 30.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.0,
+        4.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.0,
+        4.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "282": {
+      "reason": "Manual control: 2.0\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.0,
+        6.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.0,
+        6.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "283": {
+      "reason": "Manual control: 2.5\u00b0 movement, 26.0\u00b0 action mismatch",
+      "movement": 2.5,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.5,
+        8.5,
+        80.0,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.5,
+        8.5,
+        80.0,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "284": {
+      "reason": "Manual control: 2.5\u00b0 movement, 23.5\u00b0 action mismatch",
+      "movement": 2.5,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.0,
+        11.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.0,
+        11.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "285": {
+      "reason": "Manual control: 2.0\u00b0 movement, 21.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.0,
+        13.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.0,
+        13.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "286": {
+      "reason": "Manual control: 2.8\u00b0 movement, 19.0\u00b0 action mismatch",
+      "movement": 2.75,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.75,
+        15.75,
+        80.0,
+        89.75,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.75,
+        15.75,
+        80.0,
+        89.75,
+        90.0,
+        90.0
+      ]
+    },
+    "287": {
+      "reason": "Manual control: 2.8\u00b0 movement, 16.2\u00b0 action mismatch",
+      "movement": 2.75,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.5,
+        18.5,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.5,
+        18.5,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "288": {
+      "reason": "Manual control: 1.5\u00b0 movement, 13.5\u00b0 action mismatch",
+      "movement": 1.5,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        20.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        20.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "289": {
+      "reason": "Manual control: 3.0\u00b0 movement, 12.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        23.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        23.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "290": {
+      "reason": "Manual control: 3.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        26.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        26.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "291": {
+      "reason": "Manual control: 2.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        28.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        28.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "323": {
+      "reason": "Manual control: 2.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        92.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        45.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        45.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "421": {
+      "reason": "Manual control: 30.5\u00b0 movement, 8.5\u00b0 action mismatch",
+      "movement": 30.5,
+      "original_action": [
+        72.0,
+        30.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.0,
+        59.5,
+        83.5,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.0,
+        59.5,
+        83.5,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "422": {
+      "reason": "Manual control: 30.5\u00b0 movement, 29.5\u00b0 action mismatch",
+      "movement": 30.5,
+      "original_action": [
+        72.0,
+        30.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        74.75,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        74.75,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "424": {
+      "reason": "Manual control: 15.2\u00b0 movement, 8.8\u00b0 action mismatch",
+      "movement": 15.25,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.5,
+        44.25,
+        77.75,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.5,
+        44.25,
+        77.75,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "425": {
+      "reason": "Manual control: 15.2\u00b0 movement, 14.2\u00b0 action mismatch",
+      "movement": 15.25,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        72.875,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        72.875,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "530": {
+      "reason": "Manual control: 30.5\u00b0 movement, 4.8\u00b0 action mismatch",
+      "movement": 30.5,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        84.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.0,
+        59.5,
+        77.0,
+        74.0,
+        89.75,
+        90.0
+      ],
+      "target_observation": [
+        81.0,
+        59.5,
+        77.0,
+        74.0,
+        89.75,
+        90.0
+      ]
+    },
+    "531": {
+      "reason": "Manual control: 30.5\u00b0 movement, 29.5\u00b0 action mismatch",
+      "movement": 30.5,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        84.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        88.25,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        88.25,
+        90.0
+      ]
+    },
+    "533": {
+      "reason": "Manual control: 45.8\u00b0 movement, 5.4\u00b0 action mismatch",
+      "movement": 45.75,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        82.0,
+        90.0
+      ],
+      "corrected_action": [
+        85.5,
+        74.75,
+        83.5,
+        82.0,
+        89.875,
+        90.0
+      ],
+      "target_observation": [
+        85.5,
+        74.75,
+        83.5,
+        82.0,
+        89.875,
+        90.0
+      ]
+    },
+    "534": {
+      "reason": "Manual control: 45.8\u00b0 movement, 44.8\u00b0 action mismatch",
+      "movement": 45.75,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        82.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        86.625,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        86.625,
+        90.0
+      ]
+    },
+    "536": {
+      "reason": "Manual control: 22.9\u00b0 movement, 6.2\u00b0 action mismatch",
+      "movement": 22.875,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        80.0,
+        90.0
+      ],
+      "corrected_action": [
+        78.75,
+        51.875,
+        73.75,
+        70.0,
+        86.9375,
+        90.0
+      ],
+      "target_observation": [
+        78.75,
+        51.875,
+        73.75,
+        70.0,
+        86.9375,
+        90.0
+      ]
+    },
+    "537": {
+      "reason": "Manual control: 22.9\u00b0 movement, 21.9\u00b0 action mismatch",
+      "movement": 22.875,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        80.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        85.3125,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        85.3125,
+        90.0
+      ]
+    },
+    "691": {
+      "reason": "Manual control: 2.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        74.0,
+        84.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        68.0,
+        84.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        68.0,
+        84.0,
+        90.0
+      ]
+    }
+  },
+  "processing_status": "SUCCESS - All corrections identified and applied",
+  "next_steps": "Use LeRobot dataset tools to create proper parquet with corrections"
+}

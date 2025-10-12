@@ -62,18 +62,21 @@ class RosmasterKeyboardTeleop(Teleoperator):
         self.listener = None
         self.logs = {}
         
-        # Initialize joint positions (middle position)
-        self.current_positions = np.array([90.0, 90.0, 90.0, 90.0, 90.0, 90.0], dtype=np.float32)
-        self.target_positions = self.current_positions.copy()
+        # Initialize joint positions - will be updated from robot feedback
+        self.current_positions = None  # Will be set from first robot feedback
+        self.target_positions = None
+        self.positions_initialized = False
         
         # Movement control to prevent sudden movements
         self.last_command_time = 0
-        self.command_rate_limit = 0.1  # Minimum 100ms between position changes
+        self.command_rate_limit = 0.05  # Reduced to 50ms for more responsive control
         self.position_locked = True  # Start with positions locked
         
         # Torque control state tracking
         self.torque_enabled = True  # Track current torque state
-        self.position_sync_enabled = True  # Whether to sync positions when torque disabled
+        self.position_sync_enabled = False  # Disable position sync by default for stability
+        self.active_control_time = 0  # Track when we last sent a command
+        self.active_control_timeout = 1.0  # 1000ms - disable feedback sync during active control
         
         # Key mapping for joint control
         self.key_to_joint_delta = {
@@ -153,9 +156,11 @@ class RosmasterKeyboardTeleop(Teleoperator):
                 print("  x: Disable torque (motors can be moved freely)")
                 print()
                 print("  SPACE: Lock/Unlock position (prevents accidental movement)")
+                print("  c: Toggle position feedback sync (for stability)")
                 print("  ESC: Disconnect")
                 print(f"  Step size: {self.config.joint_step}°")
                 print("  ⚠️  Position is LOCKED by default - press SPACE to unlock!")
+                print("  ⚠️  Position sync DISABLED by default for stability")
                 print()
             except Exception as e:
                 logging.error(f"❌ Failed to start keyboard listener: {e}")
@@ -188,9 +193,13 @@ class RosmasterKeyboardTeleop(Teleoperator):
                 if self.torque_enabled:
                     self.torque_enabled = False
                     print("🔴 Torque DISABLED - Motors can be moved freely by hand")
-                    print("   🔄 Position syncing active - move robot manually to update positions")
-                    print(f"   📍 Current positions before manual control: J1={self.current_positions[0]:.1f}° "
+                    print("   ⚠️  Position syncing DISABLED for stability")
+                    print(f"   📍 Current positions frozen at: J1={self.current_positions[0]:.1f}° "
                           f"J2={self.current_positions[1]:.1f}° J3={self.current_positions[2]:.1f}°...")
+            elif char == 'c':  # Toggle sync on/off with 'c'
+                self.position_sync_enabled = not self.position_sync_enabled
+                status = "ENABLED" if self.position_sync_enabled else "DISABLED"
+                print(f"🔄 Position syncing: {status}")
                 
         elif key == keyboard.Key.space:
             # Toggle position lock/unlock
@@ -225,6 +234,18 @@ class RosmasterKeyboardTeleop(Teleoperator):
             raise DeviceNotConnectedError(
                 "RosmasterKeyboardTeleop is not connected. You need to run `connect()` before `get_action()`."
             )
+
+        # Wait for position initialization from robot feedback
+        if not self.positions_initialized:
+            # Return neutral action until we get robot positions
+            action = {}
+            # Don't send any servo commands until initialized
+            action["v_x"] = 0.0
+            action["v_y"] = 0.0
+            action["v_z"] = 0.0
+            action["torque_enable"] = False
+            action["torque_disable"] = False
+            return action
 
         if self.config.mock:
             # Return current positions for mock mode
@@ -293,6 +314,7 @@ class RosmasterKeyboardTeleop(Teleoperator):
             # Update current positions and command time
             self.current_positions = new_positions
             self.last_command_time = current_time
+            self.active_control_time = current_time  # Mark that we're actively controlling
 
         self.logs["read_pos_dt_s"] = time.perf_counter() - before_read_t
 
@@ -318,34 +340,62 @@ class RosmasterKeyboardTeleop(Teleoperator):
 
     def send_feedback(self, feedback: dict[str, Any]) -> None:
         """Receive position feedback from robot and update internal positions."""
-        # Always update current positions with actual robot positions
-        positions_changed = False
-        for i in range(6):
-            servo_name = f"servo_{i+1}"
-            if servo_name in feedback:
-                new_position = float(feedback[servo_name])
-                # Check if position changed significantly
-                if abs(new_position - self.current_positions[i]) > 0.5:
-                    positions_changed = True
-                self.current_positions[i] = new_position
+        current_time = time.time()
         
-        # When torque is disabled, also update target positions to follow current positions
-        if not self.torque_enabled and self.position_sync_enabled:
-            if positions_changed:
-                # Update target positions to match current (manual) positions
-                self.target_positions = self.current_positions.copy()
+        # Initialize positions from first feedback
+        if not self.positions_initialized:
+            positions = []
+            for i in range(6):
+                servo_name = f"servo_{i+1}"
+                if servo_name in feedback:
+                    positions.append(float(feedback[servo_name]))
+                else:
+                    positions.append(90.0)  # Default if not available
+            
+            self.current_positions = np.array(positions, dtype=np.float32)
+            self.target_positions = self.current_positions.copy()
+            self.positions_initialized = True
+            print(f"📍 Positions initialized from robot: J1={self.current_positions[0]:.1f}° "
+                  f"J2={self.current_positions[1]:.1f}° J3={self.current_positions[2]:.1f}° "
+                  f"J4={self.current_positions[3]:.1f}° J5={self.current_positions[4]:.1f}° "
+                  f"J6={self.current_positions[5]:.1f}°")
+            return
+        
+        # Check if we're in active control mode (recently sent commands)
+        in_active_control = (current_time - self.active_control_time) < self.active_control_timeout
+        
+        # Only sync positions if we're NOT actively controlling and sync is enabled
+        if not in_active_control and self.position_sync_enabled:
+            positions_changed = False
+            for i in range(6):
+                servo_name = f"servo_{i+1}"
+                if servo_name in feedback:
+                    new_position = float(feedback[servo_name])
+                    # Check if position changed significantly
+                    if abs(new_position - self.current_positions[i]) > 0.5:
+                        positions_changed = True
+                    self.current_positions[i] = new_position
+            
+            # When torque is disabled, also update target positions to follow current positions
+            if not self.torque_enabled and self.position_sync_enabled:
+                if positions_changed:
+                    # Update target positions to match current (manual) positions
+                    self.target_positions = self.current_positions.copy()
+                        
+                # Print position sync info occasionally
+                if hasattr(self, '_sync_counter'):
+                    self._sync_counter += 1
+                else:
+                    self._sync_counter = 1
                     
-            # Print position sync info occasionally
-            if hasattr(self, '_sync_counter'):
-                self._sync_counter += 1
-            else:
-                self._sync_counter = 1
-                
-            if self._sync_counter % 50 == 1:  # Print every 50 calls to avoid spam
-                print(f"🔄 Syncing positions (torque disabled): "
-                      f"J1={self.current_positions[0]:.1f}° "
-                      f"J2={self.current_positions[1]:.1f}° "
-                      f"J3={self.current_positions[2]:.1f}°...")
+                if self._sync_counter % 50 == 1:  # Print every 50 calls to avoid spam
+                    print(f"🔄 Syncing positions (torque disabled): "
+                          f"J1={self.current_positions[0]:.1f}° "
+                          f"J2={self.current_positions[1]:.1f}° "
+                          f"J3={self.current_positions[2]:.1f}°...")
+        else:
+            # During active control, ignore feedback to prevent position fighting
+            pass
 
     def disconnect(self) -> None:
         if not self.is_connected:

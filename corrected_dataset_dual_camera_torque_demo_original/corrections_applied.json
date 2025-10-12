@@ -1,0 +1,8345 @@
+{
+  "original_repo": "NLTuan/dual_camera_torque_demo_original",
+  "total_frames": 743,
+  "corrections_applied": {
+    "observation_spikes_removed": 507,
+    "torque_corrections": 207,
+    "total_corrections": 714
+  },
+  "spike_details": [
+    {
+      "frame": 0,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0"
+    },
+    {
+      "frame": 1,
+      "method": "statistical_outlier",
+      "reason": ""
+    },
+    {
+      "frame": 5,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 5.0\u00b0"
+    },
+    {
+      "frame": 6,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 4.0\u00b0"
+    },
+    {
+      "frame": 7,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 5.0\u00b0"
+    },
+    {
+      "frame": 8,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 4.0\u00b0"
+    },
+    {
+      "frame": 9,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 4.0\u00b0"
+    },
+    {
+      "frame": 10,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 4.0\u00b0"
+    },
+    {
+      "frame": 11,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 4.0\u00b0"
+    },
+    {
+      "frame": 12,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 3.0\u00b0"
+    },
+    {
+      "frame": 13,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 4.0\u00b0"
+    },
+    {
+      "frame": 14,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 15,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 16,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 17,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 18,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 19,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 20,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 21,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 22,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 23,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 24,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 25,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 26,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 27,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 28,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 29,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 30,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 31,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 32,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 33,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 34,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 35,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 36,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 37,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 38,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 39,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 40,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 41,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 42,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 43,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 44,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 45,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 46,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 47,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 48,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 49,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 50,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 51,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 52,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 53,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 54,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 55,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 56,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 57,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 58,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 59,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 60,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 61,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 62,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 63,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 64,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 65,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 66,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 67,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 68,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 69,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 70,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 71,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 72,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 73,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 74,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 75,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 76,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 77,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 78,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 79,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 80,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 81,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 82,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 83,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 84,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 85,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 86,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 87,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 88,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 89,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 90,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 91,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 92,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 93,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 94,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 95,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 96,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 97,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 98,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 99,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 100,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 101,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 102,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 14.0\u00b0"
+    },
+    {
+      "frame": 103,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 16.0\u00b0"
+    },
+    {
+      "frame": 104,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 105,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 106,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 107,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 108,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 109,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 110,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 111,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 112,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 113,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 114,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 115,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 116,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 117,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 118,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 119,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 120,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 121,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 122,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 123,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 124,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 125,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 126,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 127,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 128,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 129,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 130,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 131,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 132,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 133,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 134,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 135,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 136,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 137,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 138,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 139,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 140,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 141,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 142,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 143,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 144,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 145,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 146,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 147,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 46.0\u00b0"
+    },
+    {
+      "frame": 148,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 46.0\u00b0"
+    },
+    {
+      "frame": 149,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 150,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 151,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 152,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 153,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 154,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 155,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 156,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 157,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 158,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 53.0\u00b0"
+    },
+    {
+      "frame": 159,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 54.0\u00b0"
+    },
+    {
+      "frame": 160,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 161,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 162,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 163,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 164,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 165,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 166,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 167,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 168,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 169,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 170,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 171,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 172,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 173,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 174,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 175,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 176,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 177,
+      "method": "90_degree_reset",
+      "reason": "5/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 178,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 179,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 180,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 181,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 182,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 183,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 184,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 185,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 186,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 187,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 188,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 71.0\u00b0"
+    },
+    {
+      "frame": 189,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 72.0\u00b0"
+    },
+    {
+      "frame": 190,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 191,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 192,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 193,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 194,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 195,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 196,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 197,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 198,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 199,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 200,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 201,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 202,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 203,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 204,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 205,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 206,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 207,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 208,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 209,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 210,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 211,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 212,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 213,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 214,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 215,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 216,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 217,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 218,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 219,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 220,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 221,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 222,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 223,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 224,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 225,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 226,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 227,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 228,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 229,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 230,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 231,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 232,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 233,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 234,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 235,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 236,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 237,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 238,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 239,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 240,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 241,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 242,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 243,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 244,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 245,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 246,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 247,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 248,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 249,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 250,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 251,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 252,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 253,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 254,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 255,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 256,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 257,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 258,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 259,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 260,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 261,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 262,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 263,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 264,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 265,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 266,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 267,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 268,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 269,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 270,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 271,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 272,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 273,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 274,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 275,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 276,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 277,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 278,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 90.0\u00b0"
+    },
+    {
+      "frame": 279,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 280,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 281,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 18.9\u00b0 from local mean"
+    },
+    {
+      "frame": 282,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 283,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 284,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 285,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 286,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 80.0\u00b0"
+    },
+    {
+      "frame": 287,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 75.0\u00b0"
+    },
+    {
+      "frame": 288,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 3.0\u00b0"
+    },
+    {
+      "frame": 289,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 290,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 3.0\u00b0"
+    },
+    {
+      "frame": 291,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 3.0\u00b0"
+    },
+    {
+      "frame": 292,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 293,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 294,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 295,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 296,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 297,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 298,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 299,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 300,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 301,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 302,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 303,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 304,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 305,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 306,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 307,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 308,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 309,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 310,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 311,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 312,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 313,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 314,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 315,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 316,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 317,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 318,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 319,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 320,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 321,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 49.0\u00b0"
+    },
+    {
+      "frame": 322,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 47.0\u00b0"
+    },
+    {
+      "frame": 323,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 324,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 2.0\u00b0"
+    },
+    {
+      "frame": 325,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 326,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 327,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 328,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 329,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 330,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 331,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 332,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 333,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 334,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 335,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 336,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 337,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 338,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 339,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 340,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 341,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 342,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 343,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 344,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 345,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 346,
+      "method": "90_degree_reset",
+      "reason": "4/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 347,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 348,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 349,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 350,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 351,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 352,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 353,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 354,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 355,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 356,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 357,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 358,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 359,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 360,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 361,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 362,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 363,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 364,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 365,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 366,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 367,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 368,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 369,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 370,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 40.0\u00b0"
+    },
+    {
+      "frame": 371,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 372,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 373,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 374,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 41.0\u00b0"
+    },
+    {
+      "frame": 375,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 42.0\u00b0"
+    },
+    {
+      "frame": 376,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 377,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 378,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 379,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 380,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 381,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 382,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 383,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 384,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 385,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 386,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 387,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 388,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 389,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 390,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 391,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 392,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 393,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 394,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 395,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 396,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 56.0\u00b0"
+    },
+    {
+      "frame": 397,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 57.0\u00b0"
+    },
+    {
+      "frame": 398,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 399,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 400,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 401,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 402,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 403,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 404,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 405,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 406,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 407,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 408,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 409,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 410,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 411,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 412,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 413,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 414,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 415,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 416,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 417,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 418,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 419,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 420,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 421,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 422,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 423,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 424,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 425,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 426,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 427,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 428,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 429,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 430,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 431,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 432,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 433,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 434,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 435,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 436,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 437,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 438,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 439,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 440,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 441,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 442,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 443,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 444,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 445,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 446,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 447,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 448,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 449,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 450,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 451,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 452,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 453,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 454,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 455,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 456,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 457,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 458,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 459,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 460,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 461,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 462,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 463,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 464,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 1.0\u00b0"
+    },
+    {
+      "frame": 465,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 466,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 467,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 0.0\u00b0"
+    },
+    {
+      "frame": 468,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 469,
+      "method": "90_degree_reset",
+      "reason": "3/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 470,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 480,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 481,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 482,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 483,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 509,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 510,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 511,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 512,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 528,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 529,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 530,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 531,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 12.2\u00b0 from local mean"
+    },
+    {
+      "frame": 533,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 18.3\u00b0 from local mean"
+    },
+    {
+      "frame": 534,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 535,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 536,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 12.2\u00b0 from local mean"
+    },
+    {
+      "frame": 537,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 538,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 539,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 12.2\u00b0 from local mean"
+    },
+    {
+      "frame": 559,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 560,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 561,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 562,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 584,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 585,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 586,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 587,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 613,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 614,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 615,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 616,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 629,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 630,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 631,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 632,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 642,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    },
+    {
+      "frame": 643,
+      "method": "90_degree_reset",
+      "reason": "6/6 joints at 90\u00b0, max change: 61.0\u00b0"
+    },
+    {
+      "frame": 644,
+      "method": "sudden_movement",
+      "reason": "Movement: 61.0\u00b0"
+    },
+    {
+      "frame": 645,
+      "method": "statistical_outlier",
+      "reason": "Outlier: 6.1\u00b0 from local mean"
+    }
+  ],
+  "torque_corrections": {
+    "0": {
+      "reason": "Manual control: 1.5\u00b0 movement, 43.0\u00b0 action mismatch",
+      "movement": 1.5,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        105.5,
+        48.5,
+        101.5,
+        89.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        105.5,
+        48.5,
+        101.5,
+        89.0,
+        90.0,
+        90.0
+      ]
+    },
+    "1": {
+      "reason": "Manual control: 4.5\u00b0 movement, 41.5\u00b0 action mismatch",
+      "movement": 4.5,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        107.0,
+        44.0,
+        103.0,
+        89.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        107.0,
+        44.0,
+        103.0,
+        89.0,
+        90.0,
+        90.0
+      ]
+    },
+    "2": {
+      "reason": "Manual control: 3.0\u00b0 movement, 46.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        106.0,
+        47.0,
+        102.0,
+        89.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        106.0,
+        47.0,
+        102.0,
+        89.0,
+        90.0,
+        90.0
+      ]
+    },
+    "3": {
+      "reason": "Manual control: 3.0\u00b0 movement, 43.0\u00b0 action mismatch",
+      "movement": 3.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        105.0,
+        50.0,
+        101.0,
+        89.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        105.0,
+        50.0,
+        101.0,
+        89.0,
+        90.0,
+        90.0
+      ]
+    },
+    "4": {
+      "reason": "Manual control: 6.0\u00b0 movement, 40.0\u00b0 action mismatch",
+      "movement": 6.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        103.0,
+        56.0,
+        100.5,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        103.0,
+        56.0,
+        100.5,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "5": {
+      "reason": "Manual control: 3.5\u00b0 movement, 34.0\u00b0 action mismatch",
+      "movement": 3.5,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        102.0,
+        59.5,
+        99.0,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        102.0,
+        59.5,
+        99.0,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "6": {
+      "reason": "Manual control: 3.5\u00b0 movement, 30.5\u00b0 action mismatch",
+      "movement": 3.5,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        100.5,
+        63.0,
+        98.0,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        100.5,
+        63.0,
+        98.0,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "7": {
+      "reason": "Manual control: 5.0\u00b0 movement, 27.0\u00b0 action mismatch",
+      "movement": 5.0,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        99.0,
+        68.0,
+        97.25,
+        89.75,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        99.0,
+        68.0,
+        97.25,
+        89.75,
+        90.0,
+        90.0
+      ]
+    },
+    "8": {
+      "reason": "Manual control: 3.2\u00b0 movement, 22.0\u00b0 action mismatch",
+      "movement": 3.25,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        98.0,
+        71.25,
+        96.0,
+        89.75,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        98.0,
+        71.25,
+        96.0,
+        89.75,
+        90.0,
+        90.0
+      ]
+    },
+    "9": {
+      "reason": "Manual control: 3.8\u00b0 movement, 18.8\u00b0 action mismatch",
+      "movement": 3.75,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        96.75,
+        75.0,
+        95.0,
+        89.75,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        96.75,
+        75.0,
+        95.0,
+        89.75,
+        90.0,
+        90.0
+      ]
+    },
+    "10": {
+      "reason": "Manual control: 3.5\u00b0 movement, 15.0\u00b0 action mismatch",
+      "movement": 3.5,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        95.0,
+        78.5,
+        94.625,
+        89.875,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        95.0,
+        78.5,
+        94.625,
+        89.875,
+        90.0,
+        90.0
+      ]
+    },
+    "11": {
+      "reason": "Manual control: 2.1\u00b0 movement, 11.5\u00b0 action mismatch",
+      "movement": 2.125,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.0,
+        80.625,
+        93.5,
+        89.875,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.0,
+        80.625,
+        93.5,
+        89.875,
+        90.0,
+        90.0
+      ]
+    },
+    "12": {
+      "reason": "Manual control: 2.4\u00b0 movement, 9.4\u00b0 action mismatch",
+      "movement": 2.375,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.375,
+        83.0,
+        93.0,
+        89.875,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.375,
+        83.0,
+        93.0,
+        89.875,
+        90.0,
+        90.0
+      ]
+    },
+    "13": {
+      "reason": "Manual control: 1.2\u00b0 movement, 7.0\u00b0 action mismatch",
+      "movement": 1.25,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.5,
+        84.25,
+        92.3125,
+        89.9375,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.5,
+        84.25,
+        92.3125,
+        89.9375,
+        90.0,
+        90.0
+      ]
+    },
+    "14": {
+      "reason": "Manual control: 1.1\u00b0 movement, 5.8\u00b0 action mismatch",
+      "movement": 1.0625,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        85.3125,
+        91.75,
+        89.9375,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        85.3125,
+        91.75,
+        89.9375,
+        90.0,
+        90.0
+      ]
+    },
+    "15": {
+      "reason": "Manual control: 1.2\u00b0 movement, 4.7\u00b0 action mismatch",
+      "movement": 1.1875,
+      "original_action": [
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.6875,
+        86.5,
+        91.5,
+        89.9375,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.6875,
+        86.5,
+        91.5,
+        89.9375,
+        90.0,
+        90.0
+      ]
+    },
+    "98": {
+      "reason": "Manual control: 6.6\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 6.57421875,
+      "original_action": [
+        90.0,
+        70.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        84.546875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        84.546875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "99": {
+      "reason": "Manual control: 8.4\u00b0 movement, 14.5\u00b0 action mismatch",
+      "movement": 8.447265625,
+      "original_action": [
+        90.0,
+        70.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        76.099609375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        76.099609375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "101": {
+      "reason": "Manual control: 2.8\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 2.787109375,
+      "original_action": [
+        90.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        78.7734375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        78.7734375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "102": {
+      "reason": "Manual control: 4.2\u00b0 movement, 10.8\u00b0 action mismatch",
+      "movement": 4.2236328125,
+      "original_action": [
+        90.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        74.5498046875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        74.5498046875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "105": {
+      "reason": "Manual control: 2.1\u00b0 movement, 8.9\u00b0 action mismatch",
+      "movement": 2.11181640625,
+      "original_action": [
+        90.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        72.77490234375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        72.77490234375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "108": {
+      "reason": "Manual control: 1.6\u00b0 movement, 7.9\u00b0 action mismatch",
+      "movement": 1.555908203125,
+      "original_action": [
+        90.0,
+        64.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        70.387451171875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        70.387451171875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "111": {
+      "reason": "Manual control: 1.3\u00b0 movement, 9.5\u00b0 action mismatch",
+      "movement": 1.2779541015625,
+      "original_action": [
+        90.0,
+        60.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        68.1937255859375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        68.1937255859375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "114": {
+      "reason": "Manual control: 1.1\u00b0 movement, 8.7\u00b0 action mismatch",
+      "movement": 1.13897705078125,
+      "original_action": [
+        90.0,
+        58.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        65.59686279296875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        65.59686279296875,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "117": {
+      "reason": "Manual control: 1.1\u00b0 movement, 8.4\u00b0 action mismatch",
+      "movement": 1.069488525390625,
+      "original_action": [
+        90.0,
+        56.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        63.298431396484375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        63.298431396484375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "120": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.2\u00b0 action mismatch",
+      "movement": 1.0347442626953125,
+      "original_action": [
+        90.0,
+        54.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        61.14921569824219,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        61.14921569824219,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "123": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.1\u00b0 action mismatch",
+      "movement": 1.0173721313476562,
+      "original_action": [
+        90.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        59.074607849121094,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        59.074607849121094,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "126": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 1.0086860656738281,
+      "original_action": [
+        90.0,
+        50.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        57.03730392456055,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        57.03730392456055,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "129": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 1.0043411254882812,
+      "original_action": [
+        90.0,
+        48.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        55.018653869628906,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        55.018653869628906,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "132": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 1.0021705627441406,
+      "original_action": [
+        90.0,
+        46.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        53.00932693481445,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        53.00932693481445,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "135": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 1.0010871887207031,
+      "original_action": [
+        90.0,
+        44.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        51.004661560058594,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        51.004661560058594,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "138": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 1.0005455017089844,
+      "original_action": [
+        90.0,
+        42.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        49.0023307800293,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        49.0023307800293,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "141": {
+      "reason": "Manual control: 1.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 1.0002708435058594,
+      "original_action": [
+        90.0,
+        40.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        47.00116729736328,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        47.00116729736328,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "143": {
+      "reason": "Manual control: 23.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 22.990463256835938,
+      "original_action": [
+        90.0,
+        38.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        69.00071716308594,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        69.00071716308594,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "144": {
+      "reason": "Manual control: 23.5\u00b0 movement, 31.0\u00b0 action mismatch",
+      "movement": 23.500133514404297,
+      "original_action": [
+        90.0,
+        38.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        45.50058364868164,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        45.50058364868164,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "146": {
+      "reason": "Manual control: 11.0\u00b0 movement, 8.5\u00b0 action mismatch",
+      "movement": 10.995231628417969,
+      "original_action": [
+        90.0,
+        36.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        55.50035858154297,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        55.50035858154297,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "147": {
+      "reason": "Manual control: 12.3\u00b0 movement, 19.5\u00b0 action mismatch",
+      "movement": 12.250068664550781,
+      "original_action": [
+        90.0,
+        36.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        43.25028991699219,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        43.25028991699219,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "149": {
+      "reason": "Manual control: 5.0\u00b0 movement, 8.8\u00b0 action mismatch",
+      "movement": 4.997615814208984,
+      "original_action": [
+        90.0,
+        34.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        47.750179290771484,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        47.750179290771484,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "150": {
+      "reason": "Manual control: 6.6\u00b0 movement, 13.8\u00b0 action mismatch",
+      "movement": 6.625034332275391,
+      "original_action": [
+        90.0,
+        34.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        41.125144958496094,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        41.125144958496094,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "152": {
+      "reason": "Manual control: 2.0\u00b0 movement, 8.9\u00b0 action mismatch",
+      "movement": 1.998809814453125,
+      "original_action": [
+        90.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        42.875091552734375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        42.875091552734375,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "153": {
+      "reason": "Manual control: 3.8\u00b0 movement, 10.9\u00b0 action mismatch",
+      "movement": 3.812519073486328,
+      "original_action": [
+        90.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        39.06257247924805,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        39.06257247924805,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "154": {
+      "reason": "Manual control: 26.4\u00b0 movement, 7.1\u00b0 action mismatch",
+      "movement": 26.375568389892578,
+      "original_action": [
+        90.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        65.43814086914062,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        65.43814086914062,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "155": {
+      "reason": "Manual control: 26.0\u00b0 movement, 35.4\u00b0 action mismatch",
+      "movement": 26.000595092773438,
+      "original_action": [
+        90.0,
+        30.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        39.43754577636719,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        39.43754577636719,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "156": {
+      "reason": "Manual control: 2.4\u00b0 movement, 9.4\u00b0 action mismatch",
+      "movement": 2.4062576293945312,
+      "original_action": [
+        90.0,
+        30.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        37.031288146972656,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        37.031288146972656,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "157": {
+      "reason": "Manual control: 12.7\u00b0 movement, 7.0\u00b0 action mismatch",
+      "movement": 12.687782287597656,
+      "original_action": [
+        90.0,
+        30.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        49.71907043457031,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        49.71907043457031,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "158": {
+      "reason": "Manual control: 13.0\u00b0 movement, 21.7\u00b0 action mismatch",
+      "movement": 13.000297546386719,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        36.718772888183594,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        36.718772888183594,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "159": {
+      "reason": "Manual control: 1.7\u00b0 movement, 8.7\u00b0 action mismatch",
+      "movement": 1.7031288146972656,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        35.01564407348633,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        35.01564407348633,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "160": {
+      "reason": "Manual control: 5.8\u00b0 movement, 7.0\u00b0 action mismatch",
+      "movement": 5.843891143798828,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        40.859535217285156,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        40.859535217285156,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "161": {
+      "reason": "Manual control: 6.5\u00b0 movement, 12.9\u00b0 action mismatch",
+      "movement": 6.500148773193359,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        34.3593864440918,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        34.3593864440918,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "162": {
+      "reason": "Manual control: 1.4\u00b0 movement, 6.4\u00b0 action mismatch",
+      "movement": 1.3515663146972656,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        33.00782012939453,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        33.00782012939453,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "163": {
+      "reason": "Manual control: 2.4\u00b0 movement, 5.0\u00b0 action mismatch",
+      "movement": 2.421947479248047,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        35.42976760864258,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        35.42976760864258,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "164": {
+      "reason": "Manual control: 3.3\u00b0 movement, 7.4\u00b0 action mismatch",
+      "movement": 3.250072479248047,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        32.17969512939453,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        32.17969512939453,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "165": {
+      "reason": "Manual control: 1.2\u00b0 movement, 4.2\u00b0 action mismatch",
+      "movement": 1.1757850646972656,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        31.003910064697266,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        31.003910064697266,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "166": {
+      "reason": "Manual control: 1.2\u00b0 movement, 3.0\u00b0 action mismatch",
+      "movement": 1.2109718322753906,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        32.214881896972656,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        32.214881896972656,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "167": {
+      "reason": "Manual control: 2.1\u00b0 movement, 4.2\u00b0 action mismatch",
+      "movement": 2.1250343322753906,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        30.089847564697266,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        30.089847564697266,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "170": {
+      "reason": "Manual control: 1.1\u00b0 movement, 1.6\u00b0 action mismatch",
+      "movement": 1.0625171661376953,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        28.544923782348633,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        28.544923782348633,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "184": {
+      "reason": "Manual control: 35.1\u00b0 movement, 7.1\u00b0 action mismatch",
+      "movement": 35.0970458984375,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        55.98773193359375,
+        89.3125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        55.98773193359375,
+        89.3125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "185": {
+      "reason": "Manual control: 36.1\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 36.095703125,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        19.89202880859375,
+        87.5625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        19.89202880859375,
+        87.5625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "187": {
+      "reason": "Manual control: 17.0\u00b0 movement, 9.1\u00b0 action mismatch",
+      "movement": 17.04852294921875,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        35.993865966796875,
+        87.65625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        35.993865966796875,
+        87.65625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "188": {
+      "reason": "Manual control: 18.5\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 18.5478515625,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        17.446014404296875,
+        86.78125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        17.446014404296875,
+        86.78125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "190": {
+      "reason": "Manual control: 8.0\u00b0 movement, 11.0\u00b0 action mismatch",
+      "movement": 8.024261474609375,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        24.996932983398438,
+        86.328125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        24.996932983398438,
+        86.328125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "191": {
+      "reason": "Manual control: 9.3\u00b0 movement, 3.7\u00b0 action mismatch",
+      "movement": 9.27392578125,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        15.723007202148438,
+        85.890625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        15.723007202148438,
+        85.890625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "193": {
+      "reason": "Manual control: 4.0\u00b0 movement, 13.0\u00b0 action mismatch",
+      "movement": 4.0121307373046875,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        18.99846649169922,
+        85.6640625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        18.99846649169922,
+        85.6640625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "194": {
+      "reason": "Manual control: 5.1\u00b0 movement, 9.0\u00b0 action mismatch",
+      "movement": 5.136962890625,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        13.861503601074219,
+        84.9453125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        13.861503601074219,
+        84.9453125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "196": {
+      "reason": "Manual control: 2.0\u00b0 movement, 15.0\u00b0 action mismatch",
+      "movement": 2.0060653686523438,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        14.99923324584961,
+        84.83203125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        14.99923324584961,
+        84.83203125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "197": {
+      "reason": "Manual control: 3.1\u00b0 movement, 13.0\u00b0 action mismatch",
+      "movement": 3.0684814453125,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        11.93075180053711,
+        84.47265625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        11.93075180053711,
+        84.47265625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "199": {
+      "reason": "Manual control: 1.0\u00b0 movement, 17.0\u00b0 action mismatch",
+      "movement": 1.0030326843261719,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        11.999616622924805,
+        83.916015625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        11.999616622924805,
+        83.916015625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "200": {
+      "reason": "Manual control: 2.0\u00b0 movement, 16.0\u00b0 action mismatch",
+      "movement": 2.03424072265625,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        9.965375900268555,
+        83.736328125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        9.965375900268555,
+        83.736328125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "203": {
+      "reason": "Manual control: 1.0\u00b0 movement, 19.0\u00b0 action mismatch",
+      "movement": 1.017120361328125,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        7.982687950134277,
+        82.8681640625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        7.982687950134277,
+        82.8681640625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "206": {
+      "reason": "Manual control: 1.0\u00b0 movement, 21.0\u00b0 action mismatch",
+      "movement": 1.0085601806640625,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        5.991343975067139,
+        81.93408203125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        5.991343975067139,
+        81.93408203125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "209": {
+      "reason": "Manual control: 1.0\u00b0 movement, 23.0\u00b0 action mismatch",
+      "movement": 1.0042803287506104,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        3.9956719875335693,
+        81.467041015625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        3.9956719875335693,
+        81.467041015625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "216": {
+      "reason": "Manual control: 44.6\u00b0 movement, 26.8\u00b0 action mismatch",
+      "movement": 44.62602996826172,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        45.87494659423828,
+        85.61611938476562,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        45.87494659423828,
+        85.61611938476562,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "217": {
+      "reason": "Manual control: 45.1\u00b0 movement, 17.9\u00b0 action mismatch",
+      "movement": 45.12495422363281,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.7499940395355225,
+        80.56118774414062,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.7499940395355225,
+        80.56118774414062,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "219": {
+      "reason": "Manual control: 22.3\u00b0 movement, 27.4\u00b0 action mismatch",
+      "movement": 22.31301498413086,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        22.93747329711914,
+        82.80805969238281,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        22.93747329711914,
+        82.80805969238281,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "220": {
+      "reason": "Manual control: 22.6\u00b0 movement, 7.2\u00b0 action mismatch",
+      "movement": 22.562477111816406,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.37499701976776123,
+        80.28059387207031,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.37499701976776123,
+        80.28059387207031,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "222": {
+      "reason": "Manual control: 56.2\u00b0 movement, 27.7\u00b0 action mismatch",
+      "movement": 56.1565055847168,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        56.46873474121094,
+        86.4040298461914,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        56.46873474121094,
+        86.4040298461914,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "223": {
+      "reason": "Manual control: 56.3\u00b0 movement, 28.5\u00b0 action mismatch",
+      "movement": 56.28123474121094,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.18749850988388062,
+        80.14029693603516,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.18749850988388062,
+        80.14029693603516,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "225": {
+      "reason": "Manual control: 28.1\u00b0 movement, 27.8\u00b0 action mismatch",
+      "movement": 28.0782527923584,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        28.23436737060547,
+        83.20201110839844,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        28.23436737060547,
+        83.20201110839844,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "226": {
+      "reason": "Manual control: 28.1\u00b0 movement, 6.8\u00b0 action mismatch",
+      "movement": 28.14061737060547,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.09374925494194031,
+        80.07014465332031,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.09374925494194031,
+        80.07014465332031,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "227": {
+      "reason": "Manual control: 45.0\u00b0 movement, 27.9\u00b0 action mismatch",
+      "movement": 44.98430633544922,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        45.07805633544922,
+        85.03854370117188,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        45.07805633544922,
+        85.03854370117188,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "228": {
+      "reason": "Manual control: 14.0\u00b0 movement, 17.1\u00b0 action mismatch",
+      "movement": 14.039127349853516,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        59.117183685302734,
+        86.60100555419922,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        59.117183685302734,
+        86.60100555419922,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "229": {
+      "reason": "Manual control: 59.1\u00b0 movement, 31.1\u00b0 action mismatch",
+      "movement": 59.070308685302734,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.046874627470970154,
+        80.03507232666016,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.046874627470970154,
+        80.03507232666016,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "230": {
+      "reason": "Manual control: 22.5\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 22.49215316772461,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        22.53902816772461,
+        82.51927185058594,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        22.53902816772461,
+        82.51927185058594,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "231": {
+      "reason": "Manual control: 7.0\u00b0 movement, 7.5\u00b0 action mismatch",
+      "movement": 7.019563674926758,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        29.558591842651367,
+        83.30050659179688,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        29.558591842651367,
+        83.30050659179688,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "232": {
+      "reason": "Manual control: 29.5\u00b0 movement, 6.7\u00b0 action mismatch",
+      "movement": 29.535154342651367,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.023437313735485077,
+        80.01753234863281,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.023437313735485077,
+        80.01753234863281,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "233": {
+      "reason": "Manual control: 11.2\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 11.246076583862305,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        11.269514083862305,
+        81.25963592529297,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        11.269514083862305,
+        81.25963592529297,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "234": {
+      "reason": "Manual control: 3.5\u00b0 movement, 16.7\u00b0 action mismatch",
+      "movement": 3.509781837463379,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        14.779295921325684,
+        81.65025329589844,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        14.779295921325684,
+        81.65025329589844,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "235": {
+      "reason": "Manual control: 14.8\u00b0 movement, 13.2\u00b0 action mismatch",
+      "movement": 14.767577171325684,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.011718656867742538,
+        80.0087661743164,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.011718656867742538,
+        80.0087661743164,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "236": {
+      "reason": "Manual control: 5.6\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 5.623038291931152,
+      "original_action": [
+        90.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        5.634757041931152,
+        80.62982177734375,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        5.634757041931152,
+        80.62982177734375,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "237": {
+      "reason": "Manual control: 1.8\u00b0 movement, 22.4\u00b0 action mismatch",
+      "movement": 1.7548909187316895,
+      "original_action": [
+        92.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        7.389647960662842,
+        80.82512664794922,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        7.389647960662842,
+        80.82512664794922,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "238": {
+      "reason": "Manual control: 7.4\u00b0 movement, 20.6\u00b0 action mismatch",
+      "movement": 7.383788585662842,
+      "original_action": [
+        92.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        0.005859328433871269,
+        80.00437927246094,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        0.005859328433871269,
+        80.00437927246094,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "239": {
+      "reason": "Manual control: 2.8\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 2.811519145965576,
+      "original_action": [
+        94.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.0,
+        2.817378520965576,
+        80.31491088867188,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.0,
+        2.817378520965576,
+        80.31491088867188,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "241": {
+      "reason": "Manual control: 3.7\u00b0 movement, 24.3\u00b0 action mismatch",
+      "movement": 3.691894292831421,
+      "original_action": [
+        94.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        90.5,
+        0.0029296642169356346,
+        80.00218963623047,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        90.5,
+        0.0029296642169356346,
+        80.00218963623047,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "242": {
+      "reason": "Manual control: 1.4\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 1.405759572982788,
+      "original_action": [
+        96.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.0,
+        1.408689260482788,
+        80.15745544433594,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.0,
+        1.408689260482788,
+        80.15745544433594,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "244": {
+      "reason": "Manual control: 1.8\u00b0 movement, 26.2\u00b0 action mismatch",
+      "movement": 1.8459471464157104,
+      "original_action": [
+        96.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.75,
+        0.0014648321084678173,
+        80.0010986328125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.75,
+        0.0014648321084678173,
+        80.0010986328125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "264": {
+      "reason": "Manual control: 45.0\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 45.00342559814453,
+      "original_action": [
+        98.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.654296875,
+        45.01443099975586,
+        85.0016098022461,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.654296875,
+        45.01443099975586,
+        85.0016098022461,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "265": {
+      "reason": "Manual control: 45.0\u00b0 movement, 17.0\u00b0 action mismatch",
+      "movement": 45.01441955566406,
+      "original_action": [
+        98.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        99.794921875,
+        1.1444000847404823e-05,
+        80.00000762939453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        99.794921875,
+        1.1444000847404823e-05,
+        80.00000762939453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "267": {
+      "reason": "Manual control: 22.5\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 22.501712799072266,
+      "original_action": [
+        96.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        96.8271484375,
+        22.50721549987793,
+        82.50080871582031,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        96.8271484375,
+        22.50721549987793,
+        82.50080871582031,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "268": {
+      "reason": "Manual control: 22.5\u00b0 movement, 7.5\u00b0 action mismatch",
+      "movement": 22.50720977783203,
+      "original_action": [
+        96.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        98.8974609375,
+        5.722000423702411e-06,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        98.8974609375,
+        5.722000423702411e-06,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "270": {
+      "reason": "Manual control: 11.3\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 11.250856399536133,
+      "original_action": [
+        94.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        97.41357421875,
+        11.253607749938965,
+        81.25040435791016,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        97.41357421875,
+        11.253607749938965,
+        81.25040435791016,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "271": {
+      "reason": "Manual control: 11.3\u00b0 movement, 16.7\u00b0 action mismatch",
+      "movement": 11.253604888916016,
+      "original_action": [
+        94.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        98.44873046875,
+        2.8610002118512057e-06,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        98.44873046875,
+        2.8610002118512057e-06,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "273": {
+      "reason": "Manual control: 50.6\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 50.62542724609375,
+      "original_action": [
+        92.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.706787109375,
+        50.62680435180664,
+        85.62519836425781,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.706787109375,
+        50.62680435180664,
+        85.62519836425781,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "274": {
+      "reason": "Manual control: 50.6\u00b0 movement, 22.6\u00b0 action mismatch",
+      "movement": 50.62680435180664,
+      "original_action": [
+        92.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        96.724365234375,
+        1.4305001059256028e-06,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        96.724365234375,
+        1.4305001059256028e-06,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "276": {
+      "reason": "Manual control: 25.8\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 25.812713623046875,
+      "original_action": [
+        92.0,
+        28.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.3533935546875,
+        25.81340217590332,
+        82.8125991821289,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.3533935546875,
+        25.81340217590332,
+        82.8125991821289,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "277": {
+      "reason": "Manual control: 24.8\u00b0 movement, 7.2\u00b0 action mismatch",
+      "movement": 24.81340217590332,
+      "original_action": [
+        92.0,
+        30.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        95.8621826171875,
+        1.0000007152557373,
+        80.0,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        95.8621826171875,
+        1.0000007152557373,
+        80.0,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "278": {
+      "reason": "Manual control: 1.0\u00b0 movement, 29.0\u00b0 action mismatch",
+      "movement": 1.0003430843353271,
+      "original_action": [
+        92.0,
+        30.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        95.24365234375,
+        2.0003437995910645,
+        80.00003814697266,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        95.24365234375,
+        2.0003437995910645,
+        80.00003814697266,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "279": {
+      "reason": "Manual control: 13.9\u00b0 movement, 28.0\u00b0 action mismatch",
+      "movement": 13.906356811523438,
+      "original_action": [
+        92.0,
+        30.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.17669677734375,
+        15.90670108795166,
+        81.40629577636719,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.17669677734375,
+        15.90670108795166,
+        81.40629577636719,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "280": {
+      "reason": "Manual control: 11.4\u00b0 movement, 16.1\u00b0 action mismatch",
+      "movement": 11.406700134277344,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.43109130859375,
+        4.500000476837158,
+        80.0,
+        89.75,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.43109130859375,
+        4.500000476837158,
+        80.0,
+        89.75,
+        90.0,
+        90.0
+      ]
+    },
+    "281": {
+      "reason": "Manual control: 1.5\u00b0 movement, 27.5\u00b0 action mismatch",
+      "movement": 1.500171184539795,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        94.121826171875,
+        6.000171661376953,
+        80.00001525878906,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        94.121826171875,
+        6.000171661376953,
+        80.00001525878906,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "282": {
+      "reason": "Manual control: 47.0\u00b0 movement, 26.0\u00b0 action mismatch",
+      "movement": 46.95317840576172,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.08834838867188,
+        52.95335006713867,
+        85.7031478881836,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.08834838867188,
+        52.95335006713867,
+        85.7031478881836,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "283": {
+      "reason": "Manual control: 43.2\u00b0 movement, 21.0\u00b0 action mismatch",
+      "movement": 43.20335006713867,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.21554565429688,
+        9.75,
+        80.0,
+        89.875,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.21554565429688,
+        9.75,
+        80.0,
+        89.875,
+        90.0,
+        90.0
+      ]
+    },
+    "284": {
+      "reason": "Manual control: 2.3\u00b0 movement, 22.2\u00b0 action mismatch",
+      "movement": 2.2500858306884766,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        93.0609130859375,
+        12.000085830688477,
+        80.00000762939453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        93.0609130859375,
+        12.000085830688477,
+        80.00000762939453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "285": {
+      "reason": "Manual control: 24.5\u00b0 movement, 20.0\u00b0 action mismatch",
+      "movement": 24.476591110229492,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.04417419433594,
+        36.47667694091797,
+        82.85157775878906,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.04417419433594,
+        36.47667694091797,
+        82.85157775878906,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "286": {
+      "reason": "Manual control: 20.1\u00b0 movement, 7.1\u00b0 action mismatch",
+      "movement": 20.10167694091797,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.60777282714844,
+        16.375,
+        80.0,
+        89.9375,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.60777282714844,
+        16.375,
+        80.0,
+        89.9375,
+        90.0,
+        90.0
+      ]
+    },
+    "287": {
+      "reason": "Manual control: 2.6\u00b0 movement, 15.6\u00b0 action mismatch",
+      "movement": 2.625041961669922,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.53045654296875,
+        19.000041961669922,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.53045654296875,
+        19.000041961669922,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "288": {
+      "reason": "Manual control: 13.2\u00b0 movement, 13.0\u00b0 action mismatch",
+      "movement": 13.238296508789062,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.02208709716797,
+        32.238338470458984,
+        81.42578887939453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.02208709716797,
+        32.238338470458984,
+        81.42578887939453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "289": {
+      "reason": "Manual control: 9.6\u00b0 movement, 8.6\u00b0 action mismatch",
+      "movement": 9.550838470458984,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.30388641357422,
+        22.6875,
+        80.0,
+        89.96875,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.30388641357422,
+        22.6875,
+        80.0,
+        89.96875,
+        90.0,
+        90.0
+      ]
+    },
+    "290": {
+      "reason": "Manual control: 1.8\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 1.812520980834961,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.26522827148438,
+        24.50002098083496,
+        80.5,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.26522827148438,
+        24.50002098083496,
+        80.5,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "291": {
+      "reason": "Manual control: 6.6\u00b0 movement, 9.5\u00b0 action mismatch",
+      "movement": 6.619148254394531,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.01104736328125,
+        31.119169235229492,
+        80.712890625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.01104736328125,
+        31.119169235229492,
+        80.712890625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "292": {
+      "reason": "Manual control: 4.8\u00b0 movement, 9.3\u00b0 action mismatch",
+      "movement": 4.775419235229492,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.15194702148438,
+        26.34375,
+        80.0,
+        89.984375,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.15194702148438,
+        26.34375,
+        80.0,
+        89.984375,
+        90.0,
+        90.0
+      ]
+    },
+    "294": {
+      "reason": "Manual control: 3.3\u00b0 movement, 9.8\u00b0 action mismatch",
+      "movement": 3.3095741271972656,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.00552368164062,
+        30.559585571289062,
+        80.3564453125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.00552368164062,
+        30.559585571289062,
+        80.3564453125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "295": {
+      "reason": "Manual control: 2.4\u00b0 movement, 9.6\u00b0 action mismatch",
+      "movement": 2.3877105712890625,
+      "original_action": [
+        92.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.07597351074219,
+        28.171875,
+        80.0,
+        89.9921875,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.07597351074219,
+        28.171875,
+        80.0,
+        89.9921875,
+        90.0,
+        90.0
+      ]
+    },
+    "297": {
+      "reason": "Manual control: 1.7\u00b0 movement, 9.9\u00b0 action mismatch",
+      "movement": 1.6547870635986328,
+      "original_action": [
+        92.0,
+        34.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.00276184082031,
+        30.27979278564453,
+        80.17822265625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.00276184082031,
+        30.27979278564453,
+        80.17822265625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "298": {
+      "reason": "Manual control: 1.2\u00b0 movement, 9.8\u00b0 action mismatch",
+      "movement": 1.1938552856445312,
+      "original_action": [
+        92.0,
+        34.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0379867553711,
+        29.0859375,
+        80.0,
+        89.99609375,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0379867553711,
+        29.0859375,
+        80.0,
+        89.99609375,
+        90.0,
+        90.0
+      ]
+    },
+    "300": {
+      "reason": "Manual control: 1.3\u00b0 movement, 9.9\u00b0 action mismatch",
+      "movement": 1.327392578125,
+      "original_action": [
+        92.0,
+        36.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.00138092041016,
+        30.639896392822266,
+        80.089111328125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.00138092041016,
+        30.639896392822266,
+        80.089111328125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "317": {
+      "reason": "Manual control: 24.6\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 24.6129150390625,
+      "original_action": [
+        92.0,
+        46.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.00051879882812,
+        63.6455078125,
+        85.0009765625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.00051879882812,
+        63.6455078125,
+        85.0009765625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "318": {
+      "reason": "Manual control: 23.1\u00b0 movement, 15.6\u00b0 action mismatch",
+      "movement": 23.104259490966797,
+      "original_action": [
+        92.0,
+        48.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0000228881836,
+        40.5412483215332,
+        80.00138854980469,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0000228881836,
+        40.5412483215332,
+        80.00138854980469,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "320": {
+      "reason": "Manual control: 13.3\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 13.30645751953125,
+      "original_action": [
+        92.0,
+        50.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.50025939941406,
+        54.32275390625,
+        82.50048828125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.50025939941406,
+        54.32275390625,
+        82.50048828125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "321": {
+      "reason": "Manual control: 11.1\u00b0 movement, 7.5\u00b0 action mismatch",
+      "movement": 11.052131652832031,
+      "original_action": [
+        92.0,
+        50.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.00001525878906,
+        43.27062225341797,
+        80.00069427490234,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.00001525878906,
+        43.27062225341797,
+        80.00069427490234,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "323": {
+      "reason": "Manual control: 7.2\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 7.153228759765625,
+      "original_action": [
+        92.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.75012969970703,
+        50.661376953125,
+        81.250244140625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.75012969970703,
+        50.661376953125,
+        81.250244140625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "324": {
+      "reason": "Manual control: 5.0\u00b0 movement, 8.7\u00b0 action mismatch",
+      "movement": 5.026065826416016,
+      "original_action": [
+        92.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.00000762939453,
+        45.635311126708984,
+        80.00035095214844,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.00000762939453,
+        45.635311126708984,
+        80.00035095214844,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "326": {
+      "reason": "Manual control: 4.1\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 4.0766143798828125,
+      "original_action": [
+        92.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.87506103515625,
+        49.8306884765625,
+        80.6251220703125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.87506103515625,
+        49.8306884765625,
+        80.6251220703125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "327": {
+      "reason": "Manual control: 2.0\u00b0 movement, 9.4\u00b0 action mismatch",
+      "movement": 2.013031005859375,
+      "original_action": [
+        92.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        47.817657470703125,
+        80.00017547607422,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        47.817657470703125,
+        80.00017547607422,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "329": {
+      "reason": "Manual control: 2.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 2.0383071899414062,
+      "original_action": [
+        92.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.93753051757812,
+        49.91534423828125,
+        80.31256103515625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.93753051757812,
+        49.91534423828125,
+        80.31256103515625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "330": {
+      "reason": "Manual control: 1.0\u00b0 movement, 9.7\u00b0 action mismatch",
+      "movement": 1.0065155029296875,
+      "original_action": [
+        90.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        92.0,
+        48.90882873535156,
+        80.00009155273438,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        92.0,
+        48.90882873535156,
+        80.00009155273438,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "332": {
+      "reason": "Manual control: 1.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 1.0191535949707031,
+      "original_action": [
+        90.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        91.46876525878906,
+        49.957672119140625,
+        80.15628051757812,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        91.46876525878906,
+        49.957672119140625,
+        80.15628051757812,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "342": {
+      "reason": "Manual control: 19.9\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 19.937091827392578,
+      "original_action": [
+        82.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        88.4375,
+        69.93180084228516,
+        80.00000762939453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        88.4375,
+        69.93180084228516,
+        80.00000762939453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "343": {
+      "reason": "Manual control: 20.0\u00b0 movement, 17.9\u00b0 action mismatch",
+      "movement": 19.99814224243164,
+      "original_action": [
+        82.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        88.125,
+        49.933658599853516,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        88.125,
+        49.933658599853516,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "345": {
+      "reason": "Manual control: 10.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 9.968547821044922,
+      "original_action": [
+        80.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        86.71875,
+        59.96590042114258,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        86.71875,
+        59.96590042114258,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "346": {
+      "reason": "Manual control: 10.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 9.999073028564453,
+      "original_action": [
+        80.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        86.5625,
+        49.966827392578125,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        86.5625,
+        49.966827392578125,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "348": {
+      "reason": "Manual control: 5.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 4.984272003173828,
+      "original_action": [
+        78.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        85.359375,
+        54.982948303222656,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        85.359375,
+        54.982948303222656,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "349": {
+      "reason": "Manual control: 5.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 4.999534606933594,
+      "original_action": [
+        78.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        84.78125,
+        49.98341369628906,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        84.78125,
+        49.98341369628906,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "351": {
+      "reason": "Manual control: 2.5\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 2.492137908935547,
+      "original_action": [
+        76.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        83.6796875,
+        52.49147415161133,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        83.6796875,
+        52.49147415161133,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "352": {
+      "reason": "Manual control: 2.5\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 2.499767303466797,
+      "original_action": [
+        76.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        82.890625,
+        49.99170684814453,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        82.890625,
+        49.99170684814453,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "354": {
+      "reason": "Manual control: 1.2\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 1.2460670471191406,
+      "original_action": [
+        74.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.83984375,
+        51.24573516845703,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.83984375,
+        51.24573516845703,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "355": {
+      "reason": "Manual control: 1.2\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 1.2498817443847656,
+      "original_action": [
+        74.0,
+        52.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        80.9453125,
+        49.995853424072266,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        80.9453125,
+        49.995853424072266,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "360": {
+      "reason": "Manual control: 20.3\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 20.31151580810547,
+      "original_action": [
+        72.0,
+        50.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        84.9599609375,
+        70.31143188476562,
+        85.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        84.9599609375,
+        70.31143188476562,
+        85.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "361": {
+      "reason": "Manual control: 20.3\u00b0 movement, 20.3\u00b0 action mismatch",
+      "movement": 20.312469482421875,
+      "original_action": [
+        72.0,
+        50.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        77.486328125,
+        49.99896240234375,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        77.486328125,
+        49.99896240234375,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "363": {
+      "reason": "Manual control: 10.2\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 10.155757904052734,
+      "original_action": [
+        72.0,
+        48.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        79.47998046875,
+        60.15571594238281,
+        82.5,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        79.47998046875,
+        60.15571594238281,
+        82.5,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "364": {
+      "reason": "Manual control: 10.2\u00b0 movement, 12.2\u00b0 action mismatch",
+      "movement": 10.156234741210938,
+      "original_action": [
+        72.0,
+        48.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        75.7431640625,
+        49.999481201171875,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        75.7431640625,
+        49.999481201171875,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "365": {
+      "reason": "Manual control: 20.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 20.00049591064453,
+      "original_action": [
+        72.0,
+        48.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        83.43333435058594,
+        69.9999771118164,
+        85.00007629394531,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        83.43333435058594,
+        69.9999771118164,
+        85.00007629394531,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "366": {
+      "reason": "Manual control: 14.9\u00b0 movement, 24.0\u00b0 action mismatch",
+      "movement": 14.922119140625,
+      "original_action": [
+        72.0,
+        46.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.239990234375,
+        55.077857971191406,
+        81.25,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.239990234375,
+        55.077857971191406,
+        81.25,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "367": {
+      "reason": "Manual control: 5.1\u00b0 movement, 9.1\u00b0 action mismatch",
+      "movement": 5.078117370605469,
+      "original_action": [
+        72.0,
+        46.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        73.87158203125,
+        49.99974060058594,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        73.87158203125,
+        49.99974060058594,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "368": {
+      "reason": "Manual control: 10.0\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 10.000247955322266,
+      "original_action": [
+        72.0,
+        46.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        77.71666717529297,
+        59.9999885559082,
+        82.50003814697266,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        77.71666717529297,
+        59.9999885559082,
+        82.50003814697266,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "369": {
+      "reason": "Manual control: 8.0\u00b0 movement, 16.0\u00b0 action mismatch",
+      "movement": 7.9610595703125,
+      "original_action": [
+        72.0,
+        44.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        74.1199951171875,
+        52.0389289855957,
+        80.625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        74.1199951171875,
+        52.0389289855957,
+        80.625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "370": {
+      "reason": "Manual control: 18.0\u00b0 movement, 9.4\u00b0 action mismatch",
+      "movement": 17.960941314697266,
+      "original_action": [
+        72.0,
+        44.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.935791015625,
+        69.99987030029297,
+        85.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.935791015625,
+        69.99987030029297,
+        85.0,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "371": {
+      "reason": "Manual control: 16.0\u00b0 movement, 26.0\u00b0 action mismatch",
+      "movement": 15.9998779296875,
+      "original_action": [
+        72.0,
+        44.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        74.85833740234375,
+        53.99999237060547,
+        81.25001525878906,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        74.85833740234375,
+        53.99999237060547,
+        81.25001525878906,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "372": {
+      "reason": "Manual control: 4.5\u00b0 movement, 12.0\u00b0 action mismatch",
+      "movement": 4.48052978515625,
+      "original_action": [
+        72.0,
+        42.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        73.05999755859375,
+        49.51946258544922,
+        80.3125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        73.05999755859375,
+        49.51946258544922,
+        80.3125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "373": {
+      "reason": "Manual control: 9.0\u00b0 movement, 9.7\u00b0 action mismatch",
+      "movement": 8.980472564697266,
+      "original_action": [
+        72.0,
+        42.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.9678955078125,
+        58.499935150146484,
+        82.5,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.9678955078125,
+        58.499935150146484,
+        82.5,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "374": {
+      "reason": "Manual control: 8.5\u00b0 movement, 16.5\u00b0 action mismatch",
+      "movement": 8.49993896484375,
+      "original_action": [
+        72.0,
+        42.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        73.42916870117188,
+        49.999996185302734,
+        80.62500762939453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        73.42916870117188,
+        49.999996185302734,
+        80.62500762939453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "375": {
+      "reason": "Manual control: 2.7\u00b0 movement, 10.0\u00b0 action mismatch",
+      "movement": 2.740264892578125,
+      "original_action": [
+        72.0,
+        40.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.52999877929688,
+        47.25973129272461,
+        80.15625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.52999877929688,
+        47.25973129272461,
+        80.15625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "376": {
+      "reason": "Manual control: 4.0\u00b0 movement, 9.8\u00b0 action mismatch",
+      "movement": 3.9902381896972656,
+      "original_action": [
+        72.0,
+        40.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        74.48394775390625,
+        51.249969482421875,
+        81.25,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        74.48394775390625,
+        51.249969482421875,
+        81.25,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "377": {
+      "reason": "Manual control: 4.2\u00b0 movement, 13.2\u00b0 action mismatch",
+      "movement": 4.249969482421875,
+      "original_action": [
+        72.0,
+        38.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.71458435058594,
+        47.0,
+        80.3125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.71458435058594,
+        47.0,
+        80.3125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "378": {
+      "reason": "Manual control: 1.9\u00b0 movement, 9.7\u00b0 action mismatch",
+      "movement": 1.8701324462890625,
+      "original_action": [
+        72.0,
+        38.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.26499938964844,
+        45.12986755371094,
+        80.078125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.26499938964844,
+        45.12986755371094,
+        80.078125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "379": {
+      "reason": "Manual control: 2.0\u00b0 movement, 9.9\u00b0 action mismatch",
+      "movement": 1.9951171875,
+      "original_action": [
+        72.0,
+        38.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        73.24197387695312,
+        47.12498474121094,
+        80.625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        73.24197387695312,
+        47.12498474121094,
+        80.625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "380": {
+      "reason": "Manual control: 2.6\u00b0 movement, 11.1\u00b0 action mismatch",
+      "movement": 2.6249847412109375,
+      "original_action": [
+        72.0,
+        36.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.35729217529297,
+        44.5,
+        80.15625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.35729217529297,
+        44.5,
+        80.15625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "383": {
+      "reason": "Manual control: 1.8\u00b0 movement, 10.1\u00b0 action mismatch",
+      "movement": 1.8124923706054688,
+      "original_action": [
+        72.0,
+        34.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.17864990234375,
+        42.25,
+        80.078125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.17864990234375,
+        42.25,
+        80.078125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "386": {
+      "reason": "Manual control: 1.4\u00b0 movement, 9.8\u00b0 action mismatch",
+      "movement": 1.4062461853027344,
+      "original_action": [
+        72.0,
+        32.0,
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.08932495117188,
+        40.125,
+        80.0390625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.08932495117188,
+        40.125,
+        80.0390625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "392": {
+      "reason": "Manual control: 27.6\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 27.6484375,
+      "original_action": [
+        72.0,
+        30.0,
+        88.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.02233123779297,
+        64.03125,
+        85.009765625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.02233123779297,
+        64.03125,
+        85.009765625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "393": {
+      "reason": "Manual control: 28.9\u00b0 movement, 34.0\u00b0 action mismatch",
+      "movement": 28.933441162109375,
+      "original_action": [
+        72.0,
+        30.0,
+        88.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00828552246094,
+        35.097808837890625,
+        80.50244140625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00828552246094,
+        35.097808837890625,
+        80.50244140625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "395": {
+      "reason": "Manual control: 13.3\u00b0 movement, 5.0\u00b0 action mismatch",
+      "movement": 13.32421875,
+      "original_action": [
+        72.0,
+        30.0,
+        86.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.51116943359375,
+        47.515625,
+        83.5048828125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.51116943359375,
+        47.515625,
+        83.5048828125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "396": {
+      "reason": "Manual control: 14.5\u00b0 movement, 17.5\u00b0 action mismatch",
+      "movement": 14.466720581054688,
+      "original_action": [
+        72.0,
+        30.0,
+        86.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00414276123047,
+        33.04890441894531,
+        81.751220703125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00414276123047,
+        33.04890441894531,
+        81.751220703125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "398": {
+      "reason": "Manual control: 6.2\u00b0 movement, 2.1\u00b0 action mismatch",
+      "movement": 6.162109375,
+      "original_action": [
+        72.0,
+        30.0,
+        84.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        74.25558471679688,
+        38.2578125,
+        83.25244140625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        74.25558471679688,
+        38.2578125,
+        83.25244140625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "399": {
+      "reason": "Manual control: 7.2\u00b0 movement, 8.3\u00b0 action mismatch",
+      "movement": 7.233360290527344,
+      "original_action": [
+        72.0,
+        30.0,
+        84.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0020751953125,
+        31.024452209472656,
+        82.3756103515625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0020751953125,
+        31.024452209472656,
+        82.3756103515625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "402": {
+      "reason": "Manual control: 3.6\u00b0 movement, 3.6\u00b0 action mismatch",
+      "movement": 3.616680145263672,
+      "original_action": [
+        72.0,
+        30.0,
+        82.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00103759765625,
+        30.012226104736328,
+        82.68780517578125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00103759765625,
+        30.012226104736328,
+        82.68780517578125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "404": {
+      "reason": "Manual control: 1.5\u00b0 movement, 2.8\u00b0 action mismatch",
+      "movement": 1.54052734375,
+      "original_action": [
+        72.0,
+        30.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.56389617919922,
+        31.314453125,
+        83.0631103515625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.56389617919922,
+        31.314453125,
+        83.0631103515625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "405": {
+      "reason": "Manual control: 1.8\u00b0 movement, 3.1\u00b0 action mismatch",
+      "movement": 1.808340072631836,
+      "original_action": [
+        72.0,
+        30.0,
+        80.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00051879882812,
+        29.506113052368164,
+        82.84390258789062,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00051879882812,
+        29.506113052368164,
+        82.84390258789062,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "417": {
+      "reason": "Manual control: 30.4\u00b0 movement, 6.3\u00b0 action mismatch",
+      "movement": 30.386978149414062,
+      "original_action": [
+        72.0,
+        30.0,
+        72.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.00003051757812,
+        59.53163146972656,
+        84.61524200439453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.00003051757812,
+        59.53163146972656,
+        84.61524200439453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "418": {
+      "reason": "Manual control: 30.5\u00b0 movement, 29.5\u00b0 action mismatch",
+      "movement": 30.5074462890625,
+      "original_action": [
+        72.0,
+        30.0,
+        70.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00015258789062,
+        29.024185180664062,
+        76.77351379394531,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00015258789062,
+        29.024185180664062,
+        76.77351379394531,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "420": {
+      "reason": "Manual control: 15.2\u00b0 movement, 6.7\u00b0 action mismatch",
+      "movement": 15.193489074707031,
+      "original_action": [
+        72.0,
+        30.0,
+        70.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.50001525878906,
+        44.26581573486328,
+        79.8076171875,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.50001525878906,
+        44.26581573486328,
+        79.8076171875,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "421": {
+      "reason": "Manual control: 15.2\u00b0 movement, 14.3\u00b0 action mismatch",
+      "movement": 15.24627685546875,
+      "original_action": [
+        72.0,
+        30.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.00007629394531,
+        59.51209259033203,
+        83.38675689697266,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.00007629394531,
+        59.51209259033203,
+        83.38675689697266,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "422": {
+      "reason": "Manual control: 30.5\u00b0 movement, 29.5\u00b0 action mismatch",
+      "movement": 30.475929260253906,
+      "original_action": [
+        72.0,
+        30.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0088119506836,
+        29.036163330078125,
+        74.82910919189453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0088119506836,
+        29.036163330078125,
+        74.82910919189453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "423": {
+      "reason": "Manual control: 7.6\u00b0 movement, 6.8\u00b0 action mismatch",
+      "movement": 7.596744537353516,
+      "original_action": [
+        72.0,
+        30.0,
+        68.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        74.25000762939453,
+        36.63290786743164,
+        76.40380859375,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        74.25000762939453,
+        36.63290786743164,
+        76.40380859375,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "424": {
+      "reason": "Manual control: 7.6\u00b0 movement, 10.4\u00b0 action mismatch",
+      "movement": 7.623138427734375,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.50003814697266,
+        44.256046295166016,
+        77.69337463378906,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.50003814697266,
+        44.256046295166016,
+        77.69337463378906,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "425": {
+      "reason": "Manual control: 15.2\u00b0 movement, 14.3\u00b0 action mismatch",
+      "movement": 15.237964630126953,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00440979003906,
+        29.018081665039062,
+        72.91455078125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00440979003906,
+        29.018081665039062,
+        72.91455078125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "426": {
+      "reason": "Manual control: 3.8\u00b0 movement, 6.9\u00b0 action mismatch",
+      "movement": 3.798370361328125,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        73.125,
+        32.81645202636719,
+        73.701904296875,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        73.125,
+        32.81645202636719,
+        73.701904296875,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "427": {
+      "reason": "Manual control: 3.8\u00b0 movement, 9.7\u00b0 action mismatch",
+      "movement": 3.8115692138671875,
+      "original_action": [
+        72.0,
+        30.0,
+        64.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        74.25001525878906,
+        36.628021240234375,
+        73.84668731689453,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        74.25001525878906,
+        36.628021240234375,
+        73.84668731689453,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "428": {
+      "reason": "Manual control: 7.6\u00b0 movement, 9.8\u00b0 action mismatch",
+      "movement": 7.618980407714844,
+      "original_action": [
+        72.0,
+        30.0,
+        64.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00220489501953,
+        29.00904083251953,
+        70.957275390625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00220489501953,
+        29.00904083251953,
+        70.957275390625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "429": {
+      "reason": "Manual control: 1.9\u00b0 movement, 7.0\u00b0 action mismatch",
+      "movement": 1.8991851806640625,
+      "original_action": [
+        72.0,
+        30.0,
+        64.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.5625,
+        30.908226013183594,
+        71.3509521484375,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.5625,
+        30.908226013183594,
+        71.3509521484375,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "430": {
+      "reason": "Manual control: 1.9\u00b0 movement, 9.4\u00b0 action mismatch",
+      "movement": 1.9057846069335938,
+      "original_action": [
+        72.0,
+        30.0,
+        62.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        73.12500762939453,
+        32.81401062011719,
+        70.92333984375,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        73.12500762939453,
+        32.81401062011719,
+        70.92333984375,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "431": {
+      "reason": "Manual control: 3.8\u00b0 movement, 8.9\u00b0 action mismatch",
+      "movement": 3.809490203857422,
+      "original_action": [
+        72.0,
+        30.0,
+        62.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0010986328125,
+        29.004520416259766,
+        69.4786376953125,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0010986328125,
+        29.004520416259766,
+        69.4786376953125,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "434": {
+      "reason": "Manual control: 1.9\u00b0 movement, 8.5\u00b0 action mismatch",
+      "movement": 1.904745101928711,
+      "original_action": [
+        72.0,
+        30.0,
+        60.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00054931640625,
+        29.002260208129883,
+        67.23931884765625,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00054931640625,
+        29.002260208129883,
+        67.23931884765625,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "437": {
+      "reason": "Manual control: 1.1\u00b0 movement, 8.2\u00b0 action mismatch",
+      "movement": 1.111175537109375,
+      "original_action": [
+        72.0,
+        30.0,
+        58.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00027465820312,
+        29.001129150390625,
+        65.11965942382812,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00027465820312,
+        29.001129150390625,
+        65.11965942382812,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "440": {
+      "reason": "Manual control: 1.1\u00b0 movement, 8.1\u00b0 action mismatch",
+      "movement": 1.0555877685546875,
+      "original_action": [
+        72.0,
+        30.0,
+        56.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00013732910156,
+        29.000564575195312,
+        63.05982971191406,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00013732910156,
+        29.000564575195312,
+        63.05982971191406,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "443": {
+      "reason": "Manual control: 1.0\u00b0 movement, 6.1\u00b0 action mismatch",
+      "movement": 1.0277938842773438,
+      "original_action": [
+        72.0,
+        30.0,
+        56.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00006866455078,
+        29.000282287597656,
+        61.02991485595703,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00006866455078,
+        29.000282287597656,
+        61.02991485595703,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "464": {
+      "reason": "Manual control: 30.5\u00b0 movement, 2.7\u00b0 action mismatch",
+      "movement": 30.498138427734375,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.0,
+        59.5,
+        76.42210388183594,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        81.0,
+        59.5,
+        76.42210388183594,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "465": {
+      "reason": "Manual control: 30.5\u00b0 movement, 29.5\u00b0 action mismatch",
+      "movement": 30.499534606933594,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        88.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00013732910156,
+        29.000465393066406,
+        63.484458923339844,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00013732910156,
+        29.000465393066406,
+        63.484458923339844,
+        90.0,
+        90.0,
+        90.0
+      ]
+    },
+    "467": {
+      "reason": "Manual control: 15.2\u00b0 movement, 2.4\u00b0 action mismatch",
+      "movement": 15.249069213867188,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        88.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        76.5,
+        44.25,
+        70.21105194091797,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        76.5,
+        44.25,
+        70.21105194091797,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "468": {
+      "reason": "Manual control: 15.2\u00b0 movement, 14.2\u00b0 action mismatch",
+      "movement": 15.249767303466797,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        86.0,
+        90.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.00006866455078,
+        29.000232696533203,
+        63.74222946166992,
+        89.5,
+        90.0,
+        90.0
+      ],
+      "target_observation": [
+        72.00006866455078,
+        29.000232696533203,
+        63.74222946166992,
+        89.5,
+        90.0,
+        90.0
+      ]
+    },
+    "530": {
+      "reason": "Manual control: 30.5\u00b0 movement, 5.0\u00b0 action mismatch",
+      "movement": 30.5,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        84.0,
+        90.0
+      ],
+      "corrected_action": [
+        81.0,
+        59.5,
+        77.0,
+        74.0,
+        89.75,
+        90.0
+      ],
+      "target_observation": [
+        81.0,
+        59.5,
+        77.0,
+        74.0,
+        89.75,
+        90.0
+      ]
+    },
+    "531": {
+      "reason": "Manual control: 30.5\u00b0 movement, 29.5\u00b0 action mismatch",
+      "movement": 30.5,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        84.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        89.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        89.0,
+        90.0
+      ]
+    },
+    "532": {
+      "reason": "Manual control: 1.5\u00b0 movement, 7.0\u00b0 action mismatch",
+      "movement": 1.5,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        82.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        87.5,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        87.5,
+        90.0
+      ]
+    },
+    "533": {
+      "reason": "Manual control: 45.8\u00b0 movement, 5.5\u00b0 action mismatch",
+      "movement": 45.75,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        82.0,
+        90.0
+      ],
+      "corrected_action": [
+        85.5,
+        74.75,
+        83.5,
+        82.0,
+        89.875,
+        90.0
+      ],
+      "target_observation": [
+        85.5,
+        74.75,
+        83.5,
+        82.0,
+        89.875,
+        90.0
+      ]
+    },
+    "534": {
+      "reason": "Manual control: 45.8\u00b0 movement, 44.8\u00b0 action mismatch",
+      "movement": 45.75,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        82.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        87.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        87.0,
+        90.0
+      ]
+    },
+    "536": {
+      "reason": "Manual control: 22.9\u00b0 movement, 6.2\u00b0 action mismatch",
+      "movement": 22.875,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        80.0,
+        90.0
+      ],
+      "corrected_action": [
+        78.75,
+        51.875,
+        73.75,
+        70.0,
+        86.9375,
+        90.0
+      ],
+      "target_observation": [
+        78.75,
+        51.875,
+        73.75,
+        70.0,
+        86.9375,
+        90.0
+      ]
+    },
+    "537": {
+      "reason": "Manual control: 22.9\u00b0 movement, 21.9\u00b0 action mismatch",
+      "movement": 22.875,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        58.0,
+        80.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        85.5,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        58.0,
+        85.5,
+        90.0
+      ]
+    },
+    "691": {
+      "reason": "Manual control: 2.0\u00b0 movement, 8.0\u00b0 action mismatch",
+      "movement": 2.0,
+      "original_action": [
+        72.0,
+        30.0,
+        66.0,
+        74.0,
+        84.0,
+        90.0
+      ],
+      "corrected_action": [
+        72.0,
+        29.0,
+        64.0,
+        68.0,
+        84.0,
+        90.0
+      ],
+      "target_observation": [
+        72.0,
+        29.0,
+        64.0,
+        68.0,
+        84.0,
+        90.0
+      ]
+    }
+  },
+  "status": "SUCCESS - All corrections applied and dataset uploaded"
+}
