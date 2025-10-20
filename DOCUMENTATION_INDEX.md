@@ -38,12 +38,12 @@ This directory contains comprehensive documentation for recording data with the 
 lerobot-find-cameras opencv
 
 # Test robot connection
-ls -la /dev/ttyUSB0
+ls -la /dev/myserial
 
 # Test teleoperation
 lerobot-teleoperate \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
   --display_data=true
@@ -53,7 +53,7 @@ lerobot-teleoperate \
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
   --dataset.repo_id="local_user/my_first_recording" \
@@ -73,7 +73,7 @@ huggingface-cli login
 # Record and upload to Hub
 lerobot-record \
   --robot.type=rosmaster \
-  --robot.com="/dev/ttyUSB0" \
+  --robot.com="/dev/myserial" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
   --teleop.type=rosmaster_keyboard \
   --dataset.repo_id="username/my_shared_dataset" \
