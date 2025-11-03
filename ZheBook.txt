@@ -1,7 +1,7 @@
 # Rosmaster Robot LeRobot Usage Guide
 
 ## Overview
-This guide covers the complete usage of the Rosmaster robot with LeRobot framework, including three teleoperation methods and data recording capabilities.
+This guide covers the complete usage of the Rosmaster robot with LeRobot framework, including teleoperation and data recording capabilities using the combined arm+base control teleoperator.
 
 ## Hardware Setup
 - **Robot**: Yahboom Rosmaster 6-DOF robot arm with mecanum wheel base
@@ -14,11 +14,11 @@ This guide covers the complete usage of the Rosmaster robot with LeRobot framewo
 - **Joint Range**: Each servo operates from 0° to 180°
 - **Base Movement**: 4x mecanum wheels supporting omnidirectional movement
 
-## Teleoperation Methods
+## Teleoperation Method
 
-### 1. Keyboard Teleoperator (rosmaster_keyboard)
+### Combined Teleoperator (rosmaster_combined)
 
-The keyboard teleoperator provides real-time control using keyboard keys.
+The combined teleoperator provides unified control of both the robot arm and mecanum wheel base through a single keyboard interface.
 
 #### Command:
 ```bash
@@ -28,8 +28,10 @@ lerobot-teleoperate \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
-  --teleop.type=rosmaster_keyboard \
-  --teleop.joint_step=10.0 \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --display_data=true
 
 # Alternative: Use both cameras (may have stability issues with /dev/video0)
@@ -38,17 +40,31 @@ lerobot-teleoperate \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras='{"front": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
-  --teleop.type=rosmaster_keyboard \
-  --teleop.joint_step=10.0 \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --display_data=true
 ```
 
 #### Key Controls:
+
+**Mecanum Wheel Controls (Base Movement):**
+- **w/s**: Forward/Backward movement
+- **a/d**: Strafe Left/Right movement  
+- **q/e**: Rotate Left/Right
+
+**Arm Joint Controls:**
 - **t/g**: Joint 1 (+/-) - Base rotation
 - **y/h**: Joint 2 (+/-) - Shoulder
-- **u/j**: Joint 3 (+/-) - Elbow  
+- **u/j**: Joint 3 (+/-) - Elbow
 - **i/k**: Joint 4 (+/-) - Wrist pitch
 - **o/l**: Joint 5 (+/-) - Wrist roll
+- **p/;**: Joint 6 (+/-) - Gripper
+
+**Safety Controls:**
+- **SPACE**: Lock/Unlock all controls (SAFETY FEATURE)
+- **ESC**: Disconnect
 - **p/;**: Joint 6 (+/-) - Gripper
 - **SPACE**: Lock/Unlock position (SAFETY FEATURE - robot starts locked!)
 - **ESC**: Disconnect and exit
@@ -66,174 +82,6 @@ lerobot-teleoperate \
 - Robot starts with position LOCKED - you must press SPACE to unlock
 - Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
 - Always lock position when not actively controlling
-
-### 2. Mecanum Wheel Teleoperator (rosmaster_mecanum)
-
-The mecanum wheel teleoperator provides real-time control of the robot's base movement using 4 mecanum wheels.
-
-#### Command:
-```bash
-lerobot-teleoperate \
-  --robot.type=rosmaster \
-  --robot.com="/dev/myserial" \
-  --robot.id="my_rosmaster_robot" \
-  --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
-  --teleop.type=rosmaster_mecanum \
-  --teleop.movement_step=0.3 \
-  --teleop.rotation_step=0.5 \
-  --display_data=true
-```
-
-#### Key Controls:
-- **w/s**: Forward/Backward movement
-- **a/d**: Strafe Left/Right movement  
-- **q/e**: Rotate Left/Right
-- **SPACE**: Lock/Unlock movement (SAFETY FEATURE - robot starts locked!)
-- **ESC**: Disconnect and exit
-
-#### Usage Steps:
-1. Run the command above
-2. **IMPORTANT**: Press SPACE to unlock the robot (starts locked for safety)
-3. Use WASD keys for movement, Q/E for rotation
-4. Press SPACE again to lock movement when done
-5. Press ESC to exit
-
-#### Safety Notes:
-- Robot starts with movement LOCKED - you must press SPACE to unlock
-- Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
-- Movement is limited to safe velocities: v_x/v_y ±1.0 m/s, v_z ±5.0 rad/s
-- Always lock movement when not actively controlling
-
-### 3. Combined Teleoperator (rosmaster_combined)
-
-The combined teleoperator provides simultaneous control of both mecanum wheels and robot arm using separate key sets.
-
-#### Command:
-```bash
-# Recommended: Single reliable camera
-lerobot-teleoperate \
-  --robot.type=rosmaster \
-  --robot.com="/dev/myserial" \
-  --robot.id="my_rosmaster_robot" \
-  --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
-  --teleop.type=rosmaster_combined \
-  --teleop.movement_step=0.3 \
-  --teleop.rotation_step=0.5 \
-  --teleop.joint_step=10.0 \
-  --display_data=true
-
-# Alternative: Dual cameras (if both stable)
-lerobot-teleoperate \
-  --robot.type=rosmaster \
-  --robot.com="/dev/myserial" \
-  --robot.id="my_rosmaster_robot" \
-  --robot.cameras='{"front": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
-  --teleop.type=rosmaster_combined \
-  --teleop.movement_step=0.3 \
-  --teleop.rotation_step=0.5 \
-  --teleop.joint_step=10.0 \
-  --display_data=true
-```
-
-#### Key Controls:
-
-**Mecanum Wheels (WASDQE):**
-- **W/S**: Forward/Backward movement
-- **A/D**: Strafe Left/Right movement  
-- **Q/E**: Rotate Left/Right
-
-**Robot Arm (TGYH UJIK OLP;):**
-- **T/G**: Joint 1 (+/-) - Base rotation
-- **Y/H**: Joint 2 (+/-) - Shoulder
-- **U/J**: Joint 3 (+/-) - Elbow  
-- **I/K**: Joint 4 (+/-) - Wrist pitch
-- **O/L**: Joint 5 (+/-) - Wrist roll
-- **P/;**: Joint 6 (+/-) - Gripper
-
-**Safety Controls:**
-- **SPACE**: Lock/Unlock both movement and position (SAFETY FEATURE!)
-- **R**: Reset to stopped state (all velocities to 0)
-- **ESC**: Disconnect and exit
-
-#### Usage Steps:
-1. Run the command above
-2. **IMPORTANT**: Press SPACE to unlock the robot (starts locked for safety)
-3. Use WASDQE for mecanum movement, TGYH UJIK OLP; for arm control
-4. Press R to stop all movement at any time
-5. Press SPACE again to lock everything when done
-6. Press ESC to exit
-
-#### Safety Notes:
-- Robot starts LOCKED - you must press SPACE to unlock both movement and joints
-- Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
-- Movement velocities: v_x/v_y ±1.0 m/s, v_z ±5.0 rad/s
-- Joint movements: ±2.0° per step (configurable)
-- Always lock when not actively controlling
-
-### 4. Terminal Teleoperator (rosmaster_terminal)
-
-The terminal teleoperator allows precise control by typing exact joint angles.
-
-#### Command:
-```bash
-lerobot-teleoperate \
-  --robot.type=rosmaster \
-  --robot.com="/dev/myserial" \
-  --robot.id="my_rosmaster_robot" \
-  --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
-  --teleop.type=rosmaster_terminal \
-  --display_data=true
-```
-
-#### Terminal Commands:
-Once running, you'll see a `rosmaster>` prompt where you can type:
-
-- **`set all <angles>`**: Set all 6 joints at once
-  ```
-  set all 60 120 45 50 90 70
-  ```
-
-- **`set <joint> <angle>`**: Set individual joint
-  ```
-  set servo_1 120
-  set servo_2 45
-  ```
-
-- **`get`**: Show current joint positions
-  ```
-  get
-  ```
-
-- **`help`**: Show available commands
-  ```
-  help
-  ```
-
-- **`quit`**: Exit teleoperator
-  ```
-  quit
-  ```
-
-#### Example Session:
-```
-rosmaster> set servo_1 100
-✅ Set servo_1 = 100°
-
-rosmaster> set all 45 90 135 90 45 90
-✅ Set all joints: [45.0, 90.0, 135.0, 90.0, 45.0, 90.0]
-
-rosmaster> get
-📍 Current Joint Positions:
-  servo_1:   45.0°
-  servo_2:   90.0°
-  servo_3:  135.0°
-  servo_4:   90.0°
-  servo_5:   45.0°
-  servo_6:   90.0°
-
-rosmaster> quit
-```
-
 ## Data Recording
 
 ### Basic Recording Command
@@ -267,7 +115,10 @@ lerobot-record \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_terminal \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --dataset.repo_id="local_user/my_recording" \
   --dataset.single_task="Task description" \
   --dataset.num_episodes=5 \
@@ -289,7 +140,10 @@ lerobot-record \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --teleop.joint_step=2.0 \
   --dataset.repo_id="NLTuan/dual_camera_demo" \
   --dataset.single_task="Dual camera demonstration" \
@@ -308,7 +162,7 @@ lerobot-record \
 - **`--robot.com="/dev/myserial"`**: Serial port (updated from ttyUSB0)
 - **`--robot.id`**: Unique identifier for this robot
 - **`--robot.cameras`**: Camera configuration (JSON format)
-- **`--teleop.type`**: Choose from `rosmaster_keyboard`, `rosmaster_mecanum`, `rosmaster_combined`, or `rosmaster_terminal`
+- **`--teleop.type`**: Must be `rosmaster_combined`
 - **`--teleop.joint_step`**: Step size for keyboard control (degrees)
 - **`--dataset.repo_id`**: Dataset identifier  
 - **`--dataset.single_task`**: Description of the task being recorded
@@ -329,8 +183,10 @@ lerobot-record \
   --robot.com="/dev/myserial" \
   --robot.id="demo_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --dataset.repo_id="local_user/quick_demo" \
   --dataset.single_task="Quick demonstration" \
   --dataset.num_episodes=3 \

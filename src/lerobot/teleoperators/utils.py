@@ -81,22 +81,10 @@ def make_teleoperator_from_config(config: TeleoperatorConfig) -> Teleoperator:
         from .bi_so100_leader import BiSO100Leader
 
         return BiSO100Leader(config)
-    elif config.type == "rosmaster_keyboard":
-        from .rosmaster_keyboard import RosmasterKeyboardTeleop
-
-        return RosmasterKeyboardTeleop(config)
-    elif config.type == "rosmaster_mecanum":
-        from .rosmaster_mecanum import RosmasterMecanumTeleop
-
-        return RosmasterMecanumTeleop(config)
     elif config.type == "rosmaster_combined":
         from .rosmaster_combined import RosmasterCombinedTeleop
 
         return RosmasterCombinedTeleop(config)
-    elif config.type == "rosmaster_terminal":
-        from .rosmaster_terminal import RosmasterTerminalTeleop
-
-        return RosmasterTerminalTeleop(config)
     elif config.type == "reachy2_teleoperator":
         from .reachy2_teleoperator import Reachy2Teleoperator
 

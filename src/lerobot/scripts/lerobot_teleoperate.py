@@ -86,10 +86,7 @@ from lerobot.teleoperators import (  # noqa: F401
     homunculus,
     koch_leader,
     make_teleoperator_from_config,
-    rosmaster_keyboard,
-    rosmaster_mecanum,
     rosmaster_combined,
-    rosmaster_terminal,
 
     so100_leader,
     so101_leader,
