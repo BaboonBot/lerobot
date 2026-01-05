@@ -31,5 +31,8 @@ class RosmasterCombinedTeleopConfig(TeleoperatorConfig):
     movement_step: float = 0.3  # Linear velocity step size (m/s)
     rotation_step: float = 1.0  # Angular velocity step size (rad/s)
     
+    # Teleoperation control frequency
+    fps: int = 20  # Control loop frequency (Hz) - reduces servo read errors at lower rates
+    
     # Mock mode for testing without hardware
     mock: bool = False

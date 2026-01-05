@@ -74,7 +74,8 @@ class RosmasterCombinedTeleop(Teleoperator):
         
         # Movement control to prevent sudden movements
         self.last_command_time = 0
-        self.command_rate_limit = 0.05  # Minimum 50ms between commands
+        # Use configurable fps to set rate limit (default 20 Hz = 50ms between commands)
+        self.command_rate_limit = 1.0 / self.config.fps if self.config.fps > 0 else 0.05
         self.control_locked = True  # Start with everything locked for safety
         
         # Key mapping for mecanum wheel control (WASDQE)
@@ -291,14 +292,8 @@ class RosmasterCombinedTeleop(Teleoperator):
                 joint_movements.append(f"J{joint_idx+1}{'+'if delta > 0 else '-'}")
                 joint_position_changed = True
 
-        # Apply joint safety limits
+        # No safety limits - allow full range of motion
         if joint_position_changed:
-            for i in range(6):
-                if i == 4:  # Joint 5 (servo_5) has range 0-270
-                    new_positions[i] = np.clip(new_positions[i], 0, 270)
-                else:  # Joints 1-4,6 have range 0-180
-                    new_positions[i] = np.clip(new_positions[i], 0, 180)
-            
             self.current_positions = new_positions
 
         # Process mecanum wheel movements

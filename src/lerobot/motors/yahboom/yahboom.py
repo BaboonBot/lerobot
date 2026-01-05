@@ -1017,46 +1017,16 @@ class Rosmaster:
 
     # 设置总线舵机角度接口：s_id:[1,6], s_angle: 1-4:[0, 180], 5:[0, 270], 6:[0, 180], 设置舵机要运动到的角度。
     # run_time表示运行的时间(ms),时间越短,舵机转动越快。最小为0，最大为2000
-    # Set bus steering gear Angle interface: s_id:[1,6], s_angle: 1-4:[0, 180], 5:[0, 270], 6:[0, 180], set steering gear to move to the Angle.  
+    # Set bus steering gear Angle interface: s_id:[1,6], s_angle: any angle value (restrictions removed)
     # run_time indicates the running time (ms). The shorter the time, the faster the steering gear rotates.  The minimum value is 0 and the maximum value is 2000
     def set_uart_servo_angle(self, s_id, s_angle, run_time=500):
         try:
-            if s_id == 1:
-                if 0 <= s_angle <= 180:
-                    value = self.__arm_convert_value(s_id, s_angle)
-                    self.set_uart_servo(s_id, value, run_time)
-                else:
-                    print("angle_1 set error!")
-            elif s_id == 2:
-                if 0 <= s_angle <= 180:
-                    value = self.__arm_convert_value(s_id, s_angle)
-                    self.set_uart_servo(s_id, value, run_time)
-                else:
-                    print("angle_2 set error!")
-            elif s_id == 3:
-                if 0 <= s_angle <= 180:
-                    value = self.__arm_convert_value(s_id, s_angle)
-                    self.set_uart_servo(s_id, value, run_time)
-                else:
-                    print("angle_3 set error!")
-            elif s_id == 4:
-                if 0 <= s_angle <= 180:
-                    value = self.__arm_convert_value(s_id, s_angle)
-                    self.set_uart_servo(s_id, value, run_time)
-                else:
-                    print("angle_4 set error!")
-            elif s_id == 5:
-                if 0 <= s_angle <= 270:
-                    value = self.__arm_convert_value(s_id, s_angle)
-                    self.set_uart_servo(s_id, value, run_time)
-                else:
-                    print("angle_5 set error!")
-            elif s_id == 6:
-                if 0 <= s_angle <= 180:
-                    value = self.__arm_convert_value(s_id, s_angle)
-                    self.set_uart_servo(s_id, value, run_time)
-                else:
-                    print("angle_6 set error!")
+            # No angle restrictions - allow any value
+            if s_id in [1, 2, 3, 4, 5, 6]:
+                value = self.__arm_convert_value(s_id, s_angle)
+                self.set_uart_servo(s_id, value, run_time)
+            else:
+                print(f"Invalid servo ID: {s_id}. Must be 1-6.")
         except:
             print('---set_uart_servo_angle error! ID=%d---' % s_id)
             pass
@@ -1114,44 +1084,41 @@ class Rosmaster:
 
 
 
-    # 同时控制机械臂所有舵机的角度。
+    # 同时控制机械臂所有舵机的角度。(Angle restrictions removed)
     # Meanwhile, the Angle of all steering gear of the manipulator is controlled
     def set_uart_servo_angle_array(self, angle_s=[90, 90, 90, 90, 90, 180], run_time=500):
         try:
             if not self.__arm_ctrl_enable:
                 return
-            if 0 <= angle_s[0] <= 180 and 0 <= angle_s[1] <= 180 and 0 <= angle_s[2] <= 180 and \
-                0 <= angle_s[3] <= 180 and 0 <= angle_s[4] <= 270 and 0 <= angle_s[5] <= 180:
-                if run_time > 2000:
-                    run_time = 2000
-                if run_time < 0:
-                    run_time = 0
-                temp_val = [0, 0, 0, 0, 0, 0]
-                for i in range(6):
-                    temp_val[i] = self.__arm_convert_value(i+1, angle_s[i])
-                    
-                value_s1 = bytearray(struct.pack('h', int(temp_val[0])))
-                value_s2 = bytearray(struct.pack('h', int(temp_val[1])))
-                value_s3 = bytearray(struct.pack('h', int(temp_val[2])))
-                value_s4 = bytearray(struct.pack('h', int(temp_val[3])))
-                value_s5 = bytearray(struct.pack('h', int(temp_val[4])))
-                value_s6 = bytearray(struct.pack('h', int(temp_val[5])))
+            # No angle restrictions - allow any values
+            if run_time > 2000:
+                run_time = 2000
+            if run_time < 0:
+                run_time = 0
+            temp_val = [0, 0, 0, 0, 0, 0]
+            for i in range(6):
+                temp_val[i] = self.__arm_convert_value(i+1, angle_s[i])
+                
+            value_s1 = bytearray(struct.pack('h', int(temp_val[0])))
+            value_s2 = bytearray(struct.pack('h', int(temp_val[1])))
+            value_s3 = bytearray(struct.pack('h', int(temp_val[2])))
+            value_s4 = bytearray(struct.pack('h', int(temp_val[3])))
+            value_s5 = bytearray(struct.pack('h', int(temp_val[4])))
+            value_s6 = bytearray(struct.pack('h', int(temp_val[5])))
 
-                r_time = bytearray(struct.pack('h', int(run_time)))
-                cmd = [self.__HEAD, self.__DEVICE_ID, 0x00, self.FUNC_ARM_CTRL, \
-                       value_s1[0], value_s1[1], value_s2[0], value_s2[1], value_s3[0], value_s3[1], \
-                       value_s4[0], value_s4[1], value_s5[0], value_s5[1], value_s6[0], value_s6[1], \
-                       r_time[0], r_time[1]]
-                cmd[2] = len(cmd) - 1
-                checksum = sum(cmd, self.__COMPLEMENT) & 0xff
-                cmd.append(checksum)
-                self.ser.write(cmd)
-                if self.__debug:
-                    print("arm:", cmd)
-                    print("value:", temp_val)
-                time.sleep(self.__delay_time)
-            else:
-                print("angle_s input error!")
+            r_time = bytearray(struct.pack('h', int(run_time)))
+            cmd = [self.__HEAD, self.__DEVICE_ID, 0x00, self.FUNC_ARM_CTRL, \
+                   value_s1[0], value_s1[1], value_s2[0], value_s2[1], value_s3[0], value_s3[1], \
+                   value_s4[0], value_s4[1], value_s5[0], value_s5[1], value_s6[0], value_s6[1], \
+                   r_time[0], r_time[1]]
+            cmd[2] = len(cmd) - 1
+            checksum = sum(cmd, self.__COMPLEMENT) & 0xff
+            cmd.append(checksum)
+            self.ser.write(cmd)
+            if self.__debug:
+                print("arm:", cmd)
+                print("value:", temp_val)
+            time.sleep(self.__delay_time)
         except:
             print('---set_uart_servo_angle_array error!---')
             pass
@@ -1335,42 +1302,9 @@ class Rosmaster:
         try:
             angle = -1
             read_id, value = self.get_uart_servo_value(s_id)
-            if s_id == 1 and read_id == 1:
+            # Remove all range restrictions - accept any angle value the servo reports
+            if s_id == read_id and s_id >= 1 and s_id <= 6:
                 angle = self.__arm_convert_angle(s_id, value)
-                if angle > 180 or angle < 0:
-                    if self.__debug:
-                        print("read servo:%d out of range!" % s_id)
-                    angle = -1
-            elif s_id == 2 and read_id == 2:
-                angle = self.__arm_convert_angle(s_id, value)
-                if angle > 180 or angle < 0:
-                    if self.__debug:
-                        print("read servo:%d out of range!" % s_id)
-                    angle = -1
-            elif s_id == 3 and read_id == 3:
-                angle = self.__arm_convert_angle(s_id, value)
-                if angle > 180 or angle < 0:
-                    if self.__debug:
-                        print("read servo:%d out of range!" % s_id)
-                    angle = -1
-            elif s_id == 4 and read_id == 4:
-                angle = self.__arm_convert_angle(s_id, value)
-                if angle > 180 or angle < 0:
-                    if self.__debug:
-                        print("read servo:%d out of range!" % s_id)
-                    angle = -1
-            elif s_id == 5 and read_id == 5:
-                angle = self.__arm_convert_angle(s_id, value)
-                if angle > 270 or angle < 0:
-                    if self.__debug:
-                        print("read servo:%d out of range!" % s_id)
-                    angle = -1
-            elif s_id == 6 and read_id == 6:
-                angle = self.__arm_convert_angle(s_id, value)
-                if angle > 180 or angle < 0:
-                    if self.__debug:
-                        print("read servo:%d out of range!" % s_id)
-                    angle = -1
             else:
                 if self.__debug:
                     print("read servo:%d error!" % s_id)
@@ -1383,6 +1317,7 @@ class Rosmaster:
 
     # 一次性读取六个舵机的角度[xx, xx, xx, xx, xx, xx]，如果某个舵机错误则那一位为-1
     # Read the angles of three steering gear [xx, xx, xx, xx, xx, xx] at one time. If one steering gear is wrong, that one is -1
+    # No angle range restrictions - returns raw converted values
     def get_uart_servo_angle_array(self):
         try:
             # angle = [-1, -1, -1, -1, -1, -1]
@@ -1402,7 +1337,8 @@ class Rosmaster:
             while timeout > 0:
                 if self.__read_arm_ok == 1:
                     for i in range(6):
-                        if self.__read_arm[i] > 0:
+                        # Removed the > 0 check to allow all values
+                        if self.__read_arm[i] != -1:  # Only skip if explicitly marked as error
                             angle[i] = self.__arm_convert_angle(i+1, self.__read_arm[i])
                     if self.__debug:
                         print("angle_array:", 30-timeout, angle)
