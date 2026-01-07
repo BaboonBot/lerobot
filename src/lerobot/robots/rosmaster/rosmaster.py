@@ -100,11 +100,10 @@ class RosmasterRobot(Robot):
 
     @cached_property
     def action_features(self) -> dict[str, type]:
-        """Structure of action dictionary - individual joint positions, mecanum wheel velocities, and torque control."""
+        """Structure of action dictionary - individual joint positions and mecanum wheel velocities."""
         features = {**self._motors_ft, **self._mecanum_ft}
-        # Add torque control features
-        features["torque_enable"] = bool
-        features["torque_disable"] = bool
+        # Removed torque_enable and torque_disable features for compatibility with policies
+        # that don't output these control signals
         return features
 
     @property

@@ -27,7 +27,7 @@ lerobot-teleoperate \
   --robot.type=rosmaster \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
-  --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
+  --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}}' \
   --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
   --teleop.movement_step=0.3 \
@@ -39,7 +39,7 @@ lerobot-teleoperate \
   --robot.type=rosmaster \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
-  --robot.cameras='{"front": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "side": {"type": "opencv", "index_or_path": "/dev/video2", "width": 640, "height": 480, "fps": 30}}' \
+  --robot.cameras='{"front": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "side": {"type": "opencv", "index_or_path": "/dev/video3", "width": 640, "height": 480, "fps": 30}}' \
   --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
   --teleop.movement_step=0.3 \
@@ -120,9 +120,9 @@ lerobot-record \
   --teleop.movement_step=0.3 \
   --teleop.rotation_step=0.5 \
   --dataset.repo_id="local_user/my_recording" \
-  --dataset.single_task="Task description" \
-  --dataset.num_episodes=5 \
-  --dataset.episode_time_s=15 \
+  --dataset.single_task="Grab a cube" \
+  --dataset.num_episodes=2 \
+  --dataset.episode_time_s=30 \
   --dataset.reset_time_s=5 \
   --dataset.fps=10 \
   --dataset.push_to_hub=false \

@@ -63,6 +63,7 @@ from lerobot.transport import (
 )
 from lerobot.transport.utils import grpc_channel_options, send_bytes_in_chunks
 
+
 from .configs import RobotClientConfig
 from .constants import SUPPORTED_ROBOTS
 from .helpers import (
@@ -274,8 +275,10 @@ class RobotClient:
         while self.running:
             try:
                 # Use StreamActions to get a stream of actions from the server
+                self.logger.debug("Requesting actions from server...")
                 actions_chunk = self.stub.GetActions(services_pb2.Empty())
                 if len(actions_chunk.data) == 0:
+                    self.logger.debug("Received empty action chunk from server, waiting...")
                     continue  # received `Empty` from server, wait for next call
 
                 receive_time = time.time()
@@ -340,7 +343,14 @@ class RobotClient:
                     )
 
             except grpc.RpcError as e:
-                self.logger.error(f"Error receiving actions: {e}")
+                self.logger.error(f"gRPC Error receiving actions: {e}")
+                self.logger.error(f"Error details - Code: {e.code()}, Details: {e.details()}")
+                time.sleep(0.1)  # Brief sleep before retrying
+            except Exception as e:
+                self.logger.error(f"Unexpected error in receive_actions: {e}")
+                import traceback
+                self.logger.error(traceback.format_exc())
+                time.sleep(0.1)
 
     def actions_available(self):
         """Check if there are actions available in the queue"""
@@ -348,6 +358,27 @@ class RobotClient:
             return not self.action_queue.empty()
 
     def _action_tensor_to_action_dict(self, action_tensor: torch.Tensor) -> dict[str, float]:
+        # Debug logging to identify mismatch
+        if len(action_tensor) != len(self.robot.action_features):
+            self.logger.error(
+                f"Action tensor size mismatch!\n"
+                f"  Tensor size: {len(action_tensor)}\n"
+                f"  Expected features: {len(self.robot.action_features)}\n"
+                f"  Robot action features: {self.robot.action_features}\n"
+                f"  Action tensor shape: {action_tensor.shape}\n"
+                f"  Action tensor values: {action_tensor}"
+            )
+            # Truncate or pad to match
+            if len(action_tensor) < len(self.robot.action_features):
+                self.logger.warning(f"Padding action tensor from {len(action_tensor)} to {len(self.robot.action_features)} with zeros")
+                # Pad with zeros
+                padding = torch.zeros(len(self.robot.action_features) - len(action_tensor))
+                action_tensor = torch.cat([action_tensor, padding])
+            else:
+                self.logger.warning(f"Truncating action tensor from {len(action_tensor)} to {len(self.robot.action_features)}")
+                # Truncate to match
+                action_tensor = action_tensor[:len(self.robot.action_features)]
+        
         action = {key: action_tensor[i].item() for i, key in enumerate(self.robot.action_features)}
         return action
 
@@ -394,7 +425,12 @@ class RobotClient:
             # Get serialized observation bytes from the function
             start_time = time.perf_counter()
 
-            raw_observation: RawObservation = self.robot.get_observation()
+            try:
+                raw_observation: RawObservation = self.robot.get_observation()
+            except Exception as e:
+                self.logger.error(f"Error getting observation from robot: {e}")
+                raise
+
             raw_observation["task"] = task
 
             with self.latest_action_lock:
@@ -413,7 +449,9 @@ class RobotClient:
                 observation.must_go = self.must_go.is_set() and self.action_queue.empty()
                 current_queue_size = self.action_queue.qsize()
 
-            _ = self.send_observation(observation)
+            success = self.send_observation(observation)
+            if not success:
+                self.logger.warning(f"Failed to send observation #{observation.get_timestep()}")
 
             self.logger.debug(f"QUEUE SIZE: {current_queue_size} (Must go: {observation.must_go})")
             if observation.must_go:
@@ -437,7 +475,10 @@ class RobotClient:
             return raw_observation
 
         except Exception as e:
-            self.logger.error(f"Error in observation sender: {e}")
+            self.logger.error(f"Error in control_loop_observation: {e}")
+            import traceback
+            self.logger.error(traceback.format_exc())
+            raise
 
     def control_loop(self, task: str, verbose: bool = False) -> tuple[Observation, Action]:
         """Combined function for executing actions and streaming observations"""
@@ -448,19 +489,46 @@ class RobotClient:
         _performed_action = None
         _captured_observation = None
 
-        while self.running:
-            control_loop_start = time.perf_counter()
-            """Control loop: (1) Performing actions, when available"""
-            if self.actions_available():
-                _performed_action = self.control_loop_action(verbose)
+        loop_count = 0
+        try:
+            while self.running:
+                loop_count += 1
+                if loop_count % 100 == 0:  # Log every 100 iterations
+                    self.logger.debug(f"Control loop iteration {loop_count}, running={self.running}")
+                
+                control_loop_start = time.perf_counter()
+                
+                try:
+                    """Control loop: (1) Performing actions, when available"""
+                    if self.actions_available():
+                        _performed_action = self.control_loop_action(verbose)
+                    elif loop_count % 100 == 0:
+                        self.logger.debug("No actions available in queue")
 
-            """Control loop: (2) Streaming observations to the remote policy server"""
-            if self._ready_to_send_observation():
-                _captured_observation = self.control_loop_observation(task, verbose)
+                    """Control loop: (2) Streaming observations to the remote policy server"""
+                    if self._ready_to_send_observation():
+                        _captured_observation = self.control_loop_observation(task, verbose)
 
-            self.logger.debug(f"Control loop (ms): {(time.perf_counter() - control_loop_start) * 1000:.2f}")
-            # Dynamically adjust sleep time to maintain the desired control frequency
-            time.sleep(max(0, self.config.environment_dt - (time.perf_counter() - control_loop_start)))
+                except Exception as e:
+                    self.logger.error(f"Error in control loop iteration {loop_count}: {e}")
+                    import traceback
+                    self.logger.error(traceback.format_exc())
+                    # Don't exit on error, continue trying
+                    time.sleep(0.1)
+                    continue
+
+                self.logger.debug(f"Control loop (ms): {(time.perf_counter() - control_loop_start) * 1000:.2f}")
+                # Dynamically adjust sleep time to maintain the desired control frequency
+                time.sleep(max(0, self.config.environment_dt - (time.perf_counter() - control_loop_start)))
+
+        except KeyboardInterrupt:
+            self.logger.info("Control loop interrupted by user")
+        except Exception as e:
+            self.logger.error(f"Fatal error in control loop: {e}")
+            import traceback
+            self.logger.error(traceback.format_exc())
+        finally:
+            self.logger.info(f"Control loop exiting after {loop_count} iterations")
 
         return _captured_observation, _performed_action
 
