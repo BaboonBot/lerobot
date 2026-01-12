@@ -1,43 +1,75 @@
 # Rosmaster Robot LeRobot Usage Guide
 
 ## Overview
-This guide covers the complete usage of the Rosmaster robot with LeRobot framework, including two teleoperation methods and data recording capabilities.
+This guide covers the complete usage of the Rosmaster robot with LeRobot framework, including teleoperation and data recording capabilities using the combined arm+base control teleoperator.
 
 ## Hardware Setup
-- **Robot**: Yahboom Rosmaster 6-DOF robot arm
+- **Robot**: Yahboom Rosmaster 6-DOF robot arm with mecanum wheel base
 - **Connection**: USB serial adapter connected to `/dev/myserial`
+- **Firmware**: Version 3.5 (verified working)
 - **Cameras**: 
-  - Front camera: `/dev/video0`
-  - Optional wrist camera: `/dev/video2`
+  - Front camera: `/dev/video0` (USB 2.0 Camera - may have stability issues during continuous streaming)
+  - Side camera: `/dev/video2` (USB 2.0 Camera - reliable, recommended primary camera)
+  - **Camera Status**: Both cameras work for image capture, `/dev/video2` recommended for continuous streaming
 - **Joint Range**: Each servo operates from 0° to 180°
+- **Base Movement**: 4x mecanum wheels supporting omnidirectional movement
 
-## Teleoperation Methods
+## Teleoperation Method
 
-### 1. Keyboard Teleoperator (rosmaster_keyboard)
+### Combined Teleoperator (rosmaster_combined)
 
-The keyboard teleoperator provides real-time control using keyboard keys.
+The combined teleoperator provides unified control of both the robot arm and mecanum wheel base through a single keyboard interface.
 
 #### Command:
 ```bash
+# Recommended: Use reliable side camera
 lerobot-teleoperate \
   --robot.type=rosmaster \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
-  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --robot.cameras='{"side": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}}' \
+  --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
+  --display_data=true
+
+# Alternative: Use both cameras (may have stability issues with /dev/video0)
+lerobot-teleoperate \
+  --robot.type=rosmaster \
+  --robot.com="/dev/myserial" \
+  --robot.id="my_rosmaster_robot" \
+  --robot.cameras='{"front": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30}, "side": {"type": "opencv", "index_or_path": "/dev/video3", "width": 640, "height": 480, "fps": 30}}' \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --display_data=true
 ```
 
 #### Key Controls:
-- **q/a**: Joint 1 (+/-) - Base rotation
-- **w/s**: Joint 2 (+/-) - Shoulder
-- **e/d**: Joint 3 (+/-) - Elbow  
-- **r/f**: Joint 4 (+/-) - Wrist pitch
-- **t/g**: Joint 5 (+/-) - Wrist roll
-- **y/h**: Joint 6 (+/-) - Gripper
+
+**Mecanum Wheel Controls (Base Movement):**
+- **w/s**: Forward/Backward movement
+- **a/d**: Strafe Left/Right movement  
+- **q/e**: Rotate Left/Right
+
+**Arm Joint Controls:**
+- **t/g**: Joint 1 (+/-) - Base rotation
+- **y/h**: Joint 2 (+/-) - Shoulder
+- **u/j**: Joint 3 (+/-) - Elbow
+- **i/k**: Joint 4 (+/-) - Wrist pitch
+- **o/l**: Joint 5 (+/-) - Wrist roll
+- **p/;**: Joint 6 (+/-) - Gripper
+
+**Safety Controls:**
+- **SPACE**: Lock/Unlock all controls (SAFETY FEATURE)
+- **ESC**: Disconnect
+- **p/;**: Joint 6 (+/-) - Gripper
 - **SPACE**: Lock/Unlock position (SAFETY FEATURE - robot starts locked!)
 - **ESC**: Disconnect and exit
+
+**Note**: Key mapping has been updated for better ergonomics and to avoid conflicts with base movement controls.
 
 #### Usage Steps:
 1. Run the command above
@@ -50,94 +82,30 @@ lerobot-teleoperate \
 - Robot starts with position LOCKED - you must press SPACE to unlock
 - Look for messages: "🔒 LOCKED" or "🔓 UNLOCKED"
 - Always lock position when not actively controlling
-
-### 2. Terminal Teleoperator (rosmaster_terminal)
-
-The terminal teleoperator allows precise control by typing exact joint angles.
-
-#### Command:
-```bash
-lerobot-teleoperate \
-  --robot.type=rosmaster \
-  --robot.com="/dev/myserial" \
-  --robot.id="my_rosmaster_robot" \
-  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_terminal \
-  --display_data=true
-```
-
-#### Terminal Commands:
-Once running, you'll see a `rosmaster>` prompt where you can type:
-
-- **`set all <angles>`**: Set all 6 joints at once
-  ```
-  set all 60 120 45 50 90 70
-  ```
-
-- **`set <joint> <angle>`**: Set individual joint
-  ```
-  set servo_1 120
-  set servo_2 45
-  ```
-
-- **`get`**: Show current joint positions
-  ```
-  get
-  ```
-
-- **`help`**: Show available commands
-  ```
-  help
-  ```
-
-- **`quit`**: Exit teleoperator
-  ```
-  quit
-  ```
-
-#### Example Session:
-```
-rosmaster> set servo_1 100
-✅ Set servo_1 = 100°
-
-rosmaster> set all 45 90 135 90 45 90
-✅ Set all joints: [45.0, 90.0, 135.0, 90.0, 45.0, 90.0]
-
-rosmaster> get
-📍 Current Joint Positions:
-  servo_1:   45.0°
-  servo_2:   90.0°
-  servo_3:  135.0°
-  servo_4:   90.0°
-  servo_5:   45.0°
-  servo_6:   90.0°
-
-rosmaster> quit
-```
-
 ## Data Recording
 
 ### Basic Recording Command
 
 Record demonstrations using either teleoperator:
 
-#### With Keyboard Control:
+#### With KeyboardCombined Control:
 ```bash
 lerobot-record \
   --robot.type=rosmaster \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
-  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video3, width: 640, height: 480, fps: 30}}" \
+  --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
   --dataset.repo_id="local_user/my_recording" \
+  --dataset.repo_id="NLTuan/drive_full" \
   --dataset.single_task="Task description" \
-  --dataset.num_episodes=5 \
-  --dataset.episode_time_s=15 \
+  --dataset.num_episodes=1 \
+  --dataset.episode_time_s=10 \
   --dataset.reset_time_s=5 \
   --dataset.fps=10 \
-  --dataset.push_to_hub=false \
-  --dataset.root="data/recordings" \
+  --dataset.push_to_hub=true \
+  --dataset.root="data/recordings_drive" \
   --display_data=true
 ```
 
@@ -147,12 +115,15 @@ lerobot-record \
   --robot.type=rosmaster \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
-  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_terminal \
+  --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video3, width: 640, height: 480, fps: 30}}" \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --dataset.repo_id="local_user/my_recording" \
-  --dataset.single_task="Task description" \
-  --dataset.num_episodes=5 \
-  --dataset.episode_time_s=15 \
+  --dataset.single_task="Grab a cube" \
+  --dataset.num_episodes=2 \
+  --dataset.episode_time_s=30 \
   --dataset.reset_time_s=5 \
   --dataset.fps=10 \
   --dataset.push_to_hub=false \
@@ -170,7 +141,10 @@ lerobot-record \
   --robot.com="/dev/myserial" \
   --robot.id="my_rosmaster_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}, wrist: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --teleop.type=rosmaster_combined \
+  --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --teleop.joint_step=2.0 \
   --dataset.repo_id="NLTuan/dual_camera_demo" \
   --dataset.single_task="Dual camera demonstration" \
@@ -189,7 +163,7 @@ lerobot-record \
 - **`--robot.com="/dev/myserial"`**: Serial port (updated from ttyUSB0)
 - **`--robot.id`**: Unique identifier for this robot
 - **`--robot.cameras`**: Camera configuration (JSON format)
-- **`--teleop.type`**: Either `rosmaster_keyboard` or `rosmaster_terminal`
+- **`--teleop.type`**: Must be `rosmaster_combined`
 - **`--teleop.joint_step`**: Step size for keyboard control (degrees)
 - **`--dataset.repo_id`**: Dataset identifier  
 - **`--dataset.single_task`**: Description of the task being recorded
@@ -210,8 +184,10 @@ lerobot-record \
   --robot.com="/dev/myserial" \
   --robot.id="demo_robot" \
   --robot.cameras="{front: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}}" \
-  --teleop.type=rosmaster_keyboard \
+  --teleop.type=rosmaster_combined \
   --teleop.joint_step=2.0 \
+  --teleop.movement_step=0.3 \
+  --teleop.rotation_step=0.5 \
   --dataset.repo_id="local_user/quick_demo" \
   --dataset.single_task="Quick demonstration" \
   --dataset.num_episodes=3 \
@@ -239,22 +215,43 @@ lerobot-record \
 3. **Camera not found**:
    ```bash
    ls -la /dev/video*  # Check available cameras
+   v4l2-ctl --list-devices  # Show camera details
    ```
 
-4. **Warnings in terminal**:
+4. **Camera connection issues**:
+   - `/dev/video0` may have USB stability issues during continuous streaming
+   - **Solution**: Use `/dev/video2` which is more reliable
+   - Check kernel logs: `sudo dmesg | grep -E "(video|uvc)" | tail -10`
+   - USB URB errors indicate power/bandwidth issues
+
+5. **Camera read failures during teleoperation**:
+   - Error: "OpenCVCamera read failed (status=False)"
+   - **Solution**: 
+     - Use only `/dev/video2` camera
+     - Try different USB ports
+     - Use powered USB hub if available
+     - Reduce fps or resolution if needed
+
+6. **Position instability (angles returning to 90°)**:
+   - **Fixed**: Position feedback system updated
+   - Robot now maintains commanded positions properly
+   - No longer forces return to default 90° angles
+
+7. **Warnings in terminal**:
    - Motor read warnings are normal and suppressed
    - Recording continues without issues
 
 ### Joint Mapping:
 - **servo_1**: Base rotation (0-180°)
 - **servo_2**: Shoulder (0-180°)
-- **servo_3**: Elbow (0-180°)
+- **servo_3**: Elbow (0-180°) - **Initializes to 0° on connection**
 - **servo_4**: Wrist pitch (0-180°)
 - **servo_5**: Wrist roll (0-180°)
 - **servo_6**: Gripper (0-180°)
 
 ### Default Positions:
-All servos start at 90° (middle position) for safety.
+- **servo_3 (Elbow)**: Initializes to 0° on robot connection
+- **All other servos**: Start at 90° (middle position) for safety
 
 ## Data Output Structure
 
@@ -286,6 +283,33 @@ This data format is ready for training LeRobot policies and uploading to Hugging
 6. **Ensure good lighting for cameras**
 7. **Keep workspace clear of obstacles**
 
+## Recent Updates and Fixes
+
+### Camera System (October 12, 2025)
+- **Identified camera stability issues**: `/dev/video0` has USB URB failures during continuous streaming
+- **Recommended setup**: Use `/dev/video2` as primary camera (more stable)
+- **Dual camera support**: Both cameras work but `/dev/video0` may disconnect during long sessions
+- **Troubleshooting added**: USB bandwidth and power issue diagnostics
+
+### Position Control System (October 12, 2025)  
+- **Fixed position instability**: Robot no longer returns to 90° default angles
+- **Improved feedback system**: Position commands now properly maintained
+- **Enhanced safety**: All teleoperators start in LOCKED mode
+- **Updated key mappings**: Keyboard controls moved to tgyh ujik olp; layout
+
+### System Performance
+- **Frame rates**: Stable 30-35 Hz operation with single camera
+- **Firmware**: Version 3.5 verified and working
+- **Joint step sizes**: Increased to 10.0° for faster movement
+- **Movement parameters**: Optimized for responsive control
+
+### Viewing System
+- **Rerun viewer**: Available at `http://localhost:9876` for live camera feeds
+- **Real-time telemetry**: Joint positions and camera streams displayed
+- **Multi-camera support**: Side-by-side view when both cameras working
+
 ---
-*Last updated: September 8, 2025*
+*Last updated: October 12, 2025*
 *LeRobot version: Compatible with Rosmaster integration*
+*Camera issues diagnosed and documented*
+*Position stability system fixed*

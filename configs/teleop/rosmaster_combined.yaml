@@ -1,0 +1,6 @@
+# Configuration for Rosmaster Combined (Mecanum + Arm) Teleoperator
+type: rosmaster_combined
+joint_step: 2.0       # Joint movement step size (degrees)
+movement_step: 0.3    # Linear velocity step (m/s)
+rotation_step: 1.0    # Angular velocity step (rad/s)
+mock: false

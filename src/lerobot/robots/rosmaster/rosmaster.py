@@ -51,6 +51,9 @@ class RosmasterRobot(Robot):
 
         # Define the 6 joint names for the Rosmaster arm
         self.joint_names = [f"servo_{i+1}" for i in range(6)]
+        
+        # Define mecanum wheel names for base movement
+        self.mecanum_names = ["v_x", "v_y", "v_z"]
 
         # Define motors with proper IDs (1-6) matching physical servo IDs
         motors = {
@@ -71,6 +74,11 @@ class RosmasterRobot(Robot):
         """Motor features - individual joint positions as floats."""
         return {name: float for name in self.joint_names}
 
+    @property  
+    def _mecanum_ft(self) -> dict[str, type]:
+        """Mecanum wheel features - velocity commands as floats."""
+        return {name: float for name in self.mecanum_names}
+
     @property
     def _cameras_ft(self) -> dict[str, tuple]:
         """Camera features with proper shape tuples."""
@@ -87,13 +95,16 @@ class RosmasterRobot(Robot):
 
     @cached_property
     def observation_features(self) -> dict[str, type | tuple]:
-        """Structure of observation dictionary - individual joint positions plus camera images."""
-        return {**self._motors_ft, **self._cameras_ft}
+        """Structure of observation dictionary - individual joint positions, mecanum velocities, and camera images."""
+        return {**self._motors_ft, **self._mecanum_ft, **self._cameras_ft}
 
     @cached_property
     def action_features(self) -> dict[str, type]:
-        """Structure of action dictionary - individual joint positions."""
-        return self._motors_ft
+        """Structure of action dictionary - individual joint positions and mecanum wheel velocities."""
+        features = {**self._motors_ft, **self._mecanum_ft}
+        # Removed torque_enable and torque_disable features for compatibility with policies
+        # that don't output these control signals
+        return features
 
     @property
     def is_connected(self) -> bool:
@@ -108,6 +119,20 @@ class RosmasterRobot(Robot):
         print("Enabling servo torque for robot control...")
         self.motors_bus.enable_torque()
         time.sleep(0.5)
+        
+        # Reset mecanum drive motors to zero velocity
+        print("Resetting mecanum drive motors...")
+        self.motors_bus.driver.set_car_motion(0.0, 0.0, 0.0)
+        time.sleep(0.1)
+        
+        # Initialize servo_3 to angle 0
+        print("Initializing servo_3 to 0°...")
+        try:
+            self.motors_bus.driver.set_uart_servo_angle(3, 0, run_time=1000)
+            time.sleep(1.0)  # Wait for servo to reach position
+            print("  ✓ Servo_3 initialized to 0°")
+        except Exception as e:
+            logger.warning(f"Failed to initialize servo_3: {e}")
         
         # Handle calibration if needed
         if not self.is_calibrated and calibrate:
@@ -132,9 +157,14 @@ class RosmasterRobot(Robot):
         return self.motors_bus.is_calibrated
 
     def calibrate(self) -> None:
-        """No-op for Rosmaster as calibration is internal."""
+        """No-op for Rosmaster as calibration is internal, but reset mecanum motors."""
         logger.info("Rosmaster robot calibration is handled internally by the driver.")
-        pass
+        # Reset mecanum drive motors to zero velocity during calibration
+        try:
+            self.motors_bus.driver.set_car_motion(0.0, 0.0, 0.0)
+            logger.info("Mecanum drive motors reset to zero.")
+        except Exception as e:
+            logger.warning(f"Failed to reset mecanum motors during calibration: {e}")
 
     def configure(self) -> None:
         """Apply configuration - ensure torque is enabled."""
@@ -154,20 +184,11 @@ class RosmasterRobot(Robot):
             # Check if we got valid readings for all joints
             missing_joints = [name for name in self.joint_names if name not in positions_dict]
             if missing_joints:
-                # Reduce warning frequency - only log every 100 calls to avoid terminal spam
-                if not hasattr(self, '_warning_counter'):
-                    self._warning_counter = 0
-                self._warning_counter += 1
-                
-                if self._warning_counter % 100 == 1:  # Log first time and every 100th time
-                    logger.debug(f"Position read warnings suppressed (common with Rosmaster hardware)")
-                
                 # Use fallback: try individual reads or use default positions
                 for name in missing_joints:
                     try:
                         positions_dict[name] = self.motors_bus.read("Present_Position", name)
                     except Exception as e:
-                        # Suppress individual read warnings too - they're very common
                         positions_dict[name] = 90.0  # Default safe position
             
         except Exception as e:
@@ -177,6 +198,19 @@ class RosmasterRobot(Robot):
         
         # Build observation dictionary with individual joint positions
         obs_dict = {name: float(positions_dict[name]) for name in self.joint_names}
+        
+        # Get actual mecanum wheel velocities from robot feedback
+        try:
+            v_x, v_y, v_z = self.motors_bus.driver.get_motion_data()
+            obs_dict["v_x"] = float(v_x)
+            obs_dict["v_y"] = float(v_y)
+            obs_dict["v_z"] = float(v_z)
+        except Exception as e:
+            logger.warning(f"Failed to read mecanum velocities: {e}")
+            # Use zero velocities as fallback
+            obs_dict["v_x"] = 0.0
+            obs_dict["v_y"] = 0.0
+            obs_dict["v_z"] = 0.0
         
         # Get camera images
         for cam_key, camera in self.cameras.items():
@@ -197,30 +231,73 @@ class RosmasterRobot(Robot):
         if not self.is_connected:
             raise RuntimeError("Robot is not connected.")
 
-        # Convert individual joint actions to command dictionary
-        command_dict = {}
+        # Handle torque control commands first
+        if action.get("torque_enable", False):
+            try:
+                self.motors_bus.enable_torque()
+                logger.info("✅ Torque ENABLED - Motors will resist movement")
+            except Exception as e:
+                logger.error(f"Failed to enable torque: {e}")
+        
+        if action.get("torque_disable", False):
+            try:
+                self.motors_bus.disable_torque()
+                logger.info("❌ Torque DISABLED - Motors can be moved freely by hand")
+            except Exception as e:
+                logger.error(f"Failed to disable torque: {e}")
+
+        # Separate joint actions from mecanum wheel actions
+        joint_command_dict = {}
+        mecanum_commands = {}
+        
+        # Handle joint commands
         for name in self.joint_names:
             if name in action:
                 value = action[name]
                 # Handle both scalar and array values
                 if hasattr(value, '__iter__') and not isinstance(value, str):
-                    command_dict[name] = float(value[0])
+                    joint_command_dict[name] = float(value[0])
                 else:
-                    command_dict[name] = float(value)
+                    joint_command_dict[name] = float(value)
             else:
                 # Maintain current position if joint not specified
                 current_obs = self.get_observation()
-                command_dict[name] = float(current_obs[name])
+                joint_command_dict[name] = float(current_obs[name])
+        
+        # Handle mecanum wheel commands
+        for name in self.mecanum_names:
+            if name in action:
+                value = action[name]
+                # Handle both scalar and array values
+                if hasattr(value, '__iter__') and not isinstance(value, str):
+                    mecanum_commands[name] = float(value[0])
+                else:
+                    mecanum_commands[name] = float(value)
+            else:
+                mecanum_commands[name] = 0.0
 
         # Debug: Print what we're sending
-        logger.debug(f"Sending command_dict: {command_dict}")
+        logger.debug(f"Sending joint commands: {joint_command_dict}")
+        logger.debug(f"Sending mecanum commands: {mecanum_commands}")
         
         try:
-            # Send the actual motor commands
-            self.motors_bus.sync_write("Goal_Position", command_dict)
-            logger.debug("Motor commands sent successfully")
+            # Send joint motor commands if any joints are specified
+            if any(name in action for name in self.joint_names):
+                self.motors_bus.sync_write("Goal_Position", joint_command_dict)
+                logger.debug("Joint motor commands sent successfully")
+            
+            # Send mecanum wheel commands if any are specified
+            if any(name in action for name in self.mecanum_names):
+                v_x = mecanum_commands.get("v_x", 0.0)
+                v_y = mecanum_commands.get("v_y", 0.0) 
+                v_z = mecanum_commands.get("v_z", 0.0)
+                
+                # Use the motor bus driver to send mecanum wheel commands
+                self.motors_bus.driver.set_car_motion(v_x, v_y, v_z)
+                logger.debug(f"Mecanum commands sent: v_x={v_x}, v_y={v_y}, v_z={v_z}")
+                
         except Exception as e:
-            logger.error(f"Failed to send motor commands: {e}")
+            logger.error(f"Failed to send commands: {e}")
             raise
 
         return action
@@ -229,6 +306,13 @@ class RosmasterRobot(Robot):
         """Disconnect from the robot and cameras."""
         if self.is_connected:
             print("Disconnecting from Rosmaster robot...")
+            
+            # Stop mecanum drive motors before disconnecting
+            try:
+                self.motors_bus.driver.set_car_motion(0.0, 0.0, 0.0)
+                print("  ✓ Mecanum drive motors stopped")
+            except Exception as e:
+                logger.warning(f"Failed to stop mecanum motors: {e}")
             
             # Disconnect cameras
             for cam_key, camera in self.cameras.items():
