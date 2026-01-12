@@ -16,9 +16,9 @@ LeRobot Framework
 ├── Motor Bus Layer (src/lerobot/motors/yahboom/)
 │   ├── yahboom.py - Hardware communication bus
 │   └── rosmaster_driver.py - Low-level driver (embedded)
-└── Teleoperator Layer (src/lerobot/teleoperators/rosmaster_keyboard/)
-    ├── teleop_rosmaster_keyboard.py - Input handling
-    └── configuration_rosmaster_keyboard.py - Teleop configuration
+└── Teleoperator Layer (src/lerobot/teleoperators/rosmaster_combined/)
+    ├── teleop_rosmaster_combined.py - Combined arm+base input handling
+    └── configuration_rosmaster_combined.py - Combined teleop configuration
 ```
 
 ### Data Flow
@@ -461,7 +461,7 @@ class RosmasterRobotConfig:
 python -m lerobot.teleoperate \
     --robot.type=rosmaster \
     --robot.com=/dev/myserial \
-    --teleop.type=rosmaster_keyboard
+    --teleop.type=rosmaster_combined
 ```
 
 ### Data Flow Integration

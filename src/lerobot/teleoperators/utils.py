@@ -12,11 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from enum import Enum
+from typing import cast
+
+from lerobot.utils.import_utils import make_device_from_device_class
+
 from .config import TeleoperatorConfig
 from .teleoperator import Teleoperator
 
 
+class TeleopEvents(Enum):
+    """Shared constants for teleoperator events across teleoperators."""
+
+    SUCCESS = "success"
+    FAILURE = "failure"
+    RERECORD_EPISODE = "rerecord_episode"
+    IS_INTERVENTION = "is_intervention"
+    TERMINATE_EPISODE = "terminate_episode"
+
+
 def make_teleoperator_from_config(config: TeleoperatorConfig) -> Teleoperator:
+    # TODO(Steven): Consider just using the make_device_from_device_class for all types
     if config.type == "keyboard":
         from .keyboard import KeyboardTeleop
 
@@ -65,13 +81,16 @@ def make_teleoperator_from_config(config: TeleoperatorConfig) -> Teleoperator:
         from .bi_so100_leader import BiSO100Leader
 
         return BiSO100Leader(config)
-    elif config.type == "rosmaster_keyboard":
-        from .rosmaster_keyboard import RosmasterKeyboardTeleop
+    elif config.type == "rosmaster_combined":
+        from .rosmaster_combined import RosmasterCombinedTeleop
 
-        return RosmasterKeyboardTeleop(config)
-    elif config.type == "rosmaster_terminal":
-        from .rosmaster_terminal import RosmasterTerminalTeleop
+        return RosmasterCombinedTeleop(config)
+    elif config.type == "reachy2_teleoperator":
+        from .reachy2_teleoperator import Reachy2Teleoperator
 
-        return RosmasterTerminalTeleop(config)
+        return Reachy2Teleoperator(config)
     else:
-        raise ValueError(config.type)
+        try:
+            return cast(Teleoperator, make_device_from_device_class(config))
+        except Exception as e:
+            raise ValueError(f"Error creating robot with config {config}: {e}") from e
