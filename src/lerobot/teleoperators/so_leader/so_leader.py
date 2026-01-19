@@ -133,6 +133,9 @@ class SOLeader(Teleoperator):
 
     def setup_motors(self) -> None:
         for motor in reversed(self.bus.motors):
+            if self.config.skip_gripper and motor == "gripper":
+                print(f"Skipping '{motor}' motor (ID 6) - skip_gripper flag enabled")
+                continue
             input(f"Connect the controller board to the '{motor}' motor only and press enter.")
             self.bus.setup_motor(motor)
             print(f"'{motor}' motor id set to {self.bus.motors[motor].id}")

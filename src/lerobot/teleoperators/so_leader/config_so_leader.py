@@ -30,6 +30,9 @@ class SOLeaderConfig:
     # Whether to use degrees for angles
     use_degrees: bool = False
 
+    # Whether to skip gripper motor (ID 6) during setup (for 5-motor configuration)
+    skip_gripper: bool = False
+
 
 @TeleoperatorConfig.register_subclass("so101_leader")
 @TeleoperatorConfig.register_subclass("so100_leader")
