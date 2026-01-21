@@ -30,17 +30,29 @@ from lerobot.motors.yahboom.yahboom import RosmasterMotorsBus
 
 logger = logging.getLogger(__name__)
 
-@dataclass
 @RobotConfig.register_subclass("rosmaster")
+@dataclass
 class RosmasterRobotConfig(RobotConfig):
     """Configuration for Rosmaster Robot."""
     
     com: str = "/dev/myserial"
     id: str = "rosmaster_arm"
     cameras: Dict[str, CameraConfig] = field(default_factory=dict)
+    # Reset position for the 6 servos (servo_1 through servo_6)
+    # Set to None to disable automatic reset, or provide a list of 6 angles in degrees
+    reset_position: list[float] | None = None
 
 
 class RosmasterRobot(Robot):
+    def reset_to_initial_position(self):
+        """Reset robot to initial position as defined in config.reset_position."""
+        if hasattr(self, 'config') and getattr(self.config, 'reset_position', None) is not None:
+            print(f"Resetting robot to position: {self.config.reset_position}")
+            try:
+                self.motors_bus.driver.set_uart_servo_angle_array(self.config.reset_position)
+                time.sleep(2)  # Wait for the robot to reach the position
+            except Exception as e:
+                print(f"Failed to reset robot position: {e}")
     """LeRobot-compatible class for the Rosmaster robotic arm."""
     
     config_class = RosmasterRobotConfig
@@ -68,6 +80,8 @@ class RosmasterRobot(Robot):
         self.cameras = make_cameras_from_configs(config.cameras)
         
         self._is_connected = False
+
+        self.config = config
 
     @property
     def _motors_ft(self) -> dict[str, type]:
@@ -119,20 +133,19 @@ class RosmasterRobot(Robot):
         print("Enabling servo torque for robot control...")
         self.motors_bus.enable_torque()
         time.sleep(0.5)
-        
+
+        if hasattr(self, 'config') and getattr(self.config, 'reset_position', None) is not None:
+            print(f"Setting all servos to initial reset position: {self.config.reset_position}")
+            try:
+                self.motors_bus.driver.set_uart_servo_angle_array(self.config.reset_position)
+                time.sleep(2)  # Wait for the robot to reach the position
+            except Exception as e:
+                logger.warning(f"Failed to set initial reset position: {e}")    
+    
         # Reset mecanum drive motors to zero velocity
         print("Resetting mecanum drive motors...")
         self.motors_bus.driver.set_car_motion(0.0, 0.0, 0.0)
         time.sleep(0.1)
-        
-        # Initialize servo_3 to angle 0
-        print("Initializing servo_3 to 0°...")
-        try:
-            self.motors_bus.driver.set_uart_servo_angle(3, 0, run_time=1000)
-            time.sleep(1.0)  # Wait for servo to reach position
-            print("  ✓ Servo_3 initialized to 0°")
-        except Exception as e:
-            logger.warning(f"Failed to initialize servo_3: {e}")
         
         # Handle calibration if needed
         if not self.is_calibrated and calibrate:
@@ -301,6 +314,30 @@ class RosmasterRobot(Robot):
             raise
 
         return action
+
+    def reset(self) -> None:
+        """Reset the robot to a predefined position if configured."""
+        if not self.is_connected:
+            raise RuntimeError("Robot is not connected.")
+        
+        if self.config.reset_position is not None:
+            if len(self.config.reset_position) != 6:
+                raise ValueError(
+                    f"reset_position must have exactly 6 values (one per servo), "
+                    f"got {len(self.config.reset_position)}"
+                )
+            
+            logger.info(f"Resetting robot to position: {self.config.reset_position}")
+            
+            # Send reset position to all servos
+            try:
+                self.motors_bus.driver.set_uart_servo_angle_array(self.config.reset_position)
+                logger.info("✅ Robot reset to configured position")
+            except Exception as e:
+                logger.error(f"Failed to reset robot position: {e}")
+                raise
+        else:
+            logger.debug("No reset position configured, skipping automatic reset")
 
     def disconnect(self) -> None:
         """Disconnect from the robot and cameras."""

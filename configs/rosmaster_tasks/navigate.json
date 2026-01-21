@@ -1,0 +1,32 @@
+{
+  "robot": {
+    "type": "rosmaster",
+    "com": "/dev/myserial",
+    "cameras": {
+      "top": {
+        "type": "opencv",
+        "index_or_path": "/dev/video0",
+        "width": 640,
+        "height": 480,
+        "fps": 30
+      }
+    },
+    "reset_position": [90, 90, 90, 90, 90, 90]
+  },
+  "teleop": {
+    "type": "rosmaster_combined"
+  },
+  "dataset": {
+    "repo_id": "your_username/rosmaster-navigate",
+    "single_task": "Navigate to the target location",
+    "root": "data/navigate_recordings",
+    "fps": 30,
+    "episode_time_s": 45,
+    "reset_time_s": 15,
+    "num_episodes": 30,
+    "video": true,
+    "push_to_hub": false
+  },
+  "display_data": true,
+  "play_sounds": true
+}

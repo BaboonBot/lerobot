@@ -474,6 +474,8 @@ def record(cfg: RecordConfig) -> LeRobotDataset:
                 (recorded_episodes < cfg.dataset.num_episodes - 1) or events["rerecord_episode"]
             ):
                 log_say("Reset the environment", cfg.play_sounds)
+                robot.reset_to_initial_position()
+                teleop.reset_joint_positions(robot.config.reset_position)
                 record_loop(
                     robot=robot,
                     events=events,

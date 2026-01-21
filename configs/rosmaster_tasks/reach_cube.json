@@ -1,0 +1,32 @@
+{
+  "robot": {
+    "type": "rosmaster",
+    "com": "/dev/myserial",
+    "cameras": {
+      "top": {
+        "type": "opencv",
+        "index_or_path": "/dev/video1",
+        "width": 640,
+        "height": 480,
+        "fps": 30
+      }
+    },
+    "reset_position": [90, 5, 120, 55, 90, 70]
+  },
+  "teleop": {
+    "type": "rosmaster_combined"
+  },
+  "dataset": {
+    "repo_id": "your_username/rosmaster-reach-cube",
+    "single_task": "Reach and grasp the cube",
+    "root": "data/reach_cube_recordings",
+    "fps": 30,
+    "episode_time_s": 15,
+    "reset_time_s": 5,
+    "num_episodes": 50,
+    "video": true,
+    "push_to_hub": false
+  },
+  "display_data": true,
+  "play_sounds": true
+}
