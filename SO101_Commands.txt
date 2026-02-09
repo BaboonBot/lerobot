@@ -1,0 +1,320 @@
+================================================================================
+SO101 ROBOT - TELEOPERATION & RECORDING COMMANDS REFERENCE
+================================================================================
+
+HARDWARE SETUP (this is for the linux laptop setup, also any of these ports can change unknowingly)
+--------------
+Follower Robot Port: /dev/ttyACM1
+Leader Robot Port:   /dev/ttyACM0
+Camera:             /dev/video1 (640x480 @ 30fps)
+
+================================================================================
+FIND AVAILABLE DEVICES
+================================================================================
+
+# Find all cameras
+lerobot-find-cameras opencv
+
+# Find serial ports for robots
+lerobot-find-port
+
+# List video devices
+ls -la /dev/video*
+
+# Check what's using cameras
+lsof /dev/video* 2>/dev/null
+
+================================================================================
+TELEOPERATION COMMANDS
+================================================================================
+
+# Basic SO101 Teleoperation (with camera display)
+lerobot-teleoperate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader \
+    --display_data=true
+
+# Teleoperation without display
+lerobot-teleoperate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader
+
+# Teleoperation with multiple cameras
+lerobot-teleoperate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{
+        front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},
+        wrist: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}
+    }' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader \
+    --display_data=true
+
+================================================================================
+RECORDING COMMANDS
+================================================================================
+
+# Record a dataset episode
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader \
+    --repo-id=your_username/dataset_name \
+    --task=pick_and_place \
+    --fps=30 \
+    --num-episodes=50 \
+    --root=data
+
+# Record with warmup/reset time
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader \
+    --repo-id=your_username/dataset_name \
+    --task=pick_and_place \
+    --fps=30 \
+    --num-episodes=50 \
+    --warmup-time-s=5 \
+    --reset-time-s=10 \
+    --root=data
+
+# Record and push to HuggingFace Hub
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader \
+    --repo-id=your_username/dataset_name \
+    --task=pick_and_place \
+    --fps=30 \
+    --num-episodes=50 \
+    --push-to-hub=1 \
+    --root=data
+
+# Resume recording from episode 10
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM0 \
+    --teleop.id=leader \
+    --repo-id=your_username/dataset_name \
+    --task=pick_and_place \
+    --fps=30 \
+    --num-episodes=50 \
+    --resume=1 \
+    --episode-index=10 \
+    --root=data
+
+================================================================================
+REPLAY COMMANDS
+================================================================================
+
+# Replay a recorded episode
+lerobot-replay \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --repo-id=your_username/dataset_name \
+    --episode-index=0 \
+    --root=data
+
+# Replay all episodes
+lerobot-replay \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1 \
+    --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
+    --robot.id=follower \
+    --repo-id=your_username/dataset_name \
+    --root=data
+
+================================================================================
+DATASET VISUALIZATION
+================================================================================
+
+# Visualize dataset in Rerun
+lerobot-dataset-viz \
+    --repo-id=your_username/dataset_name \
+    --episode-index=0 \
+    --root=data
+
+# Save visualization to file
+lerobot-dataset-viz \
+    --repo-id=your_username/dataset_name \
+    --episode-index=0 \
+    --root=data \
+    --save=1 \
+    --output-dir=outputs/visualizations
+
+# View saved visualization
+rerun outputs/visualizations/your_username_dataset_name_episode_0.rrd
+
+# Stream visualization to remote viewer
+lerobot-dataset-viz \
+    --repo-id=your_username/dataset_name \
+    --episode-index=0 \
+    --root=data \
+    --mode=distant \
+    --ws-port=9087
+
+# On local machine, connect to stream:
+rerun ws://localhost:9087
+
+================================================================================
+CALIBRATION & SETUP
+================================================================================
+
+# Calibrate motors
+lerobot-calibrate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1
+
+# Find joint limits
+lerobot-find-joint-limits \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1
+
+# Setup motors (configure IDs and settings)
+lerobot-setup-motors \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM1
+
+================================================================================
+RERUN VIEWER
+================================================================================
+
+# Open Rerun viewer (auto-opens during teleoperation with --display_data=true)
+rerun
+
+# View a specific .rrd file
+rerun path/to/file.rrd
+
+# Connect to websocket stream
+rerun ws://localhost:9087
+
+================================================================================
+CAMERA CONFIGURATIONS
+================================================================================
+
+# Single front camera
+--robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}'
+
+# Front + wrist cameras
+--robot.cameras='{
+    front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},
+    wrist: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}
+}'
+
+# High resolution camera
+--robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 1920, height: 1080, fps: 30}}'
+
+# RealSense camera (if available)
+--robot.cameras='{ front: {type: realsense, serial_number: 123456789, width: 640, height: 480, fps: 30}}'
+
+================================================================================
+COMMON PARAMETERS
+================================================================================
+
+--fps=30                    # Recording frequency (Hz)
+--num-episodes=50           # Number of episodes to record
+--warmup-time-s=5           # Warmup time before recording (seconds)
+--reset-time-s=10           # Reset time between episodes (seconds)
+--display_data=true         # Show Rerun visualization
+--push-to-hub=1             # Upload to HuggingFace Hub
+--resume=1                  # Resume existing dataset
+--episode-index=0           # Specific episode index
+--root=data                 # Local data directory
+--task=pick_and_place       # Task name/description
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+# Camera permission error
+sudo usermod -a -G video $USER
+# Then logout and login again
+
+# Reset camera driver
+sudo rmmod uvcvideo && sudo modprobe uvcvideo
+
+# Check if port is accessible
+ls -la /dev/ttyACM*
+
+# Add user to dialout group for serial access
+sudo usermod -a -G dialout $USER
+# Then logout and login again
+
+# Reinstall lerobot after updates
+pip install -e .
+
+# Check installed version
+pip show lerobot
+
+# Clean install
+pip uninstall lerobot
+pip install -e .
+
+================================================================================
+HUGGINGFACE HUB AUTHENTICATION
+================================================================================
+
+# Login to HuggingFace (required for push-to-hub)
+huggingface-cli login
+
+# Create a new dataset repository on hub.huggingface.co
+# Then use: --repo-id=your_username/dataset_name --push-to-hub=1
+
+================================================================================
+DATA DIRECTORY STRUCTURE
+================================================================================
+
+data/
+└── your_username/
+    └── dataset_name/
+        ├── meta/
+        ├── videos/
+        │   ├── chunk-000/
+        │   └── chunk-001/
+        └── data.parquet
+
+================================================================================
+TIPS & BEST PRACTICES
+================================================================================
+
+1. Always run lerobot-find-cameras first to identify available cameras
+2. Use --display_data=true during teleoperation to monitor robot behavior
+3. Set appropriate --warmup-time-s and --reset-time-s for your task
+4. Record in batches (--num-episodes=10) for easier management
+5. Use --resume=1 to continue recording if interrupted
+6. Visualize episodes with lerobot-dataset-viz before training
+7. Test with lerobot-replay before collecting large datasets
+8. Keep backups of datasets before pushing to hub
+
+================================================================================
