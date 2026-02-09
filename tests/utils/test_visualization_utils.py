@@ -41,11 +41,14 @@ def mock_rerun(monkeypatch):
         def __init__(self, arr):
             self.arr = arr
 
-    def dummy_log(key, obj, **kwargs):
+    def dummy_log(key, obj=None, **kwargs):
+        # Accept either positional `obj` or keyword `entity` and record remaining kwargs.
+        if obj is None and "entity" in kwargs:
+            obj = kwargs.pop("entity")
         calls.append((key, obj, kwargs))
 
     dummy_rr = SimpleNamespace(
-        Scalar=DummyScalar,
+        Scalars=DummyScalar,
         Image=DummyImage,
         log=dummy_log,
         init=lambda *a, **k: None,
@@ -109,9 +112,9 @@ def test_log_rerun_data_envtransition_scalars_and_image(mock_rerun):
     vu.log_rerun_data(observation=obs_data, action=action_data)
 
     # We expect:
-    # - observation.state.temperature -> Scalar
+    # - observation.state.temperature -> Scalars
     # - observation.camera -> Image (HWC) with static=True
-    # - action.throttle -> Scalar
+    # - action.throttle -> Scalars
     # - action.vector_0, action.vector_1 -> Scalars
     expected_keys = {
         f"{OBS_STATE}.temperature",

@@ -14,7 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .motors_bus import Motor, MotorCalibration, MotorNormMode, MotorsBus
+from .motors_bus import (
+    Motor,
+    MotorCalibration,
+    MotorNormMode,
+)
 
 # Import Yahboom motor bus to make it available
-from .yahboom.yahboom import RosmasterMotorsBus
+try:
+    from .yahboom.yahboom import RosmasterMotorsBus
+except ImportError:
+    pass

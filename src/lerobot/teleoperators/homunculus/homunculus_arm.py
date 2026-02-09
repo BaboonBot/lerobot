@@ -22,7 +22,7 @@ from pprint import pformat
 import serial
 
 from lerobot.motors.motors_bus import MotorCalibration, MotorNormMode
-from lerobot.utils.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
+from lerobot.utils.decorators import check_if_already_connected, check_if_not_connected
 from lerobot.utils.utils import enter_pressed, move_cursor_up
 
 from ..teleoperator import Teleoperator
@@ -93,10 +93,8 @@ class HomunculusArm(Teleoperator):
         with self.serial_lock:
             return self.serial.is_open and self.thread.is_alive()
 
+    @check_if_already_connected
     def connect(self, calibrate: bool = True) -> None:
-        if self.is_connected:
-            raise DeviceAlreadyConnectedError(f"{self} already connected")
-
         if not self.serial.is_open:
             self.serial.open()
         self.thread.start()
@@ -270,8 +268,15 @@ class HomunculusArm(Teleoperator):
                 raw_values = None
                 with self.serial_lock:
                     if self.serial.in_waiting > 0:
-                        self.serial.flush()
-                        raw_values = self.serial.readline().decode("utf-8").strip().split(" ")
+                        lines = []
+                        while self.serial.in_waiting > 0:
+                            line = self.serial.read_until().decode("utf-8").strip()
+                            if line:
+                                lines.append(line.split(" "))
+
+                        if lines:
+                            raw_values = lines[-1]
+
                 if raw_values is None or len(raw_values) != 21:  # 16 raw + 5 angle values
                     continue
 
@@ -292,6 +297,7 @@ class HomunculusArm(Teleoperator):
             except Exception as e:
                 logger.debug(f"Error reading frame in background thread for {self}: {e}")
 
+    @check_if_not_connected
     def get_action(self) -> dict[str, float]:
         joint_positions = self._read()
         return {f"{joint}.pos": pos for joint, pos in joint_positions.items()}
@@ -299,10 +305,8 @@ class HomunculusArm(Teleoperator):
     def send_feedback(self, feedback: dict[str, float]) -> None:
         raise NotImplementedError
 
+    @check_if_not_connected
     def disconnect(self) -> None:
-        if not self.is_connected:
-            DeviceNotConnectedError(f"{self} is not connected.")
-
         self.stop_event.set()
         self.thread.join(timeout=1)
         self.serial.close()

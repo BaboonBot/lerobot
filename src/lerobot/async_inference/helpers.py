@@ -16,8 +16,9 @@ import logging
 import logging.handlers
 import os
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 import torch
 
@@ -39,8 +40,8 @@ from lerobot.utils.utils import init_logging
 
 Action = torch.Tensor
 
-# observation as received from the robot
-RawObservation = dict[str, torch.Tensor]
+# observation as received from the robot (can be numpy arrays, floats, etc.)
+RawObservation = dict[str, Any]
 
 # observation as those recorded in LeRobot dataset (keys are different)
 LeRobotObservation = dict[str, torch.Tensor]
@@ -268,6 +269,7 @@ class RemotePolicyConfig:
     lerobot_features: dict[str, PolicyFeature]
     actions_per_chunk: int
     device: str = "cpu"
+    rename_map: dict[str, str] = field(default_factory=dict)
 
 
 def _compare_observation_states(obs1_state: torch.Tensor, obs2_state: torch.Tensor, atol: float) -> bool:
