@@ -220,7 +220,8 @@ lerobot-record \
 
 4. **Camera connection issues**:
    - `/dev/video0` may have USB stability issues during continuous streaming
-   - **Solution**: Use `/dev/video2` which is more reliable
+   - **So下拉菜单控件Dropdown参数解释：
+lution**: Use `/dev/video2` which is more reliable
    - Check kernel logs: `sudo dmesg | grep -E "(video|uvc)" | tail -10`
    - USB URB errors indicate power/bandwidth issues
 
@@ -313,3 +314,6 @@ This data format is ready for training LeRobot policies and uploading to Hugging
 *LeRobot version: Compatible with Rosmaster integration*
 *Camera issues diagnosed and documented*
 *Position stability system fixed*
+* open camera preview: python3 preview_cameras.py --front /dev/video2 --grid
+
+

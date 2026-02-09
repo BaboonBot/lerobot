@@ -37,6 +37,9 @@ except ImportError:
 
 
 class RosmasterCombinedTeleop(Teleoperator):
+    def reset_joint_positions(self, positions):
+        """Externally reset teleop joint positions to match robot."""
+        self.current_positions = list(positions)
     """
     Combined teleoperator for Rosmaster robot providing both mecanum wheel and arm control.
     
@@ -66,13 +69,11 @@ class RosmasterCombinedTeleop(Teleoperator):
         self.listener = None
         self.logs = {}
         
-        # Initialize joint positions
-        # servo_3 (elbow) starts at 0°, others at 90° (middle position)
-        self.current_positions = np.array([90.0, 90.0, 0.0, 90.0, 90.0, 90.0], dtype=np.float32)
-        
+        # Manually set the reset position here. Change these values as needed:
+        self.current_positions = [90, 5, 120, 55, 90, 70]  # <-- MANUAL RESET POSITION
+        self._positions_initialized = False
         # Initialize mecanum wheel velocities (all stopped)
         self.current_velocities = np.array([0.0, 0.0, 0.0], dtype=np.float32)  # [v_x, v_y, v_z]
-        
         # Movement control to prevent sudden movements
         self.last_command_time = 0
         # Use configurable fps to set rate limit (default 20 Hz = 50ms between commands)
