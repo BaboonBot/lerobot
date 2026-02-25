@@ -4,9 +4,12 @@ SO101 ROBOT - TELEOPERATION & RECORDING COMMANDS REFERENCE
 
 HARDWARE SETUP (this is for the linux laptop setup, also any of these ports can change unknowingly)
 --------------
-Follower Robot Port: /dev/ttyACM1
-Leader Robot Port:   /dev/ttyACM0
-Camera:             /dev/video1 (640x480 @ 30fps)
+Follower Robot Port: /dev/ttyACM0
+Leader Robot Port:   /dev/ttyACM1
+Camera 1 (front):   /dev/video2 (640x480 @ 30fps)
+Camera 2 (wrist):   /dev/video4 (640x480 @ 30fps)
+
+NOTE: Always verify camera device with lerobot-find-cameras before recording
 
 ================================================================================
 FIND AVAILABLE DEVICES
@@ -31,35 +34,35 @@ TELEOPERATION COMMANDS
 # Basic SO101 Teleoperation (with camera display)
 lerobot-teleoperate \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader \
     --display_data=true
 
 # Teleoperation without display
 lerobot-teleoperate \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader
 
 # Teleoperation with multiple cameras
 lerobot-teleoperate \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{
         front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},
-        wrist: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}
+        wrist: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}
     }' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader \
     --display_data=true
 
@@ -70,67 +73,127 @@ RECORDING COMMANDS
 # Record a dataset episode
 lerobot-record \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader \
-    --repo-id=your_username/dataset_name \
-    --task=pick_and_place \
-    --fps=30 \
-    --num-episodes=50 \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.single_task=pick_and_place \
+    --dataset.fps=30 \
+    --dataset.num_episodes=50 \
+    --dataset.root=data \
+    --display_data=true
 
 # Record with warmup/reset time
 lerobot-record \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader \
-    --repo-id=your_username/dataset_name \
-    --task=pick_and_place \
-    --fps=30 \
-    --num-episodes=50 \
-    --warmup-time-s=5 \
-    --reset-time-s=10 \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.single_task=pick_and_place \
+    --dataset.fps=30 \
+    --dataset.num_episodes=50 \
+    --dataset.warmup_time_s=3 \
+    --dataset.reset_time_s=5 \
+    --dataset.root=data \
+    --display_data=true
 
 # Record and push to HuggingFace Hub
 lerobot-record \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader \
-    --repo-id=your_username/dataset_name \
-    --task=pick_and_place \
-    --fps=30 \
-    --num-episodes=50 \
-    --push-to-hub=1 \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.single_task=pick_and_place \
+    --dataset.fps=30 \
+    --dataset.num_episodes=50 \
+    --dataset.reset_time_s=5 \
+    --dataset.push_to_hub=true \
+    --dataset.root=data \
+    --display_data=true
 
 # Resume recording from episode 10
 lerobot-record \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM0 \
+    --teleop.port=/dev/ttyACM1 \
     --teleop.id=leader \
-    --repo-id=your_username/dataset_name \
-    --task=pick_and_place \
-    --fps=30 \
-    --num-episodes=50 \
-    --resume=1 \
-    --episode-index=10 \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.single_task=pick_and_place \
+    --dataset.fps=30 \
+    --dataset.num_episodes=50 \
+    --dataset.resume=true \
+    --dataset.episode_index=10 \
+    --dataset.root=data \
+    --display_data=true
+
+================================================================================
+POLICY INFERENCE COMMANDS
+================================================================================
+
+⚠️  PERFORMANCE WARNING (CPU-only machines):
+    SmolVLA on CPU takes ~65 seconds per inference call.
+    Each inference produces a chunk of 32 actions which then execute instantly.
+    So movement happens in bursts: 65s wait → 32 quick moves → 65s wait → repeat.
+    Set --dataset.episode_time_s high enough (e.g. 600) so the episode does not
+    expire before the first inference finishes (default is only 60s!).
+    If you have a GPU, inference will be much faster (~1-2s per chunk).
+
+    Camera keys MUST match the policy's expected input feature names.
+    NLTuan/smolvla_red_block_in_tape expects: camera1, camera2, camera3
+    (camera3 is absent here — the policy's empty_cameras=1 pads it automatically)
+
+# Run policy inference — both cameras, policy drives the robot (NO teleop)
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}
+    }' \
+    --robot.id=follower \
+    --policy.path=NLTuan/smolvla_red_block_in_tape \
+    --dataset.repo_id=NLTuan/eval_smolvla_red_block_in_tape \
+    --dataset.single_task="place red block in tape" \
+    --dataset.fps=30 \
+    --dataset.num_episodes=10 \
+    --dataset.episode_time_s=600 \
+    --dataset.reset_time_s=10 \
+    --dataset.root=data \
+    --display_data=false
+
+# Quick test run — 1 episode, no hub push
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}
+    }' \
+    --robot.id=follower \
+    --policy.path=NLTuan/smolvla_red_block_in_tape \
+    --dataset.repo_id=NLTuan/eval_smolvla_red_block_in_tape \
+    --dataset.single_task="place red block in tape" \
+    --dataset.fps=30 \
+    --dataset.num_episodes=1 \
+    --dataset.episode_time_s=600 \
+    --dataset.reset_time_s=5 \
+    --dataset.push_to_hub=false \
+    --dataset.root=data \
+    --display_data=false
 
 ================================================================================
 REPLAY COMMANDS
@@ -139,21 +202,21 @@ REPLAY COMMANDS
 # Replay a recorded episode
 lerobot-replay \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
-    --repo-id=your_username/dataset_name \
-    --episode-index=0 \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.episode_index=0 \
+    --dataset.root=data
 
 # Replay all episodes
 lerobot-replay \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1 \
+    --robot.port=/dev/ttyACM0 \
     --robot.cameras='{ front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}}' \
     --robot.id=follower \
-    --repo-id=your_username/dataset_name \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.root=data
 
 ================================================================================
 DATASET VISUALIZATION
@@ -161,15 +224,15 @@ DATASET VISUALIZATION
 
 # Visualize dataset in Rerun
 lerobot-dataset-viz \
-    --repo-id=your_username/dataset_name \
-    --episode-index=0 \
-    --root=data
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.episode_index=0 \
+    --dataset.root=data
 
 # Save visualization to file
 lerobot-dataset-viz \
-    --repo-id=your_username/dataset_name \
-    --episode-index=0 \
-    --root=data \
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.episode_index=0 \
+    --dataset.root=data \
     --save=1 \
     --output-dir=outputs/visualizations
 
@@ -178,9 +241,9 @@ rerun outputs/visualizations/your_username_dataset_name_episode_0.rrd
 
 # Stream visualization to remote viewer
 lerobot-dataset-viz \
-    --repo-id=your_username/dataset_name \
-    --episode-index=0 \
-    --root=data \
+    --dataset.repo_id=your_username/dataset_name \
+    --dataset.episode_index=0 \
+    --dataset.root=data \
     --mode=distant \
     --ws-port=9087
 
@@ -194,17 +257,17 @@ CALIBRATION & SETUP
 # Calibrate motors
 lerobot-calibrate \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1
+    --robot.port=/dev/ttyACM0
 
 # Find joint limits
 lerobot-find-joint-limits \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1
+    --robot.port=/dev/ttyACM0
 
 # Setup motors (configure IDs and settings)
 lerobot-setup-motors \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM1
+    --robot.port=/dev/ttyACM0
 
 ================================================================================
 RERUN VIEWER
@@ -229,7 +292,7 @@ CAMERA CONFIGURATIONS
 # Front + wrist cameras
 --robot.cameras='{
     front: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30},
-    wrist: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30}
+    wrist: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30}
 }'
 
 # High resolution camera
@@ -242,20 +305,48 @@ CAMERA CONFIGURATIONS
 COMMON PARAMETERS
 ================================================================================
 
---fps=30                    # Recording frequency (Hz)
---num-episodes=50           # Number of episodes to record
---warmup-time-s=5           # Warmup time before recording (seconds)
---reset-time-s=10           # Reset time between episodes (seconds)
---display_data=true         # Show Rerun visualization
---push-to-hub=1             # Upload to HuggingFace Hub
---resume=1                  # Resume existing dataset
---episode-index=0           # Specific episode index
---root=data                 # Local data directory
---task=pick_and_place       # Task name/description
+ROBOT & TELEOPERATION:
+--robot.type=so101_follower         # Robot type
+--robot.port=/dev/ttyACM0           # Robot serial port
+--robot.id=follower                 # Robot identifier
+--teleop.type=so101_leader          # Teleoperator type
+--teleop.port=/dev/ttyACM1          # Teleoperator serial port
+--teleop.id=leader                  # Teleoperator identifier
+--display_data=true                 # Show Rerun visualization
+
+DATASET (for recording/replay/visualization):
+--dataset.repo_id=user/dataset      # Dataset repository ID
+--dataset.single_task=task_name     # Task name/description
+--dataset.fps=30                    # Recording frequency (Hz)
+--dataset.num_episodes=50           # Number of episodes to record
+--dataset.episode_time_s=60         # Max duration per episode in seconds (default: 60)
+                                    # ⚠️  For CPU policy inference set this to 600+
+                                    #    (SmolVLA takes ~65s/inference on CPU)
+--dataset.warmup_time_s=3           # Warmup time before recording (seconds)
+--dataset.reset_time_s=5            # Reset time between episodes in seconds (default: 60)
+--dataset.push_to_hub=true          # Upload to HuggingFace Hub
+--dataset.private=false             # Make dataset private on Hub
+--dataset.resume=true               # Resume existing dataset
+--dataset.episode_index=0           # Specific episode index
+--dataset.root=data                 # Local data directory
+--dataset.tags=['tag1', 'tag2']     # Dataset tags for Hub
 
 ================================================================================
 TROUBLESHOOTING
 ================================================================================
+
+# Robot not moving during policy inference
+# → The episode timer expired before the first inference finished.
+#   SmolVLA on CPU takes ~65s per inference. Default episode_time_s=60 is too short.
+#   Fix: add --dataset.episode_time_s=600 to your lerobot-record command.
+#
+# → After first inference the next 31 actions execute instantly (action chunking),
+#   then it waits ~65s again for the next chunk. This is normal on CPU.
+
+# Camera key mismatch during inference
+# → Policy will crash with a feature mismatch error if camera keys don't match.
+#   NLTuan/smolvla_red_block_in_tape expects: camera1, camera2 (not front/wrist)
+#   Check expected keys in the config dump printed at startup under input_features.
 
 # Camera permission error
 sudo usermod -a -G video $USER
@@ -310,11 +401,16 @@ TIPS & BEST PRACTICES
 
 1. Always run lerobot-find-cameras first to identify available cameras
 2. Use --display_data=true during teleoperation to monitor robot behavior
-3. Set appropriate --warmup-time-s and --reset-time-s for your task
-4. Record in batches (--num-episodes=10) for easier management
-5. Use --resume=1 to continue recording if interrupted
-6. Visualize episodes with lerobot-dataset-viz before training
-7. Test with lerobot-replay before collecting large datasets
-8. Keep backups of datasets before pushing to hub
+3. Set --dataset.reset_time_s to 5-10 seconds for teleoperation (default is 60s)
+4. For policy inference on CPU, set --dataset.episode_time_s=600 (or higher)
+   SmolVLA on CPU: ~65s per inference, 32 actions per chunk, then repeat
+   Robot movement will appear in bursts — this is expected, not a bug
+5. Camera keys in --robot.cameras MUST match the policy's input_features names
+   (printed at startup) — wrong keys cause a silent feature mismatch crash
+6. Record in batches (--num-episodes=10) for easier management
+7. Use --dataset.resume=true to continue recording if interrupted
+8. Visualize episodes with lerobot-dataset-viz before training
+9. Test with lerobot-replay before collecting large datasets
+10. Keep backups of datasets before pushing to hub
 
 ================================================================================
