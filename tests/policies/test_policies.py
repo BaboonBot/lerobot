@@ -34,7 +34,7 @@ from lerobot.envs.factory import make_env, make_env_config
 from lerobot.envs.utils import close_envs, preprocess_observation
 from lerobot.optim.factory import make_optimizer_and_scheduler
 from lerobot.policies.act.configuration_act import ACTConfig
-from lerobot.policies.act.modeling_act import ACTTemporalEnsembler
+from lerobot.policies.act.modeling_act import ACTPolicy, ACTTemporalEnsembler
 from lerobot.policies.factory import (
     get_policy_class,
     make_policy,
@@ -346,6 +346,72 @@ def test_multikey_construction(multikey: bool):
     assert action_condition, (
         f"Discrepancy detected. Action feature is {config.action_feature} but policy expects {output_features[ACTION]}"
     )
+
+
+def make_tiny_act_config(n_obs_steps: int = 3, chunk_size: int = 4, n_action_steps: int = 2) -> ACTConfig:
+    return ACTConfig(
+        input_features={
+            f"{OBS_IMAGES}.front": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 64, 64)),
+            OBS_STATE: PolicyFeature(type=FeatureType.STATE, shape=(6,)),
+        },
+        output_features={ACTION: PolicyFeature(type=FeatureType.ACTION, shape=(6,))},
+        n_obs_steps=n_obs_steps,
+        chunk_size=chunk_size,
+        n_action_steps=n_action_steps,
+        vision_backbone="resnet18",
+        pretrained_backbone_weights=None,
+        dim_model=32,
+        n_heads=4,
+        dim_feedforward=64,
+        n_encoder_layers=1,
+        n_vae_encoder_layers=1,
+        latent_dim=8,
+        device="cpu",
+    )
+
+
+def test_act_observation_delta_indices_for_temporal_context():
+    assert ACTConfig(n_obs_steps=1).observation_delta_indices is None
+    assert ACTConfig(n_obs_steps=3).observation_delta_indices == [-2, -1, 0]
+
+
+def test_act_forward_accepts_temporal_image_observations():
+    cfg = make_tiny_act_config()
+    policy = ACTPolicy(cfg)
+    batch = {
+        f"{OBS_IMAGES}.front": torch.rand(2, cfg.n_obs_steps, 3, 64, 64),
+        OBS_STATE: torch.rand(2, cfg.n_obs_steps, 6),
+        ACTION: torch.rand(2, cfg.chunk_size, 6),
+        "action_is_pad": torch.zeros(2, cfg.chunk_size, dtype=torch.bool),
+    }
+
+    loss, loss_dict = policy.forward(batch)
+
+    assert torch.isfinite(loss)
+    assert set(loss_dict) == {"l1_loss", "kld_loss"}
+
+
+def test_act_select_action_stacks_single_observations_for_temporal_context(monkeypatch):
+    cfg = make_tiny_act_config()
+    policy = ACTPolicy(cfg)
+    captured = {}
+
+    def fake_model_forward(batch):
+        captured["image_shape"] = batch[OBS_IMAGES][0].shape
+        captured["state_shape"] = batch[OBS_STATE].shape
+        return torch.zeros(1, cfg.chunk_size, 6), (None, None)
+
+    monkeypatch.setattr(policy.model, "forward", fake_model_forward)
+
+    obs = {
+        f"{OBS_IMAGES}.front": torch.rand(1, 3, 64, 64),
+        OBS_STATE: torch.rand(1, 6),
+    }
+    action = policy.select_action(obs)
+
+    assert action.shape == (1, 6)
+    assert captured["image_shape"] == (1, cfg.n_obs_steps, 3, 64, 64)
+    assert captured["state_shape"] == (1, cfg.n_obs_steps, 6)
 
 
 @pytest.mark.parametrize(
