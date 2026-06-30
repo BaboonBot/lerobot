@@ -154,6 +154,7 @@ class DiffusionConfig(PreTrainedConfig):
 
     # Training presets
     optimizer_lr: float = 1e-4
+    optimizer_lr_backbone: float | None = None
     optimizer_betas: tuple = (0.95, 0.999)
     optimizer_eps: float = 1e-8
     optimizer_weight_decay: float = 1e-6

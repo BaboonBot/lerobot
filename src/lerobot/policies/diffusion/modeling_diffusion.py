@@ -86,7 +86,27 @@ class DiffusionPolicy(PreTrainedPolicy):
         self.reset()
 
     def get_optim_params(self) -> dict:
-        return self.diffusion.parameters()
+        if self.config.optimizer_lr_backbone is None:
+            return self.diffusion.parameters()
+
+        param_groups = [
+            {
+                "params": [
+                    p
+                    for n, p in self.named_parameters()
+                    if not n.startswith("diffusion.rgb_encoder") and p.requires_grad
+                ],
+            },
+            {
+                "params": [
+                    p
+                    for n, p in self.named_parameters()
+                    if n.startswith("diffusion.rgb_encoder") and p.requires_grad
+                ],
+                "lr": self.config.optimizer_lr_backbone,
+            },
+        ]
+        return [group for group in param_groups if len(group["params"]) > 0]
 
     def reset(self):
         """Clear observation and action queues. Should be called on `env.reset()`"""

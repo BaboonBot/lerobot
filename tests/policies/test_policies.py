@@ -36,6 +36,8 @@ from lerobot.envs.utils import close_envs, preprocess_observation
 from lerobot.optim.factory import make_optimizer_and_scheduler
 from lerobot.policies.act.configuration_act import ACTConfig
 from lerobot.policies.act.modeling_act import ACTPolicy, ACTTemporalEnsembler
+from lerobot.policies.diffusion.configuration_diffusion import DiffusionConfig
+from lerobot.policies.diffusion.modeling_diffusion import DiffusionPolicy
 from lerobot.policies.factory import (
     get_policy_class,
     make_policy,
@@ -269,6 +271,42 @@ def test_act_backbone_lr():
     assert optimizer.param_groups[1]["lr"] == cfg.policy.optimizer_lr_backbone
     assert len(optimizer.param_groups[0]["params"]) == 133
     assert len(optimizer.param_groups[1]["params"]) == 20
+
+
+@pytest.mark.skipif(not is_package_available("diffusers"), reason="diffusers not installed")
+def test_diffusion_backbone_lr():
+    cfg = DiffusionConfig(
+        input_features={
+            f"{OBS_IMAGES}.front": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 64, 64)),
+            OBS_STATE: PolicyFeature(type=FeatureType.STATE, shape=(6,)),
+        },
+        output_features={ACTION: PolicyFeature(type=FeatureType.ACTION, shape=(6,))},
+        horizon=8,
+        n_action_steps=4,
+        down_dims=(16, 32),
+        pretrained_backbone_weights=None,
+        optimizer_lr=0.01,
+        optimizer_lr_backbone=0.001,
+        push_to_hub=False,
+        device="cpu",
+    )
+    policy = DiffusionPolicy(cfg)
+
+    optimizer = cfg.get_optimizer_preset().build(policy.get_optim_params())
+
+    assert len(optimizer.param_groups) == 2
+    assert optimizer.param_groups[0]["lr"] == cfg.optimizer_lr
+    assert optimizer.param_groups[1]["lr"] == cfg.optimizer_lr_backbone
+    assert all(
+        not name.startswith("diffusion.rgb_encoder")
+        for name, param in policy.named_parameters()
+        if any(param is group_param for group_param in optimizer.param_groups[0]["params"])
+    )
+    assert all(
+        name.startswith("diffusion.rgb_encoder")
+        for name, param in policy.named_parameters()
+        if any(param is group_param for group_param in optimizer.param_groups[1]["params"])
+    )
 
 
 @pytest.mark.parametrize("policy_name", AVAILABLE_POLICIES)
