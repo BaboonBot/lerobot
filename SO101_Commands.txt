@@ -1,0 +1,361 @@
+FAN: sudo jetson_clocks --fan
+sudo jetson_clocks
+================================================================================
+SO101 ROBOT - PRE-FLIGHT CHECKLIST (DO THIS FIRST!)
+================================================================================
+
+Step 1: Check Serial Port Permissions (Robot & Teleop)
+
+Virtual environment:
+source .venv/bin/activate
+
+------------------------------------------------------
+# This ensures you can actually talk to the hardware.
+sudo chmod 777 /dev/ttyACM*
+ls -la /dev/ttyACM*
+
+Step 2: Check Camera Permissions
+--------------------------------
+# This fixes the "TimeoutError: Timed out waiting for frame" error.
+sudo chmod 666 /dev/video*
+ls -la /dev/video*
+
+Step 3: Identify Ports (Verify they match your command)
+-------------------------------------------------------
+# Confirm which port is the FOLLOWER and which is the LEADER.
+lerobot-find-port
+
+# Confirm which video device is which camera.
+lerobot-find-cameras opencv
+
+Step 4: Verify Your Command Port Mapping
+----------------------------------------
+In your lerobot-teleoperate or lerobot-rollout command, ensure:
+--robot.port=  matches the FOLLOWER port from Step 3. (Usually /dev/ttyACM0)
+--teleop.port= matches the LEADER port from Step 3.   (Usually /dev/ttyACM1)
+--robot.cameras='{ camera1: {index_or_path: /dev/videoX} }' matches your camera scan.
+
+================================================================================
+TELEOPERATION & RECORDING
+================================================================================
+
+# Standard Teleoperation
+lerobot-teleoperate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM3 \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30, backend: 200},
+    }' \
+    --robot.id=so101_follower_7V \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM2 \
+    --teleop.id=so_101_leader_7V \
+    --display_data=true
+
+# Record new dataset (Manual Teleoperation)
+lerobot-record \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}
+    }' \
+    --robot.id=so101_follower_7V \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM1 \
+    --teleop.id=so_101_leader_7V \
+    --dataset.repo_id=vraiRobotLab/board_clean_cube \
+    --dataset.single_task="Clean the board fully" \
+    --dataset.fps=30 \
+    --dataset.num_episodes=25 \
+    --dataset.episode_time_s=40 \
+    --dataset.reset_time_s=10 \
+    --dataset.root=data/board_clean \
+    --dataset.streaming_encoding=true \
+    --dataset.vcodec=h264 \
+    --dataset.encoder_threads=2 \
+    --display_data=true \
+    --resume=true
+
+# Bimanual Teleoperation
+lerobot-teleoperate \
+    --robot.type=bi_so_follower \
+    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.right_arm_config.port=/dev/ttyACM0 \
+    --robot.left_arm_config.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30, backend: 200},
+        camera2: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30, backend: 200}
+    }' \
+    --robot.id=bi_so101_follower_7V \
+    --teleop.type=bi_so_leader \
+    --teleop.left_arm_config.port=/dev/ttyACM2 \
+    --teleop.right_arm_config.port=/dev/ttyACM1 \
+    --teleop.id=bi_so101_leader_7V \
+    --display_data=true
+
+# Record new bimanual dataset (Manual Teleoperation)
+lerobot-record \
+    --robot.type=bi_so_follower \
+    --robot.left_arm_config.port=/dev/ttyACM2 \
+    --robot.right_arm_config.port=/dev/ttyACM1 \
+    --robot.left_arm_config.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30}
+    }' \
+    --robot.right_arm_config.cameras='{
+        camera2: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30}
+    }' \
+    --robot.id=bi_so101_follower_7V \
+    --teleop.type=bi_so_leader \
+    --teleop.left_arm_config.port=/dev/ttyACM2 \
+    --teleop.right_arm_config.port=/dev/ttyACM1 \
+    --teleop.id=bi_so101_leader_7V \
+    --dataset.repo_id=vraiRobotLab/bi_pick_and_stack \
+    --dataset.single_task="pick the block then stack" \
+    --dataset.fps=30 \
+    --dataset.num_episodes=100 \
+    --dataset.episode_time_s=15 \
+    --dataset.reset_time_s=5 \
+    --dataset.root=data/bi_pick_and_stack \
+    --dataset.streaming_encoding=true \
+    --dataset.vcodec=h264 \
+    --dataset.encoder_threads=2 \
+    --display_data=true \
+    --resume=true
+
+================================================================================
+TRAINING COMMANDS (lerobot-train)
+================================================================================
+
+# Basic Training (ACT)
+lerobot-train \
+    --policy.type=act \
+    --dataset.repo_id=ThavT/red_block_in_tape \
+    --batch_size=64 \
+    --steps=20000 \
+    --output_dir=outputs/train/red_block_in_tape_act \
+    --job_name=act_red_block_training \
+    --policy.push_to_hub=true \
+    --policy.repo_id=NLTuan/act_red_block_in_tape \
+    --rename_map='{"observation.images.cam_0": "observation.images.camera1", "observation.images.cam_1": "observation.images.camera2"}' \
+    --wandb.enable=true \
+    --wandb.project=lerobot_red_block \
+    --seed=42 \
+    --log_freq=50
+
+# Fine-Tuning with Regularization (LoRA & Weight Decay)
+# - Use LoRA for heavy models (SmolVLA) to save memory and avoid overfitting.
+lerobot-train \
+    --dataset.repo_id=NLTuan/red_blue_block_cleaned \
+    --policy.type=act \
+    --peft.method_type=LORA \
+    --peft.r=16 \
+    --optimizer.weight_decay=1e-2 \
+    --optimizer.grad_clip_norm=1.0 \
+    --policy.push_to_hub=false \
+    --steps=100000 \
+    --batch_size=8 \
+    --wandb.enable=true
+
+# Enabling Data Augmentation (Color Jitter & Crops)
+# - Highly recommended once the model has learned the basic task.
+lerobot-train \
+    --dataset.repo_id=NLTuan/red_blue_block_cleaned \
+    --policy.type=act \
+    --policy.image_transforms.enable=true \
+    --policy.image_transforms.max_num_transforms=3 \
+    --policy.push_to_hub=false \
+    --steps=100000 \
+    --batch_size=8
+
+# Auto-Evaluation during training
+# - Records test episodes periodically to check Success Rate.
+lerobot-train \
+    --dataset.repo_id=NLTuan/red_blue_block_cleaned \
+    --policy.type=act \
+    --eval.n_episodes=5 \
+    --eval_freq=5000 \
+    --policy.push_to_hub=false \
+    --steps=100000 \
+    --batch_size=8
+
+# Finetuning an existing Hub Model
+# - Loads weights from a specific repo and continues training on new data.
+lerobot-train \
+    --policy.path=NLTuan/act-blue-box-lr4e-5 \
+    --dataset.repo_id=ThavT/red_block_in_tape \
+    --steps=20000 \
+    --batch_size=32 \
+    --optimizer.lr=1e-5 \
+    --rename_map='{"observation.images.cam_0": "observation.images.camera1", "observation.images.cam_1": "observation.images.camera2"}' \
+    --policy.push_to_hub=true \
+    --policy.repo_id=NLTuan/act_red_block_finetuned
+
+================================================================================
+ROLLOUT MODES (lerobot-rollout)
+================================================================================
+
+--- MODE 1: BASE (EVALUATION ONLY) ---
+# No data is recorded. Used just to test/watch the policy.
+# NOTE: Cannot use any --dataset.* flags here.
+lerobot-rollout \
+    --strategy.type=base \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.id=so101_follower_7V \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 352, height: 288, fps: 30, backend: 200, fourcc: MJPG},
+        camera2: {type: opencv, index_or_path: /dev/video2, width: 352, height: 288, fps: 30, backend: 200, fourcc: MJPG}
+    }' \
+    --policy.path=ThavT/act_single_red_blue_block \
+    --policy.pretrained_revision=checkpoint-050000 \
+    --policy.temporal_ensemble_coeff=0.1 \
+    --policy.n_action_steps=1 \
+    --display_data=true
+
+
+    --policy.temporal_ensemble_coeff=0.1 \
+    --policy.n_action_steps=1 \
+
+    --policy.revision=step_20000 \
+
+--- MODE 1B: BIMANUAL BASE (ACT PICK + STACK) ---
+# Verified on Orin with NLTuan/act_bi_pick_stack_obs1.
+# Important:
+# - The policy expects camera feature names camera1 and camera2.
+# - These USB cameras open at 352x288@30 through OpenCV V4L2 backend 200.
+# - Keep camera1=/dev/video0 and camera2=/dev/video2 unless lerobot-find-cameras shows otherwise.
+uv run lerobot-rollout \n    --strategy.type=base \n    --policy.path=NLTuan/act_bi_pick_stack_obs1 \n    --robot.type=bi_so_follower \n    --robot.left_arm_config.port=/dev/ttyACM3 \n    --robot.right_arm_config.port=/dev/ttyACM0 \n    --robot.id=bi_so101_follower_7V \n    --robot.cameras='{ camera1: {type: opencv, index_or_path: /dev/video0, width: 352, height: 288, fps: 30, backend: 200}, camera2: {type: opencv, index_or_path: /dev/video2, width: 352, height: 288, fps: 30, backend: 200} }' \n    --task="pick stack" \n    --duration=60 \n    --display_data=true
+
+--- MODE 2: SENTRY (RECORD EVALUATION) ---
+# Policy drives the robot and ALWAYS records the data to a dataset.
+lerobot-rollout \
+    --strategy.type=sentry \
+    --dataset.repo_id=NLTuan/eval_results \
+    --dataset.num_episodes=10 \
+    --dataset.episode_time_s=600 \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.id=so101_follower_7V \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video3, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video6, width: 640, height: 480, fps: 30}
+    }' \
+    --policy.path=NLTuan/act_red_blue_5e4 \
+    --display_data=true
+
+--- MODE 3: HIGHLIGHT (TRIGGERED RECORDING) ---
+# Policy drives. Press 'S' to save the last 10 seconds.
+lerobot-rollout \
+    --strategy.type=highlight \
+    --strategy.ring_buffer_seconds=10.0 \
+    --dataset.repo_id=NLTuan/policy_highlights \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.id=so101_follower_7V \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video3, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video6, width: 640, height: 480, fps: 30}
+    }' \
+    --policy.path=NLTuan/act_red_blue_5e4 \
+    --display_data=true
+
+--- MODE 4: DAGGER (HUMAN-IN-THE-LOOP) ---
+# Interactive: Policy drives, but you can intervene with the leader arm.
+lerobot-rollout \
+    --strategy.type=dagger \
+    --dataset.repo_id=NLTuan/dagger_data \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.id=so101_follower_7V \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/ttyACM1 \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video3, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video6, width: 640, height: 480, fps: 30}
+    }' \
+    --policy.path=NLTuan/act_red_blue_5e4 \
+    --display_data=true
+
+================================================================================
+SPECIFIC POLICY ARCHITECTURES (FOR CHUNKING MODELS)
+================================================================================
+
+# 1. SMOLVLA (VLA Model)
+# - Requires: 'transformers' (pip install 'lerobot[smolvla]')
+lerobot-rollout \
+    --strategy.type=base \
+    --policy.path=NLTuan/smolvla_clean_lora \
+    --dataset.episode_time_s=600 \
+    --policy.device=cuda \
+    --display_data=true
+
+# 2. DIFFUSION POLICY
+# - Key Flags: --policy.num_inference_steps=5 (lower = faster)
+#              --policy.noise_scheduler_type=DDIM
+lerobot-rollout \
+    --strategy.type=base \
+    --policy.path=NLTuan/diffusion_model \
+    --policy.num_inference_steps=5 \
+    --policy.noise_scheduler_type=DDIM \
+    --policy.device=cuda \
+    --display_data=true
+
+# 3. OVERRIDING CHUNK SIZE / ACTION EXECUTION
+# - Flag: --policy.n_action_steps=20 (set how many actions to execute at once)
+lerobot-rollout \
+    --strategy.type=base \
+    --policy.path=NLTuan/act_red_blue_5e4 \
+    --policy.n_action_steps=20 \
+    --display_data=true
+
+================================================================================
+ASYNC INFERENCE COMMANDS (High Performance)
+================================================================================
+
+# 1. Start Policy Server (Compute)
+python -m lerobot.async_inference.policy_server --host=127.0.0.1 --port=8080
+
+# 2. Start Robot Client (Control)
+python -m lerobot.async_inference.robot_client \
+    --server_address=127.0.0.1:8080 \
+    --robot.type=so101_follower \
+    --robot.port=/dev/ttyACM0 \
+    --robot.cameras='{
+        camera1: {type: opencv, index_or_path: /dev/video3, width: 640, height: 480, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video6, width: 640, height: 480, fps: 30}
+    }' \
+    --policy_type=act \
+    --pretrained_name_or_path=NLTuan/act_block_in_tape \
+    --actions_per_chunk=50
+
+================================================================================
+UTILITIES & TROUBLESHOOTING
+================================================================================
+
+# Replay recorded data
+lerobot-replay --dataset.repo_id=NLTuan/dataset --dataset.episode_index=0
+
+# Visualize dataset
+lerobot-dataset-viz --dataset.repo_id=NLTuan/dataset
+
+# Fix Camera/Serial permissions
+sudo chmod 666 /dev/video*
+sudo chmod 666 /dev/ttyACM*
+
+# Calibration
+lerobot-calibrate --robot.type=so101_follower --robot.port=/dev/ttyACM0
+
+# Bimanual Calibration (Follower Arms)
+lerobot-calibrate \
+    --robot.type=bi_so_follower \
+    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.right_arm_config.port=/dev/ttyACM0 \
+    --robot.id=bi_so101_follower_7V
+
+
+# Bimanual Calibration (Leader Arms)
+lerobot-calibrate \
+    --teleop.type=bi_so_leader \
+    --teleop.left_arm_config.port=/dev/ttyACM2 \
+    --teleop.right_arm_config.port=/dev/ttyACM1 \
+    --teleop.id=bi_so101_leader_7V
