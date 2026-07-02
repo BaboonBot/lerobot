@@ -96,8 +96,8 @@ lerobot-teleoperate \
 # Record new bimanual dataset (Manual Teleoperation)
 lerobot-record \
     --robot.type=bi_so_follower \
-    --robot.left_arm_config.port=/dev/ttyACM2 \
-    --robot.right_arm_config.port=/dev/ttyACM1 \
+    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.right_arm_config.port=/dev/ttyACM0 \
     --robot.left_arm_config.cameras='{
         camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30}
     }' \
@@ -112,12 +112,11 @@ lerobot-record \
     --dataset.repo_id=vraiRobotLab/bi_pick_and_stack \
     --dataset.single_task="pick the block then stack" \
     --dataset.fps=30 \
-    --dataset.num_episodes=100 \
-    --dataset.episode_time_s=15 \
+    --dataset.num_episodes=20 \
+    --dataset.episode_time_s=30 \
     --dataset.reset_time_s=5 \
     --dataset.root=data/bi_pick_and_stack \
     --dataset.streaming_encoding=true \
-    --dataset.vcodec=h264 \
     --dataset.encoder_threads=2 \
     --display_data=true \
     --resume=true
@@ -211,20 +210,43 @@ lerobot-rollout \
     --policy.temporal_ensemble_coeff=0.1 \
     --policy.n_action_steps=1 \
     --display_data=true
-
-
     --policy.temporal_ensemble_coeff=0.1 \
     --policy.n_action_steps=1 \
-
     --policy.revision=step_20000 \
 
 --- MODE 1B: BIMANUAL BASE (ACT PICK + STACK) ---
-# Verified on Orin with NLTuan/act_bi_pick_stack_obs1.
-# Important:
-# - The policy expects camera feature names camera1 and camera2.
-# - These USB cameras open at 352x288@30 through OpenCV V4L2 backend 200.
-# - Keep camera1=/dev/video0 and camera2=/dev/video2 unless lerobot-find-cameras shows otherwise.
-uv run lerobot-rollout \n    --strategy.type=base \n    --policy.path=NLTuan/act_bi_pick_stack_obs1 \n    --robot.type=bi_so_follower \n    --robot.left_arm_config.port=/dev/ttyACM3 \n    --robot.right_arm_config.port=/dev/ttyACM0 \n    --robot.id=bi_so101_follower_7V \n    --robot.cameras='{ camera1: {type: opencv, index_or_path: /dev/video0, width: 352, height: 288, fps: 30, backend: 200}, camera2: {type: opencv, index_or_path: /dev/video2, width: 352, height: 288, fps: 30, backend: 200} }' \n    --task="pick stack" \n    --duration=60 \n    --display_data=true
+# Bimanual rollout for ThavT/act_bi_pick_stack_obs2.
+# The policy expects camera feature names camera1 and camera2.
+# Use OpenCV V4L2 backend 200 for /dev/video0 and /dev/video2.
+# To pin a Hugging Face model revision, add this after --policy.path:
+#     --policy.pretrained_revision=step_018000 \
+# Example revision values for this repo: step_002000 ... step_018000.
+uv run lerobot-rollout \
+    --strategy.type=base \
+    --policy.path=ThavT/act_bi_pick_stack_obs2 \
+    --robot.type=bi_so_follower \
+    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.right_arm_config.port=/dev/ttyACM0 \
+    --robot.id=bi_so101_follower_7V \
+    --robot.cameras='{ camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30, backend: 200}, camera2: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30, backend: 200} }' \
+    --task="pick stack" \
+    --duration=60 \
+    --display_data=true
+
+# Same rollout pinned to a specific Hugging Face model revision.
+# This repo stores checkpoints on step branches; step_018000 contains the processor files.
+uv run lerobot-rollout \
+    --strategy.type=base \
+    --policy.path=ThavT/act_bi_pick_stack_obs2 \
+    --policy.pretrained_revision=step_002000 \
+    --robot.type=bi_so_follower \
+    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.right_arm_config.port=/dev/ttyACM0 \
+    --robot.id=bi_so101_follower_7V \
+    --robot.cameras='{ camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30, backend: 200}, camera2: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30, backend: 200} }' \
+    --task="pick stack" \
+    --duration=60 \
+    --display_data=true
 
 --- MODE 2: SENTRY (RECORD EVALUATION) ---
 # Policy drives the robot and ALWAYS records the data to a dataset.

@@ -191,13 +191,19 @@ def build_rollout_context(
         from peft import PeftConfig, PeftModel
 
         peft_path = policy_config.pretrained_path
-        peft_config = PeftConfig.from_pretrained(peft_path)
+        peft_config = PeftConfig.from_pretrained(peft_path, revision=policy_config.pretrained_revision)
         policy = policy_class.from_pretrained(
-            pretrained_name_or_path=peft_config.base_model_name_or_path, config=policy_config
+            pretrained_name_or_path=peft_config.base_model_name_or_path,
+            config=policy_config,
+            revision=policy_config.pretrained_revision,
         )
-        policy = PeftModel.from_pretrained(policy, peft_path, config=peft_config)
+        policy = PeftModel.from_pretrained(
+            policy, peft_path, config=peft_config, revision=policy_config.pretrained_revision
+        )
     else:
-        policy = policy_class.from_pretrained(policy_config.pretrained_path, config=policy_config)
+        policy = policy_class.from_pretrained(
+            policy_config.pretrained_path, config=policy_config, revision=policy_config.pretrained_revision
+        )
 
     if is_rtc:
         policy.config.rtc_config = cfg.inference.rtc
@@ -392,6 +398,7 @@ def build_rollout_context(
     preprocessor, postprocessor = make_pre_post_processors(
         policy_cfg=policy_config,
         pretrained_path=cfg.policy.pretrained_path,
+        pretrained_revision=policy_config.pretrained_revision,
         dataset_stats=dataset_stats,
         preprocessor_overrides={
             "device_processor": {"device": cfg.device},
