@@ -5,8 +5,9 @@ REPO_ID="NLTuan/diffusion_bi_transfer_cleaned"
 OUTPUT_DIR="outputs/train/diffusion_bi_transfer_cleaned"
 JOB_NAME="diffusion_bi_transfer_cleaned"
 
-CHUNK_SIZE=10000
-FINAL_STEPS=60000
+CHUNK_SIZE=50000
+# 500 epochs over the 90% train split: ceil((47408 * 0.9) / 32) * 500 = 667000
+FINAL_STEPS=667000
 
 if ! command -v uv >/dev/null 2>&1; then
   echo "uv is required but was not found on PATH." >&2
@@ -117,7 +118,11 @@ main() {
   local previous_step=0
   local target_step="${CHUNK_SIZE}"
 
-  while [[ "${target_step}" -le "${FINAL_STEPS}" ]]; do
+  while [[ "${previous_step}" -lt "${FINAL_STEPS}" ]]; do
+    if [[ "${target_step}" -gt "${FINAL_STEPS}" ]]; then
+      target_step="${FINAL_STEPS}"
+    fi
+
     local target_id
     target_id="$(printf "%06d" "${target_step}")"
     local target_checkpoint="${OUTPUT_DIR}/checkpoints/${target_id}"
@@ -141,7 +146,6 @@ main() {
   done
 
   echo "Done. Final local checkpoint is ${OUTPUT_DIR}/checkpoints/$(printf "%06d" "${FINAL_STEPS}")"
-  echo "Uploaded revisions: ckpt-010000 ckpt-020000 ckpt-030000 ckpt-040000 ckpt-050000 ckpt-060000"
+  echo "Uploaded checkpoint revisions every ${CHUNK_SIZE} steps, plus final ckpt-$(printf "%06d" "${FINAL_STEPS}")"
 }
-
 main "$@"
