@@ -14,6 +14,8 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 uv run hf auth whoami >/dev/null
 uv run wandb status >/dev/null || true
+export MUJOCO_GL="${MUJOCO_GL:-egl}"
+export PYOPENGL_PLATFORM="${PYOPENGL_PLATFORM:-egl}"
 
 
 upload_checkpoint() {
@@ -80,7 +82,7 @@ run_first_chunk() {
     --batch_size=24 \
     --steps="${CHUNK_SIZE}" \
     --save_freq="${CHUNK_SIZE}" \
-    --env_eval_freq=0 \
+    --env_eval_freq="${CHUNK_SIZE}" \
     --eval.n_episodes=20 \
     --eval.batch_size=10 \
     --eval.use_async_envs=false \
@@ -103,7 +105,7 @@ run_resume_chunk() {
     --policy.push_to_hub=false \
     --steps="${target_step}" \
     --save_freq="${CHUNK_SIZE}" \
-    --env_eval_freq=0 \
+    --env_eval_freq="${CHUNK_SIZE}" \
     --eval.n_episodes=20 \
     --eval.batch_size=10 \
     --eval.use_async_envs=false \

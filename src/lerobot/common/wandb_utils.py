@@ -201,9 +201,9 @@ class WandBLogger:
             else:
                 self._wandb.log(data=batch_data, step=step)
 
-    def log_video(self, video_path: str, step: int, mode: str = "train"):
+    def log_video(self, video_path: str, step: int, mode: str = "train", name: str = "video"):
         if mode not in {"train", "eval"}:
             raise ValueError(mode)
 
         wandb_video = self._wandb.Video(video_path, fps=self.env_fps, format="mp4")
-        self._wandb.log({f"{mode}/video": wandb_video}, step=step)
+        self._wandb.log({f"{mode}/{name}": wandb_video}, step=step)
