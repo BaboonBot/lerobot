@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_ID="NLTuan/diffusion_bi_transfer_cleaned"
-OUTPUT_DIR="outputs/train/diffusion_bi_transfer_cleaned"
-JOB_NAME="diffusion_bi_transfer_cleaned"
-WANDB_PROJECT="diffusion-bi-transfer-cleaned"
+DATASET_REPO_ID="vraiRobotLab/fake_bi_pick_place"
+REPO_ID="NLTuan/act_fake_bi_pick_place_lr1e4"
+OUTPUT_DIR="outputs/train/act_fake_bi_pick_place_lr1e4"
+JOB_NAME="act_fake_bi_pick_place_lr1e4"
+WANDB_PROJECT="act-fake-bi-pick-place"
 
-CHUNK_SIZE=20000
-EVAL_STEPS=10000
-# 100 epochs over the 90% train split: ceil((47408 * 0.9) / 32) * 100 = 133400
-FINAL_STEPS=133400
+CHUNK_SIZE=10000
+EVAL_STEPS=5000
+FINAL_STEPS=50000
 
 if ! command -v uv >/dev/null 2>&1; then
   echo "uv is required but was not found on PATH." >&2
@@ -18,11 +18,10 @@ fi
 uv run hf auth whoami >/dev/null
 uv run wandb status >/dev/null || true
 
-
 remote_pretrained_revision_exists() {
   local revision="$1"
 
-  uv run python - "${REPO_ID}" "${revision}" <<'PY'
+  uv run python - "${REPO_ID}" "${revision}" <<'PY_REMOTE'
 import sys
 from huggingface_hub import HfApi
 from huggingface_hub.errors import RepositoryNotFoundError, RevisionNotFoundError
@@ -36,7 +35,7 @@ except (RepositoryNotFoundError, RevisionNotFoundError):
 
 required = {"config.json", "model.safetensors"}
 raise SystemExit(0 if required.issubset(files) else 1)
-PY
+PY_REMOTE
 }
 
 upload_checkpoint() {
@@ -56,7 +55,7 @@ upload_checkpoint() {
     return
   fi
 
-  uv run python - "${REPO_ID}" "${revision}" "${checkpoint_dir}" "${step_id}" <<'PY'
+  uv run python - "${REPO_ID}" "${revision}" "${checkpoint_dir}" "${step_id}" <<'PY_UPLOAD'
 import sys
 from huggingface_hub import HfApi
 
@@ -80,7 +79,7 @@ api.upload_folder(
     path_in_repo="training_state",
     commit_message=f"Upload training state for checkpoint {step_id}",
 )
-PY
+PY_UPLOAD
 }
 
 delete_checkpoint() {
@@ -117,23 +116,20 @@ latest_local_checkpoint_step() {
 
 run_first_chunk() {
   uv run lerobot-train \
-    --dataset.repo_id=NLTuan/bi_transfer_cleaned \
+    --dataset.repo_id="${DATASET_REPO_ID}" \
     --dataset.eval_split=0.1 \
-    --policy.type=diffusion \
+    --policy.type=act \
     --policy.repo_id="${REPO_ID}" \
     --policy.push_to_hub=false \
     --policy.private=false \
     --policy.device=cuda \
     --policy.use_amp=false \
-    --policy.n_obs_steps=2 \
-    --policy.horizon=32 \
-    --policy.n_action_steps=16 \
-    --policy.resize_shape=[224,224] \
-    --policy.num_train_timesteps=100 \
-    --policy.num_inference_steps=50 \
+    --policy.n_obs_steps=1 \
+    --policy.chunk_size=50 \
+    --policy.n_action_steps=50 \
+    --policy.normalization_mapping='{"ACTION": "MIN_MAX", "STATE": "MIN_MAX", "VISUAL": "MEAN_STD"}' \
     --policy.optimizer_lr=1e-4 \
     --policy.optimizer_lr_backbone=1e-5 \
-    --policy.scheduler_name=constant \
     --batch_size=64 \
     --steps="${CHUNK_SIZE}" \
     --save_freq="${CHUNK_SIZE}" \
@@ -161,7 +157,6 @@ run_resume_chunk() {
     --resume=true \
     --policy.push_to_hub=false \
     --steps="${target_step}" \
-    --policy.scheduler_name=constant \
     --save_freq="${CHUNK_SIZE}" \
     --env_eval_freq=0 \
     --eval_steps="${EVAL_STEPS}" \
@@ -216,6 +211,7 @@ main() {
   echo "Done. Final local checkpoint is ${OUTPUT_DIR}/checkpoints/$(printf "%06d" "${FINAL_STEPS}")"
   echo "Uploaded checkpoint revisions every ${CHUNK_SIZE} steps, plus final ckpt-$(printf "%06d" "${FINAL_STEPS}")"
 }
+
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
   main "$@"
 fi

@@ -16,6 +16,27 @@ uv run hf auth whoami >/dev/null
 uv run wandb status >/dev/null || true
 
 
+remote_pretrained_revision_exists() {
+  local revision="$1"
+
+  uv run python - "${REPO_ID}" "${revision}" <<'PY'
+import sys
+from huggingface_hub import HfApi
+from huggingface_hub.errors import RepositoryNotFoundError, RevisionNotFoundError
+
+repo_id, revision = sys.argv[1:]
+api = HfApi()
+try:
+    files = set(api.list_repo_files(repo_id, repo_type="model", revision=revision))
+except (RepositoryNotFoundError, RevisionNotFoundError):
+    raise SystemExit(1)
+
+required = {"config.json", "model.safetensors"}
+raise SystemExit(0 if required.issubset(files) else 1)
+PY
+}
+
+
 upload_checkpoint() {
   local step="$1"
   local step_id
@@ -26,6 +47,11 @@ upload_checkpoint() {
   if [[ ! -d "${checkpoint_dir}/pretrained_model" || ! -d "${checkpoint_dir}/training_state" ]]; then
     echo "Expected full checkpoint at ${checkpoint_dir}, but it is incomplete or missing." >&2
     exit 1
+  fi
+
+  if remote_pretrained_revision_exists "${revision}"; then
+    echo "Checkpoint ${revision} already exists on Hugging Face; skipping upload."
+    return
   fi
 
   uv run python - "${REPO_ID}" "${revision}" "${checkpoint_dir}" "${step_id}" <<'PY'
@@ -40,9 +66,17 @@ api.upload_folder(
     repo_id=repo_id,
     repo_type="model",
     revision=revision,
-    folder_path=checkpoint_dir,
+    folder_path=f"{checkpoint_dir}/pretrained_model",
     path_in_repo=".",
-    commit_message=f"Upload training checkpoint {step_id}",
+    commit_message=f"Upload pretrained model files for checkpoint {step_id}",
+)
+api.upload_folder(
+    repo_id=repo_id,
+    repo_type="model",
+    revision=revision,
+    folder_path=f"{checkpoint_dir}/training_state",
+    path_in_repo="training_state",
+    commit_message=f"Upload training state for checkpoint {step_id}",
 )
 PY
 }
@@ -83,6 +117,7 @@ run_first_chunk() {
     --eval.batch_size=10 \
     --eval.use_async_envs=false \
     --wandb.enable=true \
+    --wandb.disable_artifact=true \
     --wandb.project=lerobot-diffusion \
     --wandb.mode=online \
     --job_name="${JOB_NAME}" \
@@ -106,6 +141,7 @@ run_resume_chunk() {
     --eval.batch_size=10 \
     --eval.use_async_envs=false \
     --wandb.enable=true \
+    --wandb.disable_artifact=true \
     --wandb.project=lerobot-diffusion \
     --wandb.mode=online
 }
@@ -141,4 +177,6 @@ main() {
   echo "Uploaded revisions: ckpt-020000 ckpt-040000 ckpt-060000 ckpt-080000 ckpt-100000"
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi
