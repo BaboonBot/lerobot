@@ -1,0 +1,259 @@
+# Remote GPU Deployment for SO-101
+
+This guide deploys a policy on a remote NVIDIA GPU while keeping an SO-101 arm
+and USB cameras on the local robot machine. The two machines communicate through
+the async-inference gRPC protocol over an SSH tunnel.
+
+The local machine owns hardware I/O, calibration, and safety limits. The GPU
+machine receives observations and returns action chunks. Do not expose serial
+devices or `/dev/video*` files over SSH.
+
+## Topology
+
+```text
+SO-101 + cameras -- local RobotClient -- SSH local forward -- remote PolicyServer + GPU
+```
+
+The policy server binds to remote loopback only. The robot client connects to a
+local loopback port. This keeps gRPC private and avoids opening a public policy
+port.
+
+## Requirements
+
+Install this branch on both machines. It adds:
+
+- `molmoact2` to the async server allowlist.
+- SO-100/SO-101 joint-frame processors required by the published MolmoAct2
+  checkpoint.
+- a raw BF16 MolmoAct2 SO-101 loading path that avoids downloading the converted
+  LeRobot model weights a second time.
+- SmolVLA masking for missing camera views in async inference.
+
+On a normal GPU server, install the policy dependencies:
+
+```bash
+cd /path/to/lerobot
+uv sync --locked --extra async --extra molmoact2 --extra smolvla
+```
+
+The local robot machine needs the hardware and async extras:
+
+```bash
+cd /path/to/lerobot
+uv sync --locked --extra async --extra hardware --extra feetech
+```
+
+Use Python 3.12 or 3.13 locally. `draccus==0.10.0` can fail while constructing
+the robot-client CLI on Python 3.14.
+
+## Local Hardware Setup
+
+Discover cameras:
+
+```bash
+cd /path/to/lerobot
+uv run lerobot-find-cameras opencv
+```
+
+Find the motor port interactively:
+
+```bash
+cd /path/to/lerobot
+uv run lerobot-find-port
+```
+
+On Linux, allow the robot user to access serial devices:
+
+```bash
+sudo usermod -aG dialout "$USER"
+```
+
+Start a fresh login session after that command. To force a fresh shell without
+rebooting:
+
+```bash
+sudo -iu "$USER"
+id
+```
+
+The `id` output must list `dialout` before running the robot client.
+
+## Remote Server and Tunnel
+
+Start the remote policy server on an unused loopback port. Port `8080` is often
+occupied by Jupyter on rented GPU instances, so this guide uses `8081` remotely:
+
+```bash
+cd /path/to/lerobot
+uv run python -m lerobot.async_inference.policy_server \
+  --host=127.0.0.1 \
+  --port=8081 \
+  --fps=10
+```
+
+On the local robot machine, keep this tunnel open in its own terminal:
+
+```bash
+ssh -N -T -p <SSH_PORT> \
+  -L 127.0.0.1:8080:127.0.0.1:8081 \
+  <REMOTE_USER>@<REMOTE_HOST>
+```
+
+Verify it before connecting the robot client:
+
+```bash
+ss -ltnp '( sport = :8080 )'
+timeout 3 bash -c '</dev/tcp/127.0.0.1/8080'
+```
+
+## SmolVLA Two-Camera Test
+
+`lerobot/smolvla_base` is small enough for a 16 GB GPU. It expects three visual
+inputs (`camera1`, `camera2`, and `camera3`), but this branch masks missing
+SmolVLA views when the robot has fewer cameras. Use the two physical cameras and
+name them `camera1` and `camera2`.
+
+Start the server on the GPU machine:
+
+```bash
+cd /path/to/lerobot
+uv run python -m lerobot.async_inference.policy_server \
+  --host=127.0.0.1 \
+  --port=8081 \
+  --fps=10
+```
+
+Run the client on the local robot machine. Replace the serial and camera paths
+with values reported by the discovery commands:
+
+```bash
+cd /path/to/lerobot
+
+uv run python -m lerobot.async_inference.robot_client \
+  --server_address=127.0.0.1:8080 \
+  --policy_type=smolvla \
+  --pretrained_name_or_path=lerobot/smolvla_base \
+  --policy_device=cuda \
+  --client_device=cpu \
+  --actions_per_chunk=3 \
+  --chunk_size_threshold=0.0 \
+  --aggregate_fn_name=latest_only \
+  --fps=10 \
+  --task="pick up the red car" \
+  --robot.type=so101_follower \
+  --robot.port=/dev/ttyACM0 \
+  --robot.max_relative_target=10 \
+  --robot.cameras='{
+    "camera1": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30},
+    "camera2": {"type": "opencv", "index_or_path": "/dev/video2", "width": 1280, "height": 720, "fps": 30}
+  }'
+```
+
+The base SmolVLA checkpoint is useful as a low-memory experiment, but it is not
+a guaranteed zero-shot solution for a new scene or object. Fine-tune it on
+task-specific SO-101 demonstrations for reliable behavior.
+
+## MolmoAct2 SO-101 Deployment
+
+Use the published SO-101 checkpoint only on a GPU with at least 24 GB VRAM and
+a disk with at least 64 GB free. The raw checkpoint is approximately 21 GB on
+disk. The converted LeRobot export can cause a second model-weight download, so
+this branch supports the raw checkpoint directly in BF16:
+
+```bash
+cd /path/to/lerobot
+uv run python -m lerobot.async_inference.policy_server \
+  --host=127.0.0.1 \
+  --port=8081 \
+  --fps=10
+```
+
+Then run the local client:
+
+```bash
+cd /path/to/lerobot
+
+uv run python -m lerobot.async_inference.robot_client \
+  --server_address=127.0.0.1:8080 \
+  --policy_type=molmoact2 \
+  --pretrained_name_or_path=allenai/MolmoAct2-SO100_101 \
+  --policy_device=cuda \
+  --client_device=cpu \
+  --actions_per_chunk=3 \
+  --chunk_size_threshold=0.0 \
+  --aggregate_fn_name=latest_only \
+  --fps=10 \
+  --task="pick up the red car" \
+  --robot.type=so101_follower \
+  --robot.port=/dev/ttyACM0 \
+  --robot.max_relative_target=10 \
+  --robot.cameras='{
+    "cam0": {"type": "opencv", "index_or_path": "/dev/video0", "width": 640, "height": 480, "fps": 30},
+    "cam1": {"type": "opencv", "index_or_path": "/dev/video2", "width": 1280, "height": 720, "fps": 30}
+  }'
+```
+
+The raw SO-101 path applies the checkpoint's joint correction:
+
+```text
+joint_signs   = [1, -1, 1, 1, 1, 1]
+joint_offsets = [0, 90, 90, 0, 0, 0]
+```
+
+It transforms local observations into the checkpoint frame before normalization,
+then transforms predicted absolute joint targets back into the current LeRobot
+frame after unnormalization.
+
+### 16 GB GPU Limitation
+
+Do not expect MolmoAct2 to work on a 16 GB card through this path. A real test
+on an RTX 5060 Ti allocated approximately 15.23 GiB before the first inference
+and failed when it needed another 20 MiB. This is capacity exhaustion, not CUDA
+allocator fragmentation; `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`
+does not solve it.
+
+## Safety and Tuning
+
+The commands use:
+
+```text
+actions_per_chunk=3
+chunk_size_threshold=0.0
+aggregate_fn_name=latest_only
+fps=10
+robot.max_relative_target=10
+```
+
+This executes at most three predicted actions before a new observation is sent,
+and does not overlap action plans. `robot.max_relative_target=10` limits each
+absolute target update relative to the current motor position. Start with the
+arm clear of obstacles and supervise every initial run.
+
+For a stricter but slower closed loop, use:
+
+```text
+actions_per_chunk=1
+chunk_size_threshold=0.0
+fps=5
+```
+
+## Troubleshooting
+
+| Symptom | Cause | Resolution |
+| --- | --- | --- |
+| `Failed to bind ... 127.0.0.1:8080` | Another service, often Jupyter, owns port 8080. | Use remote port 8081 and the tunnel command above. |
+| `Permission denied: /dev/ttyACM0` | Robot user is not in `dialout`. | Run `sudo usermod -aG dialout "$USER"`, then start a fresh login shell. |
+| `float | dict | None is not callable` | Python 3.14 incompatibility with the pinned Draccus version. | Recreate the local environment with Python 3.12 or 3.13. |
+| MolmoAct2 config rejects `joint_signs` or `joint_offsets` | The checkout predates SO-101 checkpoint compatibility. | Update to a revision containing the joint-frame processor support. |
+| MolmoAct2 CUDA OOM on 16 GB | Model weights leave no inference headroom. | Use a 24 GB or larger GPU, or switch to SmolVLA. |
+| SmolVLA has only two cameras | Base checkpoint expects three visual keys. | Use `camera1` and `camera2`; this branch masks the missing third view. |
+
+## Verification
+
+Run the focused regression tests after changing async inference or MolmoAct2:
+
+```bash
+cd /path/to/lerobot
+uv run pytest tests/async_inference/test_policy_server.py tests/policies/molmoact2/test_molmoact2.py -q
+git diff --check
+```

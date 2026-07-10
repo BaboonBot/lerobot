@@ -97,6 +97,8 @@
     title: Policy Deployment (lerobot-rollout)
   - local: async
     title: Use Async Inference
+  - local: remote_so101_async
+    title: Remote GPU Deployment for SO-101
   - local: rtc
     title: Real-Time Chunking (RTC)
   title: "Inference"
