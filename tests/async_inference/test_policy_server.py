@@ -99,9 +99,9 @@ def test_policy_server_builds_raw_so101_molmoact2_config():
 
     server = PolicyServer(PolicyServerConfig(host="localhost", port=9999))
     server.lerobot_features = {
-        OBS_STATE: PolicyFeature(type=FeatureType.STATE, shape=(6,)),
-        f"{OBS_IMAGES}.cam0": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 224, 224)),
-        f"{OBS_IMAGES}.cam1": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 224, 224)),
+        OBS_STATE: {"type": FeatureType.STATE, "shape": [6]},
+        f"{OBS_IMAGES}.cam0": {"type": FeatureType.VISUAL, "shape": [3, 224, 224]},
+        f"{OBS_IMAGES}.cam1": {"type": FeatureType.VISUAL, "shape": [3, 224, 224]},
     }
 
     config = server._make_raw_so101_molmoact2_config()

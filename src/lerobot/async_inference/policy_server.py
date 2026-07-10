@@ -121,11 +121,18 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
                 f"Missing features: {missing_features}."
             )
 
-        state_feature = self.lerobot_features[OBS_STATE]
+        def as_policy_feature(feature: PolicyFeature | dict[str, Any]) -> PolicyFeature:
+            if isinstance(feature, PolicyFeature):
+                return feature
+            return PolicyFeature(type=FeatureType(feature["type"]), shape=tuple(feature["shape"]))
+
+        policy_features = {
+            key: as_policy_feature(self.lerobot_features[key]) for key in [OBS_STATE, *image_keys]
+        }
+        state_feature = policy_features[OBS_STATE]
         if state_feature.type != FeatureType.STATE or len(state_feature.shape) != 1:
             raise ValueError("MolmoAct2-SO100_101 requires a one-dimensional observation.state feature.")
 
-        input_features = {key: self.lerobot_features[key] for key in [OBS_STATE, *image_keys]}
         return MolmoAct2Config(
             checkpoint_path="allenai/MolmoAct2-SO100_101",
             norm_tag="so100_so101_molmoact2",
@@ -141,7 +148,7 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
             enable_inference_cuda_graph=False,
             joint_signs=[1.0, -1.0, 1.0, 1.0, 1.0, 1.0],
             joint_offsets=[0.0, 90.0, 90.0, 0.0, 0.0, 0.0],
-            input_features=input_features,
+            input_features=policy_features,
             output_features={
                 ACTION: PolicyFeature(type=FeatureType.ACTION, shape=state_feature.shape),
             },
