@@ -149,6 +149,20 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
             },
         )
 
+    def _configure_smolvla_empty_cameras(self) -> None:
+        """Mask expected SmolVLA views that the connected robot does not provide."""
+        if self.policy_type != "smolvla":
+            return
+
+        configured_image_keys = set(self.policy.config.image_features)
+        robot_image_keys = {
+            key
+            for key, feature in self.lerobot_features.items()
+            if isinstance(feature, dict) and feature.get("dtype") in {"image", "video"}
+        }
+        missing_camera_count = len(configured_image_keys - robot_image_keys)
+        self.policy.config.empty_cameras = max(self.policy.config.empty_cameras, missing_camera_count)
+
     def Ready(self, request, context):  # noqa: N802
         client_id = context.peer()
         self.logger.info(f"Client {client_id} connected and ready")
@@ -199,6 +213,7 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
         else:
             self.policy = policy_class.from_pretrained(policy_specs.pretrained_name_or_path)
         self.policy.to(self.device)
+        self._configure_smolvla_empty_cameras()
 
         # Load preprocessor and postprocessor, overriding device to match requested device
         device_override = {"device": self.device}

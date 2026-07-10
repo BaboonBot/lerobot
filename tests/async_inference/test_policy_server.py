@@ -111,6 +111,37 @@ def test_policy_server_builds_raw_so101_molmoact2_config():
     assert config.output_features["action"].shape == (6,)
     assert config.joint_signs == [1.0, -1.0, 1.0, 1.0, 1.0, 1.0]
 
+
+@skip_if_package_missing("grpcio", "grpc")
+def test_policy_server_masks_missing_smolvla_camera():
+    """SmolVLA can safely mask a checkpoint view when the robot has fewer cameras."""
+    from types import SimpleNamespace
+
+    from lerobot.async_inference.configs import PolicyServerConfig
+    from lerobot.async_inference.policy_server import PolicyServer
+    from lerobot.utils.constants import OBS_IMAGES
+
+    server = PolicyServer(PolicyServerConfig(host="localhost", port=9999))
+    server.policy_type = "smolvla"
+    server.policy = SimpleNamespace(
+        config=SimpleNamespace(
+            image_features={
+                f"{OBS_IMAGES}.camera1": object(),
+                f"{OBS_IMAGES}.camera2": object(),
+                f"{OBS_IMAGES}.camera3": object(),
+            },
+            empty_cameras=0,
+        )
+    )
+    server.lerobot_features = {
+        f"{OBS_IMAGES}.camera1": {"dtype": "image"},
+        f"{OBS_IMAGES}.camera2": {"dtype": "image"},
+    }
+
+    server._configure_smolvla_empty_cameras()
+
+    assert server.policy.config.empty_cameras == 1
+
 # -----------------------------------------------------------------------------
 # Test fixtures
 # -----------------------------------------------------------------------------
