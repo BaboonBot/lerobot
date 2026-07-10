@@ -39,6 +39,7 @@ import grpc
 import torch
 
 from lerobot.policies import get_policy_class, make_pre_post_processors
+from lerobot.policies.molmoact2.configuration_molmoact2 import MolmoAct2Config
 from lerobot.processor import PolicyProcessorPipeline
 from lerobot.transport import (
     services_pb2,  # type: ignore
@@ -46,6 +47,8 @@ from lerobot.transport import (
 )
 from lerobot.transport.utils import receive_bytes_in_chunks
 from lerobot.types import PolicyAction
+from lerobot.configs import FeatureType, PolicyFeature
+from lerobot.utils.constants import ACTION, OBS_IMAGES, OBS_STATE
 
 from .configs import PolicyServerConfig
 from .constants import SUPPORTED_POLICIES
@@ -105,6 +108,45 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
         with self._predicted_timesteps_lock:
             self._predicted_timesteps = set()
 
+    def _make_raw_so101_molmoact2_config(self) -> MolmoAct2Config:
+        """Build the LeRobot policy metadata for the released raw SO-100/SO-101 checkpoint.
+
+        This avoids downloading the duplicate weights in the converted LeRobot export.
+        """
+        image_keys = [f"{OBS_IMAGES}.cam0", f"{OBS_IMAGES}.cam1"]
+        missing_features = [key for key in [OBS_STATE, *image_keys] if key not in self.lerobot_features]
+        if missing_features:
+            raise ValueError(
+                "MolmoAct2-SO100_101 requires observation.state and cameras named cam0 and cam1. "
+                f"Missing features: {missing_features}."
+            )
+
+        state_feature = self.lerobot_features[OBS_STATE]
+        if state_feature.type != FeatureType.STATE or len(state_feature.shape) != 1:
+            raise ValueError("MolmoAct2-SO100_101 requires a one-dimensional observation.state feature.")
+
+        input_features = {key: self.lerobot_features[key] for key in [OBS_STATE, *image_keys]}
+        return MolmoAct2Config(
+            checkpoint_path="allenai/MolmoAct2-SO100_101",
+            norm_tag="so100_so101_molmoact2",
+            chunk_size=30,
+            n_action_steps=30,
+            action_mode="continuous",
+            inference_action_mode="continuous",
+            setup_type="single so100/so101 robotic arm in molmoact2",
+            control_mode="absolute joint pose",
+            image_keys=image_keys,
+            normalize_gripper=True,
+            model_dtype="bfloat16",
+            enable_inference_cuda_graph=False,
+            joint_signs=[1.0, -1.0, 1.0, 1.0, 1.0, 1.0],
+            joint_offsets=[0.0, 90.0, 90.0, 0.0, 0.0, 0.0],
+            input_features=input_features,
+            output_features={
+                ACTION: PolicyFeature(type=FeatureType.ACTION, shape=state_feature.shape),
+            },
+        )
+
     def Ready(self, request, context):  # noqa: N802
         client_id = context.peer()
         self.logger.info(f"Client {client_id} connected and ready")
@@ -149,14 +191,18 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
         policy_class = get_policy_class(self.policy_type)
 
         start = time.perf_counter()
-        self.policy = policy_class.from_pretrained(policy_specs.pretrained_name_or_path)
+        raw_so101_checkpoint = policy_specs.pretrained_name_or_path == "allenai/MolmoAct2-SO100_101"
+        if self.policy_type == "molmoact2" and raw_so101_checkpoint:
+            self.policy = policy_class(self._make_raw_so101_molmoact2_config())
+        else:
+            self.policy = policy_class.from_pretrained(policy_specs.pretrained_name_or_path)
         self.policy.to(self.device)
 
         # Load preprocessor and postprocessor, overriding device to match requested device
         device_override = {"device": self.device}
         self.preprocessor, self.postprocessor = make_pre_post_processors(
             self.policy.config,
-            pretrained_path=policy_specs.pretrained_name_or_path,
+            pretrained_path=None if raw_so101_checkpoint else policy_specs.pretrained_name_or_path,
             preprocessor_overrides={
                 "device_processor": device_override,
                 "rename_observations_processor": {"rename_map": policy_specs.rename_map},

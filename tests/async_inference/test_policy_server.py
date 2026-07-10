@@ -88,6 +88,30 @@ def test_policy_server_accepts_molmoact2_setup(monkeypatch):
     assert server.policy_type == "molmoact2"
     assert server.actions_per_chunk == 3
 
+
+@skip_if_package_missing("grpcio", "grpc")
+def test_policy_server_builds_raw_so101_molmoact2_config():
+    """The raw SO-101 checkpoint avoids downloading a duplicate LeRobot model export."""
+    from lerobot.async_inference.configs import PolicyServerConfig
+    from lerobot.async_inference.policy_server import PolicyServer
+    from lerobot.configs import FeatureType, PolicyFeature
+    from lerobot.utils.constants import OBS_IMAGES, OBS_STATE
+
+    server = PolicyServer(PolicyServerConfig(host="localhost", port=9999))
+    server.lerobot_features = {
+        OBS_STATE: PolicyFeature(type=FeatureType.STATE, shape=(6,)),
+        f"{OBS_IMAGES}.cam0": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 224, 224)),
+        f"{OBS_IMAGES}.cam1": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 224, 224)),
+    }
+
+    config = server._make_raw_so101_molmoact2_config()
+
+    assert config.checkpoint_path == "allenai/MolmoAct2-SO100_101"
+    assert config.model_dtype == "bfloat16"
+    assert config.enable_inference_cuda_graph is False
+    assert config.output_features["action"].shape == (6,)
+    assert config.joint_signs == [1.0, -1.0, 1.0, 1.0, 1.0, 1.0]
+
 # -----------------------------------------------------------------------------
 # Test fixtures
 # -----------------------------------------------------------------------------
