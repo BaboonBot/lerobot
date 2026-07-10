@@ -17,6 +17,7 @@ Monkey-patch the `policy` attribute with a stub so that no real model inference 
 
 from __future__ import annotations
 
+import pickle
 import time
 
 import pytest
@@ -25,6 +26,67 @@ import torch
 from lerobot.configs.types import PolicyFeature
 from lerobot.utils.constants import OBS_STATE
 from tests.utils import skip_if_package_missing
+
+
+@skip_if_package_missing("grpcio", "grpc")
+def test_molmoact2_is_available_for_async_inference():
+    """MolmoAct2 implements the generic action-chunk policy interface used by the server."""
+    from lerobot.async_inference.constants import SUPPORTED_POLICIES
+
+    assert "molmoact2" in SUPPORTED_POLICIES
+
+
+@skip_if_package_missing("grpcio", "grpc")
+def test_policy_server_accepts_molmoact2_setup(monkeypatch):
+    """MolmoAct2 can use the generic remote-policy setup path."""
+    from lerobot.async_inference.configs import PolicyServerConfig
+    from lerobot.async_inference.helpers import RemotePolicyConfig
+    from lerobot.async_inference.policy_server import PolicyServer
+    from lerobot.transport import services_pb2
+
+    class FakeMolmoAct2Policy:
+        class Config:
+            pass
+
+        config = Config()
+
+        @classmethod
+        def from_pretrained(cls, path):
+            assert path == "fake-molmoact2-checkpoint"
+            return cls()
+
+        def to(self, device):
+            assert device == "cpu"
+            return self
+
+    class FakeContext:
+        def peer(self):
+            return "test-client"
+
+    server = PolicyServer(PolicyServerConfig(host="localhost", port=9999))
+    policy_specs = RemotePolicyConfig(
+        policy_type="molmoact2",
+        pretrained_name_or_path="fake-molmoact2-checkpoint",
+        lerobot_features={},
+        actions_per_chunk=3,
+        device="cpu",
+    )
+    request = services_pb2.PolicySetup(data=pickle.dumps(policy_specs))
+
+    monkeypatch.setattr(
+        "lerobot.async_inference.policy_server.get_policy_class", lambda policy_type: FakeMolmoAct2Policy
+    )
+    monkeypatch.setattr(
+        "lerobot.async_inference.policy_server.make_pre_post_processors",
+        lambda *args, **kwargs: (lambda observation: observation, lambda action: action),
+    )
+
+    response = server.SendPolicyInstructions(request, context=FakeContext())
+
+    assert isinstance(response, services_pb2.Empty)
+    assert isinstance(server.policy, FakeMolmoAct2Policy)
+    assert server.policy_type == "molmoact2"
+    assert server.actions_per_chunk == 3
 
 # -----------------------------------------------------------------------------
 # Test fixtures
