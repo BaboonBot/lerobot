@@ -49,6 +49,7 @@ from lerobot.transport.utils import receive_bytes_in_chunks
 from lerobot.types import PolicyAction
 from lerobot.configs import FeatureType, PolicyFeature
 from lerobot.utils.constants import ACTION, OBS_IMAGES, OBS_STATE
+from lerobot.utils.feature_utils import dataset_to_policy_features
 
 from .configs import PolicyServerConfig
 from .constants import SUPPORTED_POLICIES
@@ -121,14 +122,8 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
                 f"Missing features: {missing_features}."
             )
 
-        def as_policy_feature(feature: PolicyFeature | dict[str, Any]) -> PolicyFeature:
-            if isinstance(feature, PolicyFeature):
-                return feature
-            return PolicyFeature(type=FeatureType(feature["type"]), shape=tuple(feature["shape"]))
-
-        policy_features = {
-            key: as_policy_feature(self.lerobot_features[key]) for key in [OBS_STATE, *image_keys]
-        }
+        policy_features = dataset_to_policy_features(self.lerobot_features)
+        policy_features = {key: policy_features[key] for key in [OBS_STATE, *image_keys]}
         state_feature = policy_features[OBS_STATE]
         if state_feature.type != FeatureType.STATE or len(state_feature.shape) != 1:
             raise ValueError("MolmoAct2-SO100_101 requires a one-dimensional observation.state feature.")
@@ -150,7 +145,7 @@ class PolicyServer(services_pb2_grpc.AsyncInferenceServicer):
             joint_offsets=[0.0, 90.0, 90.0, 0.0, 0.0, 0.0],
             input_features=policy_features,
             output_features={
-                ACTION: PolicyFeature(type=FeatureType.ACTION, shape=state_feature.shape),
+                ACTION: PolicyFeature(type=FeatureType.ACTION, shape=tuple(state_feature.shape)),
             },
         )
 

@@ -94,14 +94,13 @@ def test_policy_server_builds_raw_so101_molmoact2_config():
     """The raw SO-101 checkpoint avoids downloading a duplicate LeRobot model export."""
     from lerobot.async_inference.configs import PolicyServerConfig
     from lerobot.async_inference.policy_server import PolicyServer
-    from lerobot.configs import FeatureType, PolicyFeature
     from lerobot.utils.constants import OBS_IMAGES, OBS_STATE
 
     server = PolicyServer(PolicyServerConfig(host="localhost", port=9999))
     server.lerobot_features = {
-        OBS_STATE: {"type": FeatureType.STATE, "shape": [6]},
-        f"{OBS_IMAGES}.cam0": {"type": FeatureType.VISUAL, "shape": [3, 224, 224]},
-        f"{OBS_IMAGES}.cam1": {"type": FeatureType.VISUAL, "shape": [3, 224, 224]},
+        OBS_STATE: {"dtype": "float32", "shape": [6], "names": ["joint"] * 6},
+        f"{OBS_IMAGES}.cam0": {"dtype": "image", "shape": [224, 224, 3], "names": ["height", "width", "channels"]},
+        f"{OBS_IMAGES}.cam1": {"dtype": "image", "shape": [224, 224, 3], "names": ["height", "width", "channels"]},
     }
 
     config = server._make_raw_so101_molmoact2_config()
