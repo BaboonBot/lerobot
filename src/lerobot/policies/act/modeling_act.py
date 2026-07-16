@@ -93,10 +93,9 @@ class ACTPolicy(PreTrainedPolicy):
     def reset(self):
         """This should be called whenever the environment is reset."""
         self._obs_queue = deque([], maxlen=self.config.n_obs_steps)
+        self._action_queue = deque([], maxlen=self.config.n_action_steps)
         if self.config.temporal_ensemble_coeff is not None:
             self.temporal_ensembler.reset()
-        else:
-            self._action_queue = deque([], maxlen=self.config.n_action_steps)
 
     def _prepare_temporal_observation(self, batch: dict[str, Tensor]) -> dict[str, Tensor]:
         """Stack recent single-step observations for temporal ACT inference.
@@ -136,9 +135,13 @@ class ACTPolicy(PreTrainedPolicy):
         self.eval()  # keeping the policy in eval mode as it could be set to train mode while queue is consumed
 
         if self.config.temporal_ensemble_coeff is not None:
-            actions = self.predict_action_chunk(batch)
-            action = self.temporal_ensembler.update(actions)
-            return action
+            if len(self._action_queue) == 0:
+                actions = self.predict_action_chunk(batch)
+                ensembled_actions = self.temporal_ensembler.update(actions, stride=self.config.n_action_steps)
+                if self.config.n_action_steps == 1:
+                    return ensembled_actions
+                self._action_queue.extend(ensembled_actions.transpose(0, 1))
+            return self._action_queue.popleft()
 
         # Action queue logic for n_action_steps > 1. When the action_queue is depleted, populate it by
         # querying the policy.
@@ -247,11 +250,14 @@ class ACTTemporalEnsembler:
         # (chunk_size,) count of how many actions are in the ensemble for each time step in the sequence.
         self.ensembled_actions_count = None
 
-    def update(self, actions: Tensor) -> Tensor:
+    def update(self, actions: Tensor, stride: int = 1) -> Tensor:
         """
         Takes a (batch, chunk_size, action_dim) sequence of actions, update the temporal ensemble for all
         time steps, and pop/return the next batch of actions in the sequence.
         """
+        if not 1 <= stride <= self.chunk_size:
+            raise ValueError(f"`stride` must be between 1 and chunk_size={self.chunk_size}. Got {stride}.")
+
         self.ensemble_weights = self.ensemble_weights.to(device=actions.device)
         self.ensemble_weights_cumsum = self.ensemble_weights_cumsum.to(device=actions.device)
         if self.ensembled_actions is None:
@@ -264,24 +270,31 @@ class ACTTemporalEnsembler:
                 (self.chunk_size, 1), dtype=torch.long, device=self.ensembled_actions.device
             )
         else:
-            # self.ensembled_actions will have shape (batch_size, chunk_size - 1, action_dim). Compute
+            # self.ensembled_actions will have shape (batch_size, chunk_size - stride, action_dim). Compute
             # the online update for those entries.
+            overlap_actions = actions[:, :-stride]
             self.ensembled_actions *= self.ensemble_weights_cumsum[self.ensembled_actions_count - 1]
-            self.ensembled_actions += actions[:, :-1] * self.ensemble_weights[self.ensembled_actions_count]
+            self.ensembled_actions += overlap_actions * self.ensemble_weights[self.ensembled_actions_count]
             self.ensembled_actions /= self.ensemble_weights_cumsum[self.ensembled_actions_count]
             self.ensembled_actions_count = torch.clamp(self.ensembled_actions_count + 1, max=self.chunk_size)
-            # The last action, which has no prior online average, needs to get concatenated onto the end.
-            self.ensembled_actions = torch.cat([self.ensembled_actions, actions[:, -1:]], dim=1)
-            self.ensembled_actions_count = torch.cat(
-                [self.ensembled_actions_count, torch.ones_like(self.ensembled_actions_count[-1:])]
+            # The last `stride` actions, which have no prior online average, get concatenated onto the end.
+            self.ensembled_actions = torch.cat([self.ensembled_actions, actions[:, -stride:]], dim=1)
+            new_actions_count = torch.ones(
+                (stride, 1), dtype=torch.long, device=self.ensembled_actions_count.device
             )
-        # "Consume" the first action.
+            self.ensembled_actions_count = torch.cat(
+                [
+                    self.ensembled_actions_count,
+                    new_actions_count,
+                ]
+            )
+        # "Consume" the first `stride` actions.
         action, self.ensembled_actions, self.ensembled_actions_count = (
-            self.ensembled_actions[:, 0],
-            self.ensembled_actions[:, 1:],
-            self.ensembled_actions_count[1:],
+            self.ensembled_actions[:, :stride],
+            self.ensembled_actions[:, stride:],
+            self.ensembled_actions_count[stride:],
         )
-        return action
+        return action[:, 0] if stride == 1 else action
 
 
 class ACT(nn.Module):
@@ -542,9 +555,7 @@ class ACT(nn.Module):
                 if img.ndim == 4:
                     img = img.unsqueeze(1)
                 batch_size, n_obs_steps = img.shape[:2]
-                cam_features = self.backbone(einops.rearrange(img, "b t c h w -> (b t) c h w"))[
-                    "feature_map"
-                ]
+                cam_features = self.backbone(einops.rearrange(img, "b t c h w -> (b t) c h w"))["feature_map"]
                 cam_pos_embed = self.encoder_cam_feat_pos_embed(cam_features).to(dtype=cam_features.dtype)
                 cam_features = self.encoder_img_feat_input_proj(cam_features)
                 cam_features = einops.rearrange(cam_features, "(b t) c h w -> b t c h w", b=batch_size)

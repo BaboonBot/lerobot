@@ -42,80 +42,80 @@ TELEOPERATION & RECORDING
 # Standard Teleoperation
 lerobot-teleoperate \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM3 \
+    --robot.port=/dev/ttyACM1 \
     --robot.cameras='{
-        camera1: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30, backend: 200},
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 320, height: 240, fps: 30}
     }' \
     --robot.id=so101_follower_7V \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM2 \
+    --teleop.port=/dev/ttyACM0 \
     --teleop.id=so_101_leader_7V \
     --display_data=true
 
 # Record new dataset (Manual Teleoperation)
 lerobot-record \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM0 \
+    --robot.port=/dev/ttyACM1 \
     --robot.cameras='{
-        camera1: {type: opencv, index_or_path: /dev/video0, width: 640, height: 480, fps: 30},
-        camera2: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30}
+        camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30},
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 320, height: 240, fps: 30}
     }' \
     --robot.id=so101_follower_7V \
     --teleop.type=so101_leader \
-    --teleop.port=/dev/ttyACM1 \
+    --teleop.port=/dev/ttyACM0 \
     --teleop.id=so_101_leader_7V \
-    --dataset.repo_id=vraiRobotLab/board_clean_cube \
-    --dataset.single_task="Clean the board fully" \
+    --dataset.repo_id=vraiRobotLab/k_duck\
+    --dataset.single_task="pick and place duck" \
     --dataset.fps=30 \
-    --dataset.num_episodes=25 \
-    --dataset.episode_time_s=40 \
-    --dataset.reset_time_s=10 \
-    --dataset.root=data/board_clean \
+    --dataset.num_episodes=50 \
+    --dataset.episode_time_s=20 \
+    --dataset.reset_time_s=5 \
+    --dataset.root=data/k_duck \
     --dataset.streaming_encoding=true \
-    --dataset.vcodec=h264 \
     --dataset.encoder_threads=2 \
     --display_data=true \
-    --resume=true
+    --resume=false
 
 # Bimanual Teleoperation
 lerobot-teleoperate \
     --robot.type=bi_so_follower \
-    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.left_arm_config.port=/dev/ttyACM6 \
     --robot.right_arm_config.port=/dev/ttyACM0 \
     --robot.left_arm_config.cameras='{
-        camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30, backend: 200},
-        camera2: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30, backend: 200}
+        camera1: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30, backend: 200},
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 320, height: 240, fps: 30, backend: 200}
     }' \
     --robot.id=bi_so101_follower_7V \
     --teleop.type=bi_so_leader \
-    --teleop.left_arm_config.port=/dev/ttyACM2 \
-    --teleop.right_arm_config.port=/dev/ttyACM1 \
+    --teleop.left_arm_config.port=/dev/ttyACM5 \
+    --teleop.right_arm_config.port=/dev/ttyACM4 \
     --teleop.id=bi_so101_leader_7V \
     --display_data=true
 
 # Record new bimanual dataset (Manual Teleoperation)
 lerobot-record \
     --robot.type=bi_so_follower \
-    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.left_arm_config.port=/dev/ttyACM6 \
     --robot.right_arm_config.port=/dev/ttyACM0 \
     --robot.left_arm_config.cameras='{
-        camera1: {type: opencv, index_or_path: /dev/video0, width: 320, height: 240, fps: 30}
+        camera1: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30}
     }' \
     --robot.right_arm_config.cameras='{
-        camera2: {type: opencv, index_or_path: /dev/video2, width: 320, height: 240, fps: 30}
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 320, height: 240, fps: 30}
     }' \
     --robot.id=bi_so101_follower_7V \
     --teleop.type=bi_so_leader \
     --teleop.left_arm_config.port=/dev/ttyACM2 \
     --teleop.right_arm_config.port=/dev/ttyACM1 \
     --teleop.id=bi_so101_leader_7V \
-    --dataset.repo_id=vraiRobotLab/bi_pick_and_stack \
-    --dataset.single_task="pick the block then stack" \
+    --dataset.repo_id=NLTuan/bi_transfer \
+    --dataset.single_task="Transfer stick from red to green strip" \
     --dataset.fps=30 \
-    --dataset.num_episodes=20 \
+    --dataset.num_episodes=15 \
     --dataset.episode_time_s=30 \
     --dataset.reset_time_s=5 \
-    --dataset.root=data/bi_pick_and_stack \
+    --dataset.root=data/bi_transfer \
     --dataset.streaming_encoding=true \
     --dataset.encoder_threads=2 \
     --display_data=true \
@@ -199,20 +199,20 @@ ROLLOUT MODES (lerobot-rollout)
 lerobot-rollout \
     --strategy.type=base \
     --robot.type=so101_follower \
-    --robot.port=/dev/ttyACM0 \
+    --robot.port=/dev/ttyACM1 \
     --robot.id=so101_follower_7V \
     --robot.cameras='{
-        camera1: {type: opencv, index_or_path: /dev/video0, width: 352, height: 288, fps: 30, backend: 200, fourcc: MJPG},
-        camera2: {type: opencv, index_or_path: /dev/video2, width: 352, height: 288, fps: 30, backend: 200, fourcc: MJPG}
+        camera1: {type: opencv, index_or_path: /dev/video2, width: 640, height: 480, fps: 30, backend: 200, fourcc: MJPG},
+        camera2: {type: opencv, index_or_path: /dev/video4, width: 640, height: 480, fps: 30, backend: 200, fourcc: MJPG}
     }' \
-    --policy.path=ThavT/act_single_red_blue_block \
-    --policy.pretrained_revision=checkpoint-050000 \
-    --policy.temporal_ensemble_coeff=0.1 \
+    --policy.path=NLTuan/act_j_duck_tony_train \
+    --policy.pretrained_revision=step_50000 \
+    --display_data=true \
     --policy.n_action_steps=1 \
-    --display_data=true
-    --policy.temporal_ensemble_coeff=0.1 \
-    --policy.n_action_steps=1 \
-    --policy.revision=step_20000 \
+    --policy.temporal_ensemble_coeff=0.1 
+
+
+
 
 --- MODE 1B: BIMANUAL BASE (ACT PICK + STACK) ---
 # Bimanual rollout for ThavT/act_bi_pick_stack_obs2.
@@ -370,7 +370,7 @@ lerobot-calibrate --robot.type=so101_follower --robot.port=/dev/ttyACM0
 # Bimanual Calibration (Follower Arms)
 lerobot-calibrate \
     --robot.type=bi_so_follower \
-    --robot.left_arm_config.port=/dev/ttyACM3 \
+    --robot.left_arm_config.port=/dev/ttyACM6 \
     --robot.right_arm_config.port=/dev/ttyACM0 \
     --robot.id=bi_so101_follower_7V
 
@@ -378,6 +378,6 @@ lerobot-calibrate \
 # Bimanual Calibration (Leader Arms)
 lerobot-calibrate \
     --teleop.type=bi_so_leader \
-    --teleop.left_arm_config.port=/dev/ttyACM2 \
-    --teleop.right_arm_config.port=/dev/ttyACM1 \
+    --teleop.left_arm_config.port=/dev/ttyACM5 \
+    --teleop.right_arm_config.port=/dev/ttyACM4 \
     --teleop.id=bi_so101_leader_7V

@@ -410,7 +410,12 @@ def test_multikey_construction(multikey: bool):
     )
 
 
-def make_tiny_act_config(n_obs_steps: int = 3, chunk_size: int = 4, n_action_steps: int = 2) -> ACTConfig:
+def make_tiny_act_config(
+    n_obs_steps: int = 3,
+    chunk_size: int = 4,
+    n_action_steps: int = 2,
+    temporal_ensemble_coeff: float | None = None,
+) -> ACTConfig:
     return ACTConfig(
         input_features={
             f"{OBS_IMAGES}.front": PolicyFeature(type=FeatureType.VISUAL, shape=(3, 64, 64)),
@@ -420,6 +425,7 @@ def make_tiny_act_config(n_obs_steps: int = 3, chunk_size: int = 4, n_action_ste
         n_obs_steps=n_obs_steps,
         chunk_size=chunk_size,
         n_action_steps=n_action_steps,
+        temporal_ensemble_coeff=temporal_ensemble_coeff,
         vision_backbone="resnet18",
         pretrained_backbone_weights=None,
         dim_model=32,
@@ -474,6 +480,28 @@ def test_act_select_action_stacks_single_observations_for_temporal_context(monke
     assert action.shape == (1, 6)
     assert captured["image_shape"] == (1, cfg.n_obs_steps, 3, 64, 64)
     assert captured["state_shape"] == (1, cfg.n_obs_steps, 6)
+
+
+def test_act_temporal_ensemble_select_action_uses_action_steps_as_stride(monkeypatch):
+    cfg = make_tiny_act_config(n_obs_steps=1, chunk_size=4, n_action_steps=2, temporal_ensemble_coeff=0.01)
+    policy = ACTPolicy(cfg)
+    calls = 0
+
+    def fake_predict_action_chunk(batch):
+        nonlocal calls
+        calls += 1
+        return torch.arange(cfg.chunk_size * 6, dtype=torch.float32).reshape(1, cfg.chunk_size, 6) + calls
+
+    monkeypatch.setattr(policy, "predict_action_chunk", fake_predict_action_chunk)
+
+    action_0 = policy.select_action({})
+    action_1 = policy.select_action({})
+    action_2 = policy.select_action({})
+
+    assert action_0.shape == (1, 6)
+    assert action_1.shape == (1, 6)
+    assert action_2.shape == (1, 6)
+    assert calls == 2
 
 
 @pytest.mark.parametrize(
@@ -607,6 +635,48 @@ def test_act_temporal_ensembler():
         assert torch.all(einops.reduce(seq_slice, "b s 1 -> b 1", "min") <= offline_avg)
         assert torch.all(offline_avg <= einops.reduce(seq_slice, "b s 1 -> b 1", "max"))
         # Selected atol=1e-4 keeping in mind actions in [-1, 1] and excepting 0.01% error.
+        torch.testing.assert_close(online_avg, offline_avg, rtol=1e-4, atol=1e-4)
+
+
+def test_act_temporal_ensembler_with_stride():
+    """Check temporal ensembling when policy inference happens every `stride` steps."""
+    temporal_ensemble_coeff = 0.01
+    chunk_size = 10
+    stride = 3
+    num_queries = 12
+    ensembler = ACTTemporalEnsembler(temporal_ensemble_coeff, chunk_size)
+    with seeded_context(0):
+        batch_seq = torch.stack(
+            [
+                torch.rand(num_queries, chunk_size) * 0.05 - 0.6,
+                torch.rand(num_queries, chunk_size) * 0.02 - 0.01,
+                torch.rand(num_queries, chunk_size) * 0.2 + 0.3,
+            ],
+            dim=0,
+        ).unsqueeze(-1)
+
+    weights = torch.exp(-temporal_ensemble_coeff * torch.arange(chunk_size)).view(1, -1, 1)
+
+    for query_idx in range(num_queries):
+        online_avg = ensembler.update(batch_seq[:, query_idx], stride=stride)
+        offline_avg_offsets = []
+        for offset in range(stride):
+            timestep = query_idx * stride + offset
+            contributing_query_indices = [
+                previous_query_idx
+                for previous_query_idx in range(query_idx + 1)
+                if 0 <= timestep - previous_query_idx * stride < chunk_size
+            ]
+            chunk_indices = torch.tensor(
+                [timestep - previous_query_idx * stride for previous_query_idx in contributing_query_indices]
+            )
+            seq_slice = batch_seq[:, contributing_query_indices, chunk_indices]
+            offline_avg_offsets.append(
+                (seq_slice * weights[:, : len(contributing_query_indices)]).sum(dim=1)
+                / weights[:, : len(contributing_query_indices)].sum(dim=1)
+            )
+        offline_avg = torch.stack(offline_avg_offsets, dim=1)
+
         torch.testing.assert_close(online_avg, offline_avg, rtol=1e-4, atol=1e-4)
 
 

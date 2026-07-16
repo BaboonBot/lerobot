@@ -72,8 +72,8 @@ class ACTConfig(PreTrainedConfig):
         latent_dim: The VAE's latent dimension.
         n_vae_encoder_layers: The number of transformer layers to use for the VAE's encoder.
         temporal_ensemble_coeff: Coefficient for the exponential weighting scheme to apply for temporal
-            ensembling. Defaults to None which means temporal ensembling is not used. `n_action_steps` must be
-            1 when using this feature, as inference needs to happen at every step to form an ensemble. For
+            ensembling. Defaults to None which means temporal ensembling is not used. When enabled, inference
+            runs every `n_action_steps` environment steps and the overlapping action chunks are ensembled. For
             more information on how ensembling works, please see `ACTTemporalEnsembler`.
         dropout: Dropout to use in the transformer layers (see code for details).
         kl_weight: The weight to use for the KL-divergence component of the loss if the variational objective
@@ -134,11 +134,6 @@ class ACTConfig(PreTrainedConfig):
         if not self.vision_backbone.startswith("resnet"):
             raise ValueError(
                 f"`vision_backbone` must be one of the ResNet variants. Got {self.vision_backbone}."
-            )
-        if self.temporal_ensemble_coeff is not None and self.n_action_steps > 1:
-            raise NotImplementedError(
-                "`n_action_steps` must be 1 when using temporal ensembling. This is "
-                "because the policy needs to be queried every step to compute the ensembled action."
             )
         if self.n_action_steps > self.chunk_size:
             raise ValueError(
